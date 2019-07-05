@@ -10,7 +10,7 @@ package datos;
  * @author Thesiz
  */
 public interface ControladorCRUD {
-
+    
     void agregar();
 
     void ver();
