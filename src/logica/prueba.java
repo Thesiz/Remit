@@ -5,10 +5,10 @@
  */
 package logica;
 
-/**
- *
- * @author Ander
- */
 public class prueba {
-    
+    private String palabra;
+
+    public prueba() {
+        this.palabra = "Prueba hecha por Anderson";
+    }
 }
