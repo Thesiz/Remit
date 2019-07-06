@@ -9,6 +9,6 @@ public class prueba {
     private String palabra;
 
     public prueba() {
-        this.palabra = "Prueba hecha por Anderson";
+        this.palabra = "Prueba hecha por Anderson despues de Alejandra";
     }
 }
