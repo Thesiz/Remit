@@ -11,4 +11,8 @@ public class prueba {
     public prueba() {
         this.palabra = "Prueba hecha por Anderson despues de Alejandra";
     }
+    
+    public void pruebita(){
+        this.palabra = "Prueba hecha por Alejandra";
+    }
 }
