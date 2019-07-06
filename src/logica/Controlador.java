@@ -8,6 +8,7 @@ public class Controlador {
     private final HashMap<String, String> mapaPublicaciones = new HashMap<>();
     
     public static void iniciarSesion() {
+        System.out.println("Esto es una pruebaS");
     }
 
     public static void registrar() {
