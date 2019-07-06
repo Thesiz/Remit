@@ -1,5 +1,8 @@
 package datos;
-public abstract class Persona {
+
+import java.io.Serializable;
+
+public abstract class Persona implements Serializable{
     private String nombre;
     private String usuario;
     private String contraseña;
@@ -19,4 +22,28 @@ public abstract class Persona {
         System.out.println("Hola");
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+    
 }
