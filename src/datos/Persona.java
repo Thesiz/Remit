@@ -13,6 +13,10 @@ public abstract class Persona {
 
     public void setActivo(boolean estado) {
         this.activo = estado;
-    }   
+    }
+    
+    public void imprimeHola(){
+        System.out.println("Hola");
+    }
 
 }
