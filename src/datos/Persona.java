@@ -10,8 +10,9 @@ public abstract class Persona {
        this.usuario = usuario;
        this.contraseña = contraseña;
    }  
-    public void setActivo(boolean activito) {
-        this.activo = activito;
+    public void setActivo(boolean activity) {
+        this.activo = activity;
+        System.out.println(activity + "cambio alejandra");
     }   
    
 }
