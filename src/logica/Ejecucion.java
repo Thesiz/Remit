@@ -99,6 +99,8 @@ public class Ejecucion {
                         manager.mostrarTodasPublicaciones();
                         break;
                     case 12:
+                        //inflar con Mi Perfil
+                        //Controlador.miPerfil();
                         
                         break;
                 }
