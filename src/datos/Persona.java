@@ -17,10 +17,6 @@ public abstract class Persona implements Serializable{
     public void setActivo(boolean estado) {
         this.activo = estado;
     }
-    
-    public void imprimeHola(){
-        System.out.println("Hola");
-    }
 
     public String getNombre() {
         return nombre;

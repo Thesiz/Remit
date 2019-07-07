@@ -79,7 +79,7 @@ public class Ejecucion {
                     play = false;
                     break;
                 case 11:
-                    manager.verTodasLasPublicaciones();
+                    manager.mostrarTodasPublicaciones();
                     break;
                 case 999:
                     //LOGICA POR TERMINAR...

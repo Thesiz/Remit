@@ -12,8 +12,11 @@ public class Controlador {
     public static ArrayList<Publicacion> listaPublicaciones = new ArrayList<Publicacion>();
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-    public void verTodasLasPublicaciones() {
-        System.out.println(listaPublicaciones);
+    public void mostrarTodasPublicaciones() {
+        int i = 0;
+        for (Publicacion elemento : listaPublicaciones) {
+                System.out.println(++i +". " + elemento);
+            }
     }
 
     public void verTutorias() {

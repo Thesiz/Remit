@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import logica.*;
 
-public class Usuario extends Persona {
+public class Usuario extends Persona implements ControladorCRUD {
 
     private boolean activo;
     private static ArrayList<Publicacion> misPublicaciones = new ArrayList<>();
@@ -64,8 +64,8 @@ public class Usuario extends Persona {
         }
         return misPublicaciones.size();
     }
-
-    public void agregarPublicacion() {
+    @Override
+    public void agregar() {
         Archivo.leerPublicaciones();
         Usuario usuario = this;
         Scanner entrada = new Scanner(System.in);
@@ -125,8 +125,8 @@ public class Usuario extends Persona {
             }
         } while (prueba);
     }
-
-    public void editarPublicacion() {
+    @Override
+    public void editar() {
         boolean prueba = true;
         int opcion = 0;
         Usuario usuario = this;
@@ -240,8 +240,9 @@ public class Usuario extends Persona {
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
 
     }
-
-    public void eliminarPublicacion() {
+    
+    @Override
+    public void eliminar() {
         boolean prueba = true;
         int i = 0, contador = 0, opcion = 0;
         Usuario usuario = this;
