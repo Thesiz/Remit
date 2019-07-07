@@ -270,17 +270,4 @@ public class Usuario extends Persona {
         System.out.println("Publicacion eliminada");
 
     }
-    public static ArrayList<Publicacion> encontrarMisPublicaciones (Usuario temp){
-        ArrayList<Publicacion> temporal = new ArrayList<>();
-        int i = 0;
-        for (Publicacion elemento : Controlador.listaPublicaciones){
-            Usuario user = elemento.getUsuario();
-            String usuario = user.getUsuario();
-            if (usuario.equals(temp.getUsuario())){
-                System.out.println(++i + ". " + elemento);
-                temporal.add(elemento);
-            }
-        }
-        return temporal;
-    }
 }
