@@ -85,6 +85,7 @@ public class Ejecucion {
                     //LOGICA POR TERMINAR...
                     manager.accesoAdministrador();
                     break;
+                    //mi prueba enlace
 
             }
         }
