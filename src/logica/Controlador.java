@@ -12,6 +12,10 @@ public class Controlador {
     public static ArrayList<Publicacion> listaPublicaciones = new ArrayList<Publicacion>();
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
+    public static void inicializarPublicaciones() {
+        Controlador.listaPublicaciones = Archivo.leerPublicaciones();
+    }
+
     public void mostrarTodasPublicaciones() {
         int i = 0;
         for (Publicacion elemento : listaPublicaciones) {
@@ -85,6 +89,10 @@ public class Controlador {
                 System.out.println(elemento);
             }
         }
+    }
+
+    public static void /*ArrayList <Publicacion>*/ filtrarPublicaciones(Categoria categoria) {
+
     }
 
     public static void iniciarSesion() throws InterruptedException {

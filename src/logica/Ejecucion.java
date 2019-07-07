@@ -5,6 +5,8 @@ import iu.VentanaPrincipal;
 import java.util.Date;
 
 public class Ejecucion {
+    
+    
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -97,7 +99,7 @@ public class Ejecucion {
                         manager.mostrarTodasPublicaciones();
                         break;
                     case 12:
-
+                        
                         break;
                 }
 
@@ -160,4 +162,6 @@ public class Ejecucion {
         temp1.eliminarPublicacion();
         temp1.editarPublicacion();*/
     }
+    
+
 }
