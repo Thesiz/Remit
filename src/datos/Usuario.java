@@ -7,9 +7,10 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import logica.*;
 
-public class Usuario extends Persona{
+public class Usuario extends Persona {
+
     private boolean activo;
-    private static ArrayList<Publicacion> misPublicaciones = new ArrayList <>();
+    private static ArrayList<Publicacion> misPublicaciones = new ArrayList<>();
 
     public Usuario(String nombre, String usuario, String contraseña, boolean activo) {
         super(nombre, usuario, contraseña);
@@ -24,10 +25,11 @@ public class Usuario extends Persona{
         this.activo = activo;
     }
 
-    public static void agregarPublicacion (Publicacion publicacion){
+    public static void agregarPublicacion(Publicacion publicacion) {
         misPublicaciones.add(publicacion);
+        Controlador.listaPublicaciones.add(publicacion);
     }
-    
+
     public static ArrayList<Publicacion> getMisPublicaciones() {
         return misPublicaciones;
     }
@@ -35,23 +37,35 @@ public class Usuario extends Persona{
     public void setMisPublicaciones(ArrayList<Publicacion> misPublicaciones) {
         this.misPublicaciones = misPublicaciones;
     }
-    
-    public static ArrayList<Publicacion> encontrarMisPublicaciones (Usuario temp){
-        ArrayList<Publicacion> temporal = new ArrayList<>();
+
+    public static ArrayList<Publicacion> verMisPublicaciones(Usuario temp) {
         int i = 0;
-        for (Publicacion elemento : Controlador.listaPublicaciones){
+        for (Publicacion elemento : Controlador.listaPublicaciones) {
             Usuario user = elemento.getUsuario();
             String usuario = user.getUsuario();
-            if (usuario.equals(temp.getUsuario())){
-                System.out.println(++i + ". " + elemento);
-                temporal.add(elemento);
+            if (usuario.equals(temp.getUsuario())) {
+                misPublicaciones.add(elemento);
             }
         }
-        return temporal;
+        return misPublicaciones;
     }
     
-    public void agregarPublicacion(Usuario usuario) {
+    public static int cantidadMisPublicaciones(Usuario temp) {
+        int i = 0;
+        for (Publicacion elemento : Controlador.listaPublicaciones) {
+            Usuario user = elemento.getUsuario();
+            String usuario = user.getUsuario();
+            if (usuario.equals(temp.getUsuario())) {
+                System.out.println(++i + ". " + elemento);
+                misPublicaciones.add(elemento);
+            }
+        }
+        return misPublicaciones.size();
+    }
+
+    public void agregarPublicacion() {
         Archivo.leerPublicaciones();
+        Usuario usuario = this;
         Scanner entrada = new Scanner(System.in);
         boolean prueba = true;
         System.out.println("Selecciona la categoría de tu publicación: \n1. Tutorias"
@@ -76,7 +90,7 @@ public class Usuario extends Persona{
                 System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
                 prueba = true;
             } catch (ExcepcionIntervalo e) {
-                System.err.println(e.getMessage());;
+                System.err.println(e.getMessage());
                 prueba = true;
             }
         } while (prueba);
@@ -94,7 +108,6 @@ public class Usuario extends Persona{
                 if (opcion == 1) {
                     Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
                     Usuario.agregarPublicacion(nuevaPublicacion);
-                    Controlador.listaPublicaciones.add(nuevaPublicacion);
                     Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
                 } else if (opcion == 2) {
                     System.out.println("Aqui va el menu de usuario");
@@ -111,21 +124,13 @@ public class Usuario extends Persona{
         } while (prueba);
     }
 
-    
-    public void ver() {
-        int i = 0;
-        for (Publicacion elemento : Controlador.listaPublicaciones) {
-            System.out.println(++i + ". " + elemento);
-        }
-    }
-
-    
-    public void editarPublicacion(Usuario usuario) {
+    public void editarPublicacion() {
         boolean prueba = true;
         int opcion = 0;
+        Usuario usuario = this;
         Scanner entrada = new Scanner(System.in);
-        Usuario.encontrarMisPublicaciones(usuario);
-        int maximo = (Usuario.encontrarMisPublicaciones(usuario).size());
+        Usuario.verMisPublicaciones(usuario);
+        int maximo = Usuario.cantidadMisPublicaciones(usuario);
         System.out.print("Selecciona la publicacion que deseas editar: ");
         do {
             try {
@@ -173,26 +178,25 @@ public class Usuario extends Persona{
             }
         } while (prueba);
         Categoria categoria = null;
-        String titulo = null, descripcion = null;
         for (opcion = 0; opcion < opcionesVal.length; opcion++) {
             switch (opcionesVal[opcion]) {
                 case 1:
                     System.out.println("EDITAR TITULO: \nTítulo actual: " + publicacionEditar.getTitulo());
                     System.out.println("Ingresa el nuevo título de tu publicación: ");
-                    titulo = entrada.nextLine();
+                    String titulo = entrada.nextLine();
                     publicacionEditar.setTitulo(titulo);
                     System.out.println("Título editado exitosamente: " + publicacionEditar.getTitulo());
                     break;
 
                 case 2:
                     boolean pruebaCg = true;
-                    System.out.println("Selecciona la categoría de tu publicación: \n1. Tutorias"
+                    System.out.println("EDITAR CATEGORIA: \nCategoría actual: " + publicacionEditar.getCategoria()
+                            + "\nSelecciona la categoría de tu publicación: \n1. Tutorias"
                             + "\n2. Evento Estudiantil\n3. Grupo de estudio autonomo\n4. Venta y/o servicio"
                             + "");
                     do {
                         try {
                             int opcionCat = entrada.nextInt();
-                            pruebaCg = false;
                             if (opcionCat == 1) {
                                 categoria = new Categoria("Tutoria", 01);
                             } else if (opcionCat == 2) {
@@ -202,7 +206,9 @@ public class Usuario extends Persona{
                             } else if (opcionCat == 4) {
                                 categoria = new Categoria("Venta y/o servicio", 05);
                             }
-                            ExcepcionIntervalo.verificaRango(opcion, 1, 4);
+                            publicacionEditar.setCategoria (categoria);
+                            pruebaCg = false;
+                            ExcepcionIntervalo.verificaRango(opcionCat, 1, 4);
                         } catch (InputMismatchException e) {
                             System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
                             prueba = true;
@@ -216,7 +222,7 @@ public class Usuario extends Persona{
                     entrada.nextLine();
                     System.out.println("EDITAR DESCRIPCION: \nDescripcion actual: " + publicacionEditar.getDescripcion());
                     System.out.println("Ingresa la nueva descripcion de tu publicación: ");
-                    descripcion = entrada.nextLine();
+                    String descripcion = entrada.nextLine();
                     publicacionEditar.setDescripcion(descripcion);
                     System.out.println("Descrición editada exitosamente! " + publicacionEditar.getDescripcion());
                     break;
@@ -225,21 +231,21 @@ public class Usuario extends Persona{
                  */
             }
         }
-        
-        publicacionEditar = new Publicacion(categoria, usuario, publicacionEditar.getFecha(), titulo, descripcion);
+
+        publicacionEditar = new Publicacion(publicacionEditar.getCategoria(), usuario, publicacionEditar.getFecha(), publicacionEditar.getTitulo(),
+                publicacionEditar.getDescripcion());
         System.out.println(publicacionEditar);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
 
     }
 
-    
-    public void eliminarPublicacion(Usuario usuario) {
+    public void eliminarPublicacion() {
         boolean prueba = true;
         int i = 0, contador = 0, opcion = 0;
+        Usuario usuario = this;
         Scanner entrada = new Scanner(System.in);
-        Usuario.encontrarMisPublicaciones(usuario);
-        int maximo = (Usuario.encontrarMisPublicaciones(usuario).size());
-        System.out.println(maximo);
+        Usuario.verMisPublicaciones(usuario);
+        int maximo = Usuario.cantidadMisPublicaciones(usuario);
         System.out.print("Selecciona la publicacion que deseas eliminar: ");
         do {
             try {
@@ -255,12 +261,11 @@ public class Usuario extends Persona{
             }
         } while (prueba);
         Publicacion publicacionEliminar = Controlador.listaPublicaciones.get(opcion - 1);
+        System.out.println("¿Seguro que deseas elminar la publicacion " + publicacionEliminar.getTitulo() + "?");
         Usuario.getMisPublicaciones().remove(publicacionEliminar);
         Controlador.listaPublicaciones.remove(publicacionEliminar);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion eliminada");
 
     }
-
-    
 }

@@ -6,12 +6,12 @@ public class Ejecucion {
 
     public static void main(String[] args) {
 
-        Usuario temp = new Usuario("temp", "temp", "love01", true);
-
+        Usuario temp1 = new Usuario("temp1", "temp1", "love01", true);
+        Usuario temp2 = new Usuario("temp2", "temp2", "love01", true);
+        
         Publicacion.inicializarPublicaciones();
-        //prueba.agregar();
-        temp.eliminarPublicacion(temp);
-        temp.editarPublicacion(temp);
-
+        //temp1.agregarPublicacion();
+        temp1.eliminarPublicacion();
+        temp1.editarPublicacion();
     }
 }
