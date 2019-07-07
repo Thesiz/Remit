@@ -36,7 +36,7 @@ public class Publicacion implements ControladorCRUD, Serializable {
         this.imagen = imagen;
     }
 
-    public void inicializarPublicaciones() {
+    public static void inicializarPublicaciones() {
         Controlador.listaPublicaciones = Archivo.leerPublicaciones();
     }
 
