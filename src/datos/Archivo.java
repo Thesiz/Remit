@@ -1,8 +1,6 @@
 
 package datos;
 
-import datos.Publicacion;
-import datos.Publicacion;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

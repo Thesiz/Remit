@@ -14,14 +14,16 @@ public class Usuario extends Persona{
     public Usuario(String nombre, String usuario, String contraseña, boolean activo) {
         super(nombre, usuario, contraseña);
         this.activo = activo;
+        Controlador.listaUsuarios.add(this);
+        Controlador.mapaUsuarios.put(usuario, this);
     }
 
-    public boolean isActivo() {
-        return activo;
-    }
-
+    
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+    public boolean getActivo(){
+        return this.activo;
     }
 
     public static void agregarPublicacion (Publicacion publicacion){
