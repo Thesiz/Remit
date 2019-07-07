@@ -12,6 +12,78 @@ public class Controlador {
     public static ArrayList<Publicacion> listaPublicaciones = new ArrayList<Publicacion>();
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
+    public void verTodasLasPublicaciones() {
+        System.out.println(listaPublicaciones);
+    }
+
+    public void verTutorias() {
+        for (Publicacion element : listaPublicaciones) {
+            if (element.getCategoria().getCodigo() == 01) {
+                System.out.println(element);
+            }
+
+        }
+    }
+
+    public void verInstitucionales() {
+        for (Publicacion element : listaPublicaciones) {
+            if (element.getCategoria().getCodigo() == 02) {
+                System.out.println(element);
+            }
+
+        }
+
+    }
+
+    public void verEstudiantiles() {
+        for (Publicacion element : listaPublicaciones) {
+            if (element.getCategoria().getCodigo() == 03) {
+                System.out.println(element);
+            }
+
+        }
+
+    }
+
+    public void verGruposEstudio() {
+        for (Publicacion element : listaPublicaciones) {
+            if (element.getCategoria().getCodigo() == 04) {
+                System.out.println(element);
+            }
+
+        }
+
+    }
+
+    public void verVentasServicios() {
+        for (Publicacion element : listaPublicaciones) {
+            if (element.getCategoria().getCodigo() == 05) {
+                System.out.println(element);
+            }
+
+        }
+
+    }
+
+    public void calendario() {
+        System.out.println("Calendario Academico");
+        System.out.println("http://bogota.unal.edu.co/calendario-academico/");
+        System.out.println("-------------------------\n");
+
+    }
+
+    public void buscar() {
+        Scanner busqueda = new Scanner (System.in);
+        System.out.println("Ingrese una palabra clave...");
+        String palabra = busqueda.nextLine();
+        for (Publicacion elemento : Controlador.listaPublicaciones) {
+            if (palabra.equals(elemento.getTitulo().contains(palabra))
+                    || palabra.equals(elemento.getDescripcion().contains(palabra))) {
+                System.out.println(elemento);
+            }
+        }
+    }
+
     public static void iniciarSesion() throws InterruptedException {
         Scanner entrada = new Scanner(System.in);
         String usuario = null, contraseña = null;
@@ -25,7 +97,7 @@ public class Controlador {
         for (Usuario usuarioTemp : listaUsuarios) {
             if (usuarioTemp.getUsuario().equals(usuario) && usuarioTemp.getContraseña()
                     .equals(contraseña)) {
-                System.out.println("Bienvenido "+usuarioTemp.getNombre());
+                System.out.println("Bienvenido " + usuarioTemp.getNombre());
                 Thread.sleep(1000);
                 usuarioTemp.setActivo(true);
                 datosCorrectos = true;
@@ -42,7 +114,7 @@ public class Controlador {
             } else if (opcion != 2) {
                 System.err.print("Opción inválida. Regresando al menú principal\t");
                 for (int i = 0; i < 3; i++) {
-                    System.err.print(3 - i+"...");
+                    System.err.print(3 - i + "...");
                     Thread.sleep(1500);
                 }
             }
@@ -51,11 +123,11 @@ public class Controlador {
 
     public static void registrar() {
         /*
-        */
+         */
         Usuario usuarioTemp2 = new Usuario("Anderson", "anvargasa", "holaMundo", true);
         /*
-        */
-        
+         */
+
         Scanner entrada = new Scanner(System.in);
         String nombre = null, usuario = null, contraseña = null;
         System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+\n        REGISTRO\n+-+-+-+-+-+-+-+-+-+-+-+-+\n");
@@ -79,5 +151,39 @@ public class Controlador {
         contraseña = entrada.nextLine();
 
         Usuario usuarioTemp = new Usuario(nombre, usuario, contraseña, true);
+    }
+    
+    public void accesoAdministrador() {
+
+        try {
+            System.out.println("  _____                   _  _   ");
+            System.out.println(" |  __ \\                 (_)| |  ");
+            Thread.sleep(1 * 1000);
+            System.out.println(" | |__) | ___  _ __ ___   _ | |_ ");
+            Thread.sleep(1 * 1000);
+            System.out.println(" |  _  / / _ \\| '_ ` _ \\ | || __|");
+            System.out.println(" | | \\ \\|  __/| | | | | || || |_ ");
+            Thread.sleep(1 * 1000);
+            System.out.println(" |_|  \\_\\\\___||_| |_| |_||_| \\__|");
+            System.out.println("...");
+            Thread.sleep(2 * 1000);
+            /*
+            Thread.sleep(1 * 1000);
+            System.out.println("..");
+            Thread.sleep(2 * 1000);
+            System.out.println("...");
+             */
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("PLEASE TYPE KEY VALUE:");
+        Scanner input = new Scanner(System.in);
+        int opcion = input.nextInt();
+        if (opcion == 102030) {
+            // POR HACER! acceder a mis publicaciones de administrador
+            System.out.println("Acceso correcto!");
+
+        }
+
     }
 }
