@@ -17,7 +17,8 @@ public class Ejecucion {
         Categoria gruposDeEstudios = new Categoria("Grupo de estudio autonomo", 4);
         Categoria ventaServicios = new Categoria("Venta y/o servicio", 5);
 
-        Usuario usuarioA = new Usuario("Pepito Perez", "perecito", "perecito16", true);
+        Usuario usuarioA = new Usuario("Pepito Perez", "perecito", "perecito16", false);
+
         Date date = new Date();
 
         Publicacion publicacionB = new Publicacion(estudiantiles, usuarioA, date,
@@ -41,55 +42,116 @@ public class Ejecucion {
 
         boolean play = true;
         while (play) {
+            boolean isActivo = false;
+            Usuario usuarioIngresado = null;
+            for (Usuario elemento : Controlador.listaUsuarios) {
 
-            VentanaPrincipal.menuPrincipal();
-            switch (VentanaPrincipal.pedirOpcion(1, 11)) {
-
-                case 1:
-                    manager.verTutorias();
-                    break;
-                case 2:
-                    manager.verInstitucionales();
-                    break;
-                case 3:
-
-                    manager.verEstudiantiles();
-                    break;
-                case 4:
-                    manager.verGruposEstudio();
-                    break;
-                case 5:
-                    manager.verVentasServicios();
-                    break;
-                case 6:
-                    manager.calendario();
-                    break;
-                case 7:
-                    Controlador.iniciarSesion();
-                    //hacer verificacion, si los datos son validos, activo = true y
-                    //el menu a mostrar es el Menu Usuario
-                    break;
-                case 8:
-                    Controlador.registrar();
-                    break;
-                case 9:
-                    manager.buscar();
-                    break;
-                case 10:
-                    play = false;
-                    break;
-                case 11:
-                    manager.mostrarTodasPublicaciones();
-                    break;
-                case 999:
-                    //LOGICA POR TERMINAR...
-                    manager.accesoAdministrador();
-                    break;
-                    //mi prueba enlace
+                if (elemento.getActivo() == true) {
+                    System.out.println("iteracion del prueba");
+                    usuarioIngresado = elemento;
+                    isActivo = true;
+                }
 
             }
+
+            if (isActivo) {
+                System.out.println("Sesion iniciada!");
+                System.out.println("Hola " + usuarioIngresado.getNombre());
+                //vistaUsuario
+                VentanaPrincipal.menuUsuario();
+                switch (VentanaPrincipal.pedirOpcion(1, 11)) {
+
+                    case 1:
+                        manager.verTutorias();
+                        break;
+                    case 2:
+                        manager.verInstitucionales();
+                        break;
+                    case 3:
+
+                        manager.verEstudiantiles();
+                        break;
+                    case 4:
+                        manager.verGruposEstudio();
+                        break;
+                    case 5:
+                        manager.verVentasServicios();
+                        break;
+                    case 6:
+                        manager.calendario();
+                        break;
+                    case 7:
+                        Controlador.cerrarSesion(usuarioIngresado);
+
+                        break;
+                    case 8:
+                        Controlador.remit(usuarioIngresado);
+                        break;
+                    case 9:
+                        manager.buscar();
+                        break;
+                    case 10:
+                        play = false;
+                        break;
+                    case 11:
+                        manager.mostrarTodasPublicaciones();
+                        break;
+                    case 12:
+
+                        break;
+                }
+
+            } else {
+                //vistaInvitado
+                VentanaPrincipal.menuPrincipal();
+                switch (VentanaPrincipal.pedirOpcion(1, 11)) {
+
+                    case 1:
+                        manager.verTutorias();
+                        break;
+                    case 2:
+                        manager.verInstitucionales();
+                        break;
+                    case 3:
+
+                        manager.verEstudiantiles();
+                        break;
+                    case 4:
+                        manager.verGruposEstudio();
+                        break;
+                    case 5:
+                        manager.verVentasServicios();
+                        break;
+                    case 6:
+                        manager.calendario();
+                        break;
+                    case 7:
+                        Controlador.iniciarSesion();
+                        //hacer verificacion, si los datos son validos, activo = true y
+                        //el menu a mostrar es el Menu Usuario
+                        break;
+                    case 8:
+                        Controlador.registrar();
+                        break;
+                    case 9:
+                        manager.buscar();
+                        break;
+                    case 10:
+                        play = false;
+                        break;
+                    case 11:
+                        manager.mostrarTodasPublicaciones();
+                        break;
+                    case 999:
+                        //LOGICA POR TERMINAR...
+                        manager.accesoAdministrador();
+                        break;
+
+                }
+            }
+
         }
-        
+
         /* Usuario temp1 = new Usuario("temp1", "temp1", "love01", true);
         Usuario temp2 = new Usuario("temp2", "temp2", "love01", true);
         

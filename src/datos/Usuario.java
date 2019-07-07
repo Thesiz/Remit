@@ -112,7 +112,7 @@ public class Usuario extends Persona implements ControladorCRUD {
                     Usuario.agregarPublicacion(nuevaPublicacion);
                     Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
                 } else if (opcion == 2) {
-                    System.out.println("Aqui va el menu de usuario");
+                    System.out.println("Operacion Cancelada!");
                     //menu usuario
                 }
                 ExcepcionIntervalo.verificaRango(opcion, 1, 4);

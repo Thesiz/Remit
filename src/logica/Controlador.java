@@ -15,8 +15,8 @@ public class Controlador {
     public void mostrarTodasPublicaciones() {
         int i = 0;
         for (Publicacion elemento : listaPublicaciones) {
-                System.out.println(++i +". " + elemento);
-            }
+            System.out.println(++i + ". " + elemento);
+        }
     }
 
     public void verTutorias() {
@@ -76,7 +76,7 @@ public class Controlador {
     }
 
     public void buscar() {
-        Scanner busqueda = new Scanner (System.in);
+        Scanner busqueda = new Scanner(System.in);
         System.out.println("Ingrese una palabra clave...");
         String palabra = busqueda.nextLine();
         for (Publicacion elemento : Controlador.listaPublicaciones) {
@@ -104,6 +104,8 @@ public class Controlador {
                 Thread.sleep(1000);
                 usuarioTemp.setActivo(true);
                 datosCorrectos = true;
+                //System.out.println(usuarioTemp.getActivo());
+
                 break;
             }
         }
@@ -127,7 +129,7 @@ public class Controlador {
     public static void registrar() {
         /*
          */
-        Usuario usuarioTemp2 = new Usuario("Anderson", "anvargasa", "holaMundo", true);
+        //Usuario usuarioTemp2 = new Usuario("Anderson", "anvargasa", "holaMundo", true);
         /*
          */
 
@@ -138,7 +140,7 @@ public class Controlador {
         nombre = entrada.nextLine();
 
         boolean usuarioExiste;
-        do{
+        do {
             usuarioExiste = false;
             System.out.print("Ingrese un usuario: ");
             usuario = entrada.nextLine();
@@ -148,15 +150,30 @@ public class Controlador {
                     System.err.println("Este usuario ya existe, por favor pruebe con otro\n");
                     usuarioExiste = true;
                     break;
-                } 
+                }
             }
-        }while(usuarioExiste);
+        } while (usuarioExiste);
         System.out.print("Ingrese una contraseña: ");
         contraseña = entrada.nextLine();
 
         Usuario usuarioTemp = new Usuario(nombre, usuario, contraseña, true);
     }
+
+    public static void cerrarSesion(Usuario usuario) {
+        usuario.setActivo(false);
+        System.out.println("Sesion Termianda");
+
+    }
+
+    public static void remit(Usuario usuario) {
+        usuario.agregar();
+    }
     
+    
+    
+    
+    
+
     public void accesoAdministrador() {
 
         try {
