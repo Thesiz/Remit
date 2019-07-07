@@ -134,19 +134,20 @@ public class Controlador {
         System.out.print("Ingrese su nombre: ");
         nombre = entrada.nextLine();
 
-        boolean usuarioExiste = true;
-        while (usuarioExiste) {
+        boolean usuarioExiste;
+        do{
+            usuarioExiste = false;
             System.out.print("Ingrese un usuario: ");
             usuario = entrada.nextLine();
 
             for (Usuario usuarioHash : listaUsuarios) {
                 if (usuario.equals(usuarioHash.getUsuario())) {
                     System.err.println("Este usuario ya existe, por favor pruebe con otro\n");
-                } else {
-                    usuarioExiste = false;
-                }
+                    usuarioExiste = true;
+                    break;
+                } 
             }
-        }
+        }while(usuarioExiste);
         System.out.print("Ingrese una contraseña: ");
         contraseña = entrada.nextLine();
 
