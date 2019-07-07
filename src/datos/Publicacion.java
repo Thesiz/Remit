@@ -18,6 +18,7 @@ public class Publicacion implements ControladorCRUD, Serializable {
     private String titulo;
     private String descripcion;
     private Image imagen;
+    private Administrador administrador;
 
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
         this.categoria = categoria;
@@ -30,6 +31,24 @@ public class Publicacion implements ControladorCRUD, Serializable {
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, Image imagen) {
         this.categoria = categoria;
         this.usuario = usuario;
+        this.fecha = fecha;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+    }
+    
+    public Publicacion(Categoria categoria, Administrador admin, Date fecha, String titulo, String descripcion) {
+        this.categoria = categoria;
+        this.administrador = admin;
+        this.fecha = fecha;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+    }
+    
+    public Publicacion(Categoria categoria, Administrador admin, Date fecha, String titulo, String descripcion, Image imagen) {
+        this.categoria = categoria;
+        this.administrador = admin;
         this.fecha = fecha;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -124,8 +143,7 @@ public class Publicacion implements ControladorCRUD, Serializable {
         boolean prueba = true;
         int opcion = 0;
         Scanner entrada = new Scanner(System.in);
-        Usuario.encontrarMisPublicaciones(usuario);
-        int maximo = (Usuario.encontrarMisPublicaciones(usuario).size());
+        int maximo = Usuario.cantidadMisPublicaciones(usuario);
         System.out.print("Selecciona la publicacion que deseas editar: ");
         do {
             try {
@@ -173,26 +191,25 @@ public class Publicacion implements ControladorCRUD, Serializable {
             }
         } while (prueba);
         Categoria categoria = null;
-        String titulo = null, descripcion = null;
         for (opcion = 0; opcion < opcionesVal.length; opcion++) {
             switch (opcionesVal[opcion]) {
                 case 1:
                     System.out.println("EDITAR TITULO: \nTítulo actual: " + publicacionEditar.getTitulo());
                     System.out.println("Ingresa el nuevo título de tu publicación: ");
-                    titulo = entrada.nextLine();
+                    String titulo = entrada.nextLine();
                     publicacionEditar.setTitulo(titulo);
                     System.out.println("Título editado exitosamente: " + publicacionEditar.getTitulo());
                     break;
 
                 case 2:
                     boolean pruebaCg = true;
-                    System.out.println("Selecciona la categoría de tu publicación: \n1. Tutorias"
+                    System.out.println("EDITAR CATEGORIA: \nCategoría actual: " + publicacionEditar.getCategoria()
+                            + "\nSelecciona la categoría de tu publicación: \n1. Tutorias"
                             + "\n2. Evento Estudiantil\n3. Grupo de estudio autonomo\n4. Venta y/o servicio"
                             + "");
                     do {
                         try {
                             int opcionCat = entrada.nextInt();
-                            pruebaCg = false;
                             if (opcionCat == 1) {
                                 categoria = new Categoria("Tutoria", 01);
                             } else if (opcionCat == 2) {
@@ -202,7 +219,9 @@ public class Publicacion implements ControladorCRUD, Serializable {
                             } else if (opcionCat == 4) {
                                 categoria = new Categoria("Venta y/o servicio", 05);
                             }
-                            ExcepcionIntervalo.verificaRango(opcion, 1, 4);
+                            publicacionEditar.setCategoria (categoria);
+                            pruebaCg = false;
+                            ExcepcionIntervalo.verificaRango(opcionCat, 1, 4);
                         } catch (InputMismatchException e) {
                             System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
                             prueba = true;
@@ -216,7 +235,7 @@ public class Publicacion implements ControladorCRUD, Serializable {
                     entrada.nextLine();
                     System.out.println("EDITAR DESCRIPCION: \nDescripcion actual: " + publicacionEditar.getDescripcion());
                     System.out.println("Ingresa la nueva descripcion de tu publicación: ");
-                    descripcion = entrada.nextLine();
+                    String descripcion = entrada.nextLine();
                     publicacionEditar.setDescripcion(descripcion);
                     System.out.println("Descrición editada exitosamente! " + publicacionEditar.getDescripcion());
                     break;
@@ -225,7 +244,9 @@ public class Publicacion implements ControladorCRUD, Serializable {
                  */
             }
         }
-        publicacionEditar = new Publicacion(categoria, this.usuario, fecha, titulo, descripcion);
+
+        publicacionEditar = new Publicacion(publicacionEditar.getCategoria(), usuario, publicacionEditar.getFecha(), publicacionEditar.getTitulo(),
+                publicacionEditar.getDescripcion());
         System.out.println(publicacionEditar);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
 
@@ -236,8 +257,8 @@ public class Publicacion implements ControladorCRUD, Serializable {
         boolean prueba = true;
         int i = 0, contador = 0, opcion = 0;
         Scanner entrada = new Scanner(System.in);
-        Usuario.encontrarMisPublicaciones(usuario);
-        int maximo = (Usuario.encontrarMisPublicaciones(usuario).size());
+        Usuario.verMisPublicaciones(usuario);
+        int maximo = Usuario.cantidadMisPublicaciones(usuario);
         System.out.println(maximo);
         System.out.print("Selecciona la publicacion que deseas eliminar: ");
         do {
@@ -254,11 +275,11 @@ public class Publicacion implements ControladorCRUD, Serializable {
             }
         } while (prueba);
         Publicacion publicacionEliminar = Controlador.listaPublicaciones.get(opcion - 1);
+        System.out.println("¿Seguro que deseas elminar la publicacion " + publicacionEliminar.getTitulo() + "?");
         Usuario.getMisPublicaciones().remove(publicacionEliminar);
         Controlador.listaPublicaciones.remove(publicacionEliminar);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion eliminada");
-
     }
 
     @Override

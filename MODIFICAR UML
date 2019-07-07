@@ -1,0 +1,2 @@
+Administrador hereda de Usuario porque tiene control sobre sus publicaciones (sobreescribe metodos de Usuario) 
+pero también tiene privilegios sobre todas las que existen en el .txt (nuevos metodos)
