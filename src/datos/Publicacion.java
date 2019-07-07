@@ -2,13 +2,7 @@ package datos;
 
 import java.awt.Image;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import javax.swing.JOptionPane;
-import logica.*;
 
 public class Publicacion implements Serializable {
 
@@ -53,10 +47,6 @@ public class Publicacion implements Serializable {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.imagen = imagen;
-    }
-
-    public static void inicializarPublicaciones() {
-        Controlador.listaPublicaciones = Archivo.leerPublicaciones();
     }
 
     @Override

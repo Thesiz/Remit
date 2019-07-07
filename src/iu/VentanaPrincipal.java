@@ -52,13 +52,4 @@ public class VentanaPrincipal {
 
     public void mostrarPublicaciones() {
     }
-
-    ;
-    public void filtrarPublicaciones(Categoria categoria) {
-    }
-
-    ;
-    public void buscarPublicacion(String palabrasClave) {
-    }
-;
 }

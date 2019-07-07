@@ -68,6 +68,7 @@ public class Ejecucion {
                     Controlador.iniciarSesion();
                     //hacer verificacion, si los datos son validos, activo = true y
                     //el menu a mostrar es el Menu Usuario
+                    // SERA IMPLEMENTADO EN LA UI
                     break;
                 case 8:
                     Controlador.registrar();
@@ -89,12 +90,16 @@ public class Ejecucion {
             }
         }
         
-        /* Usuario temp1 = new Usuario("temp1", "temp1", "love01", true);
+        /* PRUEBAS DE PUBLICACIONES
+        
+        Usuario temp1 = new Usuario("temp1", "temp1", "love01", true);
         Usuario temp2 = new Usuario("temp2", "temp2", "love01", true);
         
         Publicacion.inicializarPublicaciones();
         //temp1.agregarPublicacion();
         temp1.eliminarPublicacion();
-        temp1.editarPublicacion();*/
+        temp1.editarPublicacion();
+        
+        */
     }
 }
