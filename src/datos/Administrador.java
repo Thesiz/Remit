@@ -38,6 +38,7 @@ public class Administrador extends Usuario {
                 } else if (opcion == 5) {
                     categoria = new Categoria("Venta y/o servicio", 05);
                 }
+                //hay un error de logica
                 nuevaPublicacion.setCategoria(categoria);
                 ExcepcionIntervalo.verificaRango(opcion, 1, 5);
             } catch (InputMismatchException e) {

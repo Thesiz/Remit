@@ -19,11 +19,11 @@ public class Usuario extends Persona implements ControladorCRUD {
         Controlador.mapaUsuarios.put(usuario, this);
     }
 
-    
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    public boolean getActivo(){
+
+    public boolean getActivo() {
         return this.activo;
     }
 
@@ -40,6 +40,7 @@ public class Usuario extends Persona implements ControladorCRUD {
         this.misPublicaciones = misPublicaciones;
     }
 
+    //esta vaina no sirve?? pa eso esta la composision?
     public static ArrayList<Publicacion> verMisPublicaciones(Usuario temp) {
         int i = 0;
         for (Publicacion elemento : Controlador.listaPublicaciones) {
@@ -51,7 +52,7 @@ public class Usuario extends Persona implements ControladorCRUD {
         }
         return misPublicaciones;
     }
-    
+
     public static int cantidadMisPublicaciones(Usuario temp) {
         int i = 0;
         for (Publicacion elemento : Controlador.listaPublicaciones) {
@@ -64,6 +65,7 @@ public class Usuario extends Persona implements ControladorCRUD {
         }
         return misPublicaciones.size();
     }
+
     @Override
     public void agregar() {
         Archivo.leerPublicaciones();
@@ -111,9 +113,10 @@ public class Usuario extends Persona implements ControladorCRUD {
                     Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
                     Usuario.agregarPublicacion(nuevaPublicacion);
                     Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+                    System.out.println("Publicacion Completada!");
                 } else if (opcion == 2) {
                     System.out.println("Operacion Cancelada!");
-                    //menu usuario
+                    //ya se redirige al menu de usuario
                 }
                 ExcepcionIntervalo.verificaRango(opcion, 1, 4);
             } catch (InputMismatchException e) {
@@ -125,6 +128,7 @@ public class Usuario extends Persona implements ControladorCRUD {
             }
         } while (prueba);
     }
+
     @Override
     public void editar() {
         boolean prueba = true;
@@ -208,7 +212,7 @@ public class Usuario extends Persona implements ControladorCRUD {
                             } else if (opcionCat == 4) {
                                 categoria = new Categoria("Venta y/o servicio", 05);
                             }
-                            publicacionEditar.setCategoria (categoria);
+                            publicacionEditar.setCategoria(categoria);
                             pruebaCg = false;
                             ExcepcionIntervalo.verificaRango(opcionCat, 1, 4);
                         } catch (InputMismatchException e) {
@@ -240,7 +244,7 @@ public class Usuario extends Persona implements ControladorCRUD {
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
 
     }
-    
+
     @Override
     public void eliminar() {
         boolean prueba = true;
@@ -270,5 +274,14 @@ public class Usuario extends Persona implements ControladorCRUD {
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion eliminada");
 
+    }
+
+    @Override
+    public String toString() {
+        String valor = "NOMBRE:  " + super.getNombre()
+                + "\nUSUARIO: @" + super.getUsuario();
+                
+                
+        return valor;
     }
 }

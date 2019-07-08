@@ -5,8 +5,6 @@ import iu.VentanaPrincipal;
 import java.util.Date;
 
 public class Ejecucion {
-    
-    
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -20,6 +18,7 @@ public class Ejecucion {
         Categoria ventaServicios = new Categoria("Venta y/o servicio", 5);
 
         Usuario usuarioA = new Usuario("Pepito Perez", "perecito", "perecito16", false);
+        Administrador admin = new Administrador("El Remitente", "admin", "102030", false);
 
         Date date = new Date();
 
@@ -44,12 +43,60 @@ public class Ejecucion {
 
         boolean play = true;
         while (play) {
+            if (admin.getActivo()) {
+                //vistaAdmin
+                VentanaPrincipal.menuUsuario();
+                switch (VentanaPrincipal.pedirOpcion(1, 12)) {
+
+                    case 1:
+                        manager.verTutorias();
+                        break;
+                    case 2:
+                        manager.verInstitucionales();
+                        break;
+                    case 3:
+
+                        manager.verEstudiantiles();
+                        break;
+                    case 4:
+                        manager.verGruposEstudio();
+                        break;
+                    case 5:
+                        manager.verVentasServicios();
+                        break;
+                    case 6:
+                        manager.calendario();
+                        break;
+                    case 7:
+                        Controlador.cerrarSesion(admin);
+
+                        break;
+                    case 8:
+                        Controlador.remit(admin);
+                        break;
+                    case 9:
+                        manager.buscar();
+                        break;
+                    case 10:
+                        play = false;
+                        break;
+                    case 11:
+                        manager.mostrarTodasPublicaciones();
+                        break;
+                    case 12:
+                        //inflar con Mi Perfil
+                        Controlador.miPerfil(admin);
+
+                        break;
+                }
+            }
+
             boolean isActivo = false;
             Usuario usuarioIngresado = null;
             for (Usuario elemento : Controlador.listaUsuarios) {
 
                 if (elemento.getActivo() == true) {
-                    System.out.println("iteracion del prueba");
+
                     usuarioIngresado = elemento;
                     isActivo = true;
                 }
@@ -61,7 +108,7 @@ public class Ejecucion {
                 System.out.println("Hola " + usuarioIngresado.getNombre());
                 //vistaUsuario
                 VentanaPrincipal.menuUsuario();
-                switch (VentanaPrincipal.pedirOpcion(1, 11)) {
+                switch (VentanaPrincipal.pedirOpcion(1, 12)) {
 
                     case 1:
                         manager.verTutorias();
@@ -100,8 +147,8 @@ public class Ejecucion {
                         break;
                     case 12:
                         //inflar con Mi Perfil
-                        //Controlador.miPerfil();
-                        
+                        Controlador.miPerfil(usuarioIngresado);
+
                         break;
                 }
 
@@ -148,7 +195,7 @@ public class Ejecucion {
                         break;
                     case 999:
                         //LOGICA POR TERMINAR...
-                        manager.accesoAdministrador();
+                        manager.accesoAdministrador(admin);
                         break;
 
                 }
@@ -164,6 +211,5 @@ public class Ejecucion {
         temp1.eliminarPublicacion();
         temp1.editarPublicacion();*/
     }
-    
 
 }

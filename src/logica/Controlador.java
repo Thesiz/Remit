@@ -91,10 +91,6 @@ public class Controlador {
         }
     }
 
-    public static void /*ArrayList <Publicacion>*/ filtrarPublicaciones(Categoria categoria) {
-
-    }
-
     public static void iniciarSesion() throws InterruptedException {
         Scanner entrada = new Scanner(System.in);
         String usuario = null, contraseña = null;
@@ -173,16 +169,72 @@ public class Controlador {
 
     }
 
+    public static void cerrarSesion(Administrador admin) {
+        admin.setActivo(false);
+        System.out.println("Sesion Termianda");
+
+    }
+
     public static void remit(Usuario usuario) {
         usuario.agregar();
     }
-    
-    
-    
-    
-    
 
-    public void accesoAdministrador() {
+    public static void remit(Administrador admin) {
+        admin.agregar();
+    }
+
+    public static void miPerfil(Usuario usuario) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println(usuario);
+        System.out.println(Usuario.verMisPublicaciones(usuario));
+
+        //poner manejo de ecepciones!!
+        System.out.println("Seleccione: "
+                + "\n1. Editar Publicacion"
+                + "\n2. Borrar Publicacion");
+        int opcion = entrada.nextInt();
+        if (opcion == 1) {
+            //LOGICA EDITAR PUBLICACION
+            usuario.editar();
+        } else if (opcion == 2) {
+            usuario.eliminar();
+            //LOGICA BORRAR PUBLICACION
+        }
+
+    }
+
+    public static void perfilAdmin(Administrador admin) {
+        Scanner entrada = new Scanner(System.in);
+
+        //poner manejo de ecepciones!!
+        System.out.println("Seleccione: "
+                + "\n1. Editar Publicacion"
+                + "\n2. Borrar Publicacion"
+                + "\n3. Editar ccualquier Publicacion"
+                + "\n4. Borrar cualquier Publicacion"
+                + "\n5. Eliminar Usuario");
+
+        int opcion = entrada.nextInt();
+        if (opcion == 1) {
+
+            admin.editar();
+        } else if (opcion == 2) {
+            admin.eliminar();
+
+        } else if (opcion == 3) {
+            admin.editarCualquierPub();
+
+        } else if (opcion == 4) {
+            admin.eliminarCualquierPub();
+
+        } else if (opcion == 5) {
+
+            //LOGICA POR TERMINAR
+        }
+
+    }
+
+    public void accesoAdministrador(Administrador admin) {
 
         try {
             System.out.println("  _____                   _  _   ");
@@ -208,10 +260,14 @@ public class Controlador {
         System.out.println("PLEASE TYPE KEY VALUE:");
         Scanner input = new Scanner(System.in);
         int opcion = input.nextInt();
-        if (opcion == 102030) {
+        if (opcion == Integer.parseInt(admin.getContraseña())) {
+
             // POR HACER! acceder a mis publicaciones de administrador
             System.out.println("Acceso correcto!");
+            admin.setActivo(true);
 
+        } else{
+            System.out.println("Acceso denegado!");
         }
 
     }

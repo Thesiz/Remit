@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class Publicacion implements Serializable {
 
+    private static int contadorId = 1001;
+    private int id;
     private Categoria categoria;
     private Usuario usuario;
     private Date fecha;
@@ -15,6 +17,7 @@ public class Publicacion implements Serializable {
     private Administrador administrador;
 
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
+        this.id = contadorId++;
         this.categoria = categoria;
         this.usuario = usuario;
         this.fecha = fecha;
@@ -30,7 +33,7 @@ public class Publicacion implements Serializable {
         this.descripcion = descripcion;
         this.imagen = imagen;
     }
-    
+
     public Publicacion(Categoria categoria, Administrador admin, Date fecha, String titulo, String descripcion) {
         this.categoria = categoria;
         this.administrador = admin;
@@ -39,7 +42,7 @@ public class Publicacion implements Serializable {
         this.descripcion = descripcion;
         this.imagen = imagen;
     }
-    
+
     public Publicacion(Categoria categoria, Administrador admin, Date fecha, String titulo, String descripcion, Image imagen) {
         this.categoria = categoria;
         this.administrador = admin;
@@ -51,8 +54,14 @@ public class Publicacion implements Serializable {
 
     @Override
     public String toString() {
-        String publicacion = "Titulo: " + this.titulo + "\nFecha de publicacion: " + this.fecha
-                + "\nCategoria: " + this.categoria + "\nDescripcion: " + this.descripcion;
+
+        String publicacion = "ID: " + this.id + "\nFECHA DE PUBLICACION:   " + this.fecha
+                + "\nCATEGORIA:              " + this.categoria
+                + "\nTITULO:                 " + this.titulo
+                + "\nDESCRIPCION:            " + this.descripcion
+                + "\nAUTOR:                  @" + this.usuario.getUsuario()
+                + "\n---------------------------------\n";
+
         return publicacion;
     }
 
