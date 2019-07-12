@@ -1,4 +1,4 @@
-package grafic;
+package gui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;

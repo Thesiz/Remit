@@ -1,7 +1,7 @@
 package logica;
 
 import datos.*;
-import grafic.GuiVentanaPrincipal;
+import gui.GuiVentanaPrincipal;
 
 public class Ejecucion {
 
@@ -214,5 +214,6 @@ public class Ejecucion {
         Usuario usuario = new Usuario("Anderson", "anvargasa", "holamundo", false);
         Usuario usuario2 = new Usuario("Jennifer", "jibarra", "holamundo2", false);
         GuiVentanaPrincipal.main(args);
+        
     }
 }

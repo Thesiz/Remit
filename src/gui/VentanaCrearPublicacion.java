@@ -1,4 +1,4 @@
-package grafic;
+package gui;
 
 import datos.Categoria;
 import datos.Publicacion;
