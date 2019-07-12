@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import logica.*;
 
-public class Usuario extends Persona {
+public class Usuario extends Persona implements ControladorCRUD {
 
     private boolean activo;
     private static ArrayList<Publicacion> misPublicaciones = new ArrayList<>();
@@ -19,11 +19,11 @@ public class Usuario extends Persona {
         Controlador.mapaUsuarios.put(usuario, this);
     }
 
-    
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    public boolean getActivo(){
+
+    public boolean getActivo() {
         return this.activo;
     }
 
@@ -40,6 +40,7 @@ public class Usuario extends Persona {
         this.misPublicaciones = misPublicaciones;
     }
 
+    //esta vaina no sirve?? pa eso esta la composision?
     public static ArrayList<Publicacion> verMisPublicaciones(Usuario temp) {
         int i = 0;
         for (Publicacion elemento : Controlador.listaPublicaciones) {
@@ -51,7 +52,7 @@ public class Usuario extends Persona {
         }
         return misPublicaciones;
     }
-    
+
     public static int cantidadMisPublicaciones(Usuario temp) {
         int i = 0;
         for (Publicacion elemento : Controlador.listaPublicaciones) {
@@ -65,7 +66,8 @@ public class Usuario extends Persona {
         return misPublicaciones.size();
     }
 
-    public void agregarPublicacion() {
+    @Override
+    public void agregar() {
         Archivo.leerPublicaciones();
         Usuario usuario = this;
         Scanner entrada = new Scanner(System.in);
@@ -111,9 +113,10 @@ public class Usuario extends Persona {
                     Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
                     Usuario.agregarPublicacion(nuevaPublicacion);
                     Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+                    System.out.println("Publicacion Completada!");
                 } else if (opcion == 2) {
-                    System.out.println("Aqui va el menu de usuario");
-                    //menu usuario
+                    System.out.println("Operacion Cancelada!");
+                    //ya se redirige al menu de usuario
                 }
                 ExcepcionIntervalo.verificaRango(opcion, 1, 4);
             } catch (InputMismatchException e) {
@@ -126,7 +129,8 @@ public class Usuario extends Persona {
         } while (prueba);
     }
 
-    public void editarPublicacion() {
+    @Override
+    public void editar() {
         boolean prueba = true;
         int opcion = 0;
         Usuario usuario = this;
@@ -208,7 +212,7 @@ public class Usuario extends Persona {
                             } else if (opcionCat == 4) {
                                 categoria = new Categoria("Venta y/o servicio", 05);
                             }
-                            publicacionEditar.setCategoria (categoria);
+                            publicacionEditar.setCategoria(categoria);
                             pruebaCg = false;
                             ExcepcionIntervalo.verificaRango(opcionCat, 1, 4);
                         } catch (InputMismatchException e) {
@@ -241,7 +245,8 @@ public class Usuario extends Persona {
 
     }
 
-    public void eliminarPublicacion() {
+    @Override
+    public void eliminar() {
         boolean prueba = true;
         int i = 0, contador = 0, opcion = 0;
         Usuario usuario = this;
@@ -269,5 +274,14 @@ public class Usuario extends Persona {
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion eliminada");
 
+    }
+
+    @Override
+    public String toString() {
+        String valor = "NOMBRE:  " + super.getNombre()
+                + "\nUSUARIO: @" + super.getUsuario();
+                
+                
+        return valor;
     }
 }

@@ -12,8 +12,15 @@ public class Controlador {
     public static ArrayList<Publicacion> listaPublicaciones = new ArrayList<Publicacion>();
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-    public void verTodasLasPublicaciones() {
-        System.out.println(listaPublicaciones);
+    public static void inicializarPublicaciones() {
+        Controlador.listaPublicaciones = Archivo.leerPublicaciones();
+    }
+
+    public void mostrarTodasPublicaciones() {
+        int i = 0;
+        for (Publicacion elemento : listaPublicaciones) {
+            System.out.println(++i + ". " + elemento);
+        }
     }
 
     public void verTutorias() {
@@ -73,7 +80,7 @@ public class Controlador {
     }
 
     public void buscar() {
-        Scanner busqueda = new Scanner (System.in);
+        Scanner busqueda = new Scanner(System.in);
         System.out.println("Ingrese una palabra clave...");
         String palabra = busqueda.nextLine();
         for (Publicacion elemento : Controlador.listaPublicaciones) {
@@ -101,6 +108,8 @@ public class Controlador {
                 Thread.sleep(1000);
                 usuarioTemp.setActivo(true);
                 datosCorrectos = true;
+                //System.out.println(usuarioTemp.getActivo());
+
                 break;
             }
         }
@@ -124,7 +133,7 @@ public class Controlador {
     public static void registrar() {
         /*
          */
-        Usuario usuarioTemp2 = new Usuario("Anderson", "anvargasa", "holaMundo", true);
+        //Usuario usuarioTemp2 = new Usuario("Anderson", "anvargasa", "holaMundo", true);
         /*
          */
 
@@ -134,26 +143,98 @@ public class Controlador {
         System.out.print("Ingrese su nombre: ");
         nombre = entrada.nextLine();
 
-        boolean usuarioExiste = true;
-        while (usuarioExiste) {
+        boolean usuarioExiste;
+        do {
+            usuarioExiste = false;
             System.out.print("Ingrese un usuario: ");
             usuario = entrada.nextLine();
 
             for (Usuario usuarioHash : listaUsuarios) {
                 if (usuario.equals(usuarioHash.getUsuario())) {
                     System.err.println("Este usuario ya existe, por favor pruebe con otro\n");
-                } else {
-                    usuarioExiste = false;
+                    usuarioExiste = true;
+                    break;
                 }
             }
-        }
+        } while (usuarioExiste);
         System.out.print("Ingrese una contraseña: ");
         contraseña = entrada.nextLine();
 
         Usuario usuarioTemp = new Usuario(nombre, usuario, contraseña, true);
     }
-    
-    public void accesoAdministrador() {
+
+    public static void cerrarSesion(Usuario usuario) {
+        usuario.setActivo(false);
+        System.out.println("Sesion Termianda");
+
+    }
+
+    public static void cerrarSesion(Administrador admin) {
+        admin.setActivo(false);
+        System.out.println("Sesion Termianda");
+
+    }
+
+    public static void remit(Usuario usuario) {
+        usuario.agregar();
+    }
+
+    public static void remit(Administrador admin) {
+        admin.agregar();
+    }
+
+    public static void miPerfil(Usuario usuario) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println(usuario);
+        System.out.println(Usuario.verMisPublicaciones(usuario));
+
+        //poner manejo de ecepciones!!
+        System.out.println("Seleccione: "
+                + "\n1. Editar Publicacion"
+                + "\n2. Borrar Publicacion");
+        int opcion = entrada.nextInt();
+        if (opcion == 1) {
+            //LOGICA EDITAR PUBLICACION
+            usuario.editar();
+        } else if (opcion == 2) {
+            usuario.eliminar();
+            //LOGICA BORRAR PUBLICACION
+        }
+
+    }
+
+    public static void perfilAdmin(Administrador admin) {
+        Scanner entrada = new Scanner(System.in);
+
+        //poner manejo de ecepciones!!
+        System.out.println("Seleccione: "
+                + "\n1. Editar Publicacion"
+                + "\n2. Borrar Publicacion"
+                + "\n3. Editar ccualquier Publicacion"
+                + "\n4. Borrar cualquier Publicacion"
+                + "\n5. Eliminar Usuario");
+
+        int opcion = entrada.nextInt();
+        if (opcion == 1) {
+
+            admin.editar();
+        } else if (opcion == 2) {
+            admin.eliminar();
+
+        } else if (opcion == 3) {
+            admin.editarCualquierPub();
+
+        } else if (opcion == 4) {
+            admin.eliminarCualquierPub();
+
+        } else if (opcion == 5) {
+
+            //LOGICA POR TERMINAR
+        }
+
+    }
+
+    public void accesoAdministrador(Administrador admin) {
 
         try {
             System.out.println("  _____                   _  _   ");
@@ -179,10 +260,14 @@ public class Controlador {
         System.out.println("PLEASE TYPE KEY VALUE:");
         Scanner input = new Scanner(System.in);
         int opcion = input.nextInt();
-        if (opcion == 102030) {
+        if (opcion == Integer.parseInt(admin.getContraseña())) {
+
             // POR HACER! acceder a mis publicaciones de administrador
             System.out.println("Acceso correcto!");
+            admin.setActivo(true);
 
+        } else{
+            System.out.println("Acceso denegado!");
         }
 
     }

@@ -27,6 +27,27 @@ public class VentanaPrincipal {
         );
     }
 
+    public static void menuUsuario() {
+        System.out.println("Bienvenido a Remit! Sistema de Informacion Universitaria");
+
+        System.out.println("MENÚ PRINCIPAL:\n"
+                + "1. Ver Publicaciones de tipo Tutorias\n"
+                + "2. Ver Publicaciones de tipo Eventos Institucionales\n"
+                + "3. Ver Publicaciones de tipo Eventos Estudiantiles\n"
+                + "4. Ver Publicaciones de tipo Grupo De Estudio Autonomo\n"
+                + "5. Ver Publicaciones de tipo Ventas y Servicios\n"
+                + "6. Ver Calendario Academico\n"
+                + "---------------------------------\n"
+                + "7. Cerrar Sesion\n"
+                + "8. Remit\n"
+                + "9. Buscar Publicacion\n"
+                + "10. Salir\n "
+                + "11. Ver todas las Publicaciones\n "
+                + "12. Mi Perfil\n "
+                + "---------------------------------\n"
+        );
+    }
+
     public static int pedirOpcion(int min, int max) {
         Scanner lectura = new Scanner(System.in);
         int opcion = 0;
@@ -52,13 +73,4 @@ public class VentanaPrincipal {
 
     public void mostrarPublicaciones() {
     }
-
-    ;
-    public void filtrarPublicaciones(Categoria categoria) {
-    }
-
-    ;
-    public void buscarPublicacion(String palabrasClave) {
-    }
-;
 }

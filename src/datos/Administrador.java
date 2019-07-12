@@ -14,7 +14,7 @@ public class Administrador extends Usuario {
     }
 
     @Override
-    public void agregarPublicacion() {
+    public void agregar() {
         Archivo.leerPublicaciones();
         Administrador admin = this;
         Publicacion nuevaPublicacion = null;
@@ -38,6 +38,7 @@ public class Administrador extends Usuario {
                 } else if (opcion == 5) {
                     categoria = new Categoria("Venta y/o servicio", 05);
                 }
+                //hay un error de logica
                 nuevaPublicacion.setCategoria(categoria);
                 ExcepcionIntervalo.verificaRango(opcion, 1, 5);
             } catch (InputMismatchException e) {
@@ -81,7 +82,7 @@ public class Administrador extends Usuario {
     }
 
     @Override
-    public void editarPublicacion() {
+    public void editar() {
         boolean prueba = true;
         int opcion = 0;
         Administrador admin = this;
@@ -196,7 +197,7 @@ public class Administrador extends Usuario {
     }
     
     @Override
-    public void eliminarPublicacion() {
+    public void eliminar() {
         boolean prueba = true;
         int i = 0, contador = 0, opcion = 0;
         Administrador admin = this;
@@ -381,5 +382,9 @@ public class Administrador extends Usuario {
                 publicacionEditar.getFecha(), publicacionEditar.getTitulo(), publicacionEditar.getDescripcion());
         System.out.println(publicacionEditar);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+    }
+    
+    public void eliminarUsuario (Usuario usuario){
+        
     }
 }
