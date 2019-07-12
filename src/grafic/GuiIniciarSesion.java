@@ -1,8 +1,5 @@
-package gui;
+package grafic;
 
-import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import logica.Controlador;
@@ -20,7 +17,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         txtContraseña.setEchoChar('●');
         setLocationRelativeTo(null);
         getContentPane().requestFocusInWindow();
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
     }
 
     /**
@@ -83,10 +80,15 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciarSesion.setText("Iniciar Sesión");
-        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
+            }
+        });
+        btnIniciarSesion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnIniciarSesionKeyPressed(evt);
             }
         });
 
@@ -153,15 +155,20 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Los campos no pueden ir vacíos",
                     "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
         } else {
-            boolean InicioCorecto = Controlador.iniciarSesion(usuario, contraseña);
-            if (InicioCorecto) {
-                this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            boolean InicioCorrecto = Controlador.iniciarSesion(usuario, contraseña);
+            if (InicioCorrecto) {
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos",
                         "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+                txtContraseña.setText("");           
             }
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnIniciarSesionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnIniciarSesionKeyPressed
+       
+    }//GEN-LAST:event_btnIniciarSesionKeyPressed
 
     /**
      * @param args the command line arguments
@@ -188,6 +195,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GuiIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
