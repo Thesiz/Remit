@@ -14,7 +14,6 @@ public class Publicacion implements Serializable {
     private String titulo;
     private String descripcion;
     private Image imagen;
-    private Administrador administrador;
 
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
         this.id = contadorId++;
@@ -28,24 +27,6 @@ public class Publicacion implements Serializable {
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, Image imagen) {
         this.categoria = categoria;
         this.usuario = usuario;
-        this.fecha = fecha;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.imagen = imagen;
-    }
-
-    public Publicacion(Categoria categoria, Administrador admin, Date fecha, String titulo, String descripcion) {
-        this.categoria = categoria;
-        this.administrador = admin;
-        this.fecha = fecha;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.imagen = imagen;
-    }
-
-    public Publicacion(Categoria categoria, Administrador admin, Date fecha, String titulo, String descripcion, Image imagen) {
-        this.categoria = categoria;
-        this.administrador = admin;
         this.fecha = fecha;
         this.titulo = titulo;
         this.descripcion = descripcion;
