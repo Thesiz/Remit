@@ -2,6 +2,7 @@ package logica;
 
 import datos.*;
 import gui.GuiIniciarSesion;
+import gui.VentanaPrincipal;
 import java.util.Date;
 
 public class Ejecucion {
@@ -214,6 +215,6 @@ public class Ejecucion {
     public static void main(String[] args) {
         Usuario usuario = new Usuario("Anderson", "anvargasa", "holamundo", false);
         Usuario usuario2 = new Usuario("Jennifer", "jibarra", "holamundo2", false);
-        GuiIniciarSesion.runIniciarSesion();
+        VentanaPrincipal.runVentanaPrincipal();
     }
 }

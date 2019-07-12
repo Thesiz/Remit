@@ -91,7 +91,7 @@ public class Controlador {
         }
     }
 
-    public static void iniciarSesion(String usuario, String contraseña){     
+    public static boolean iniciarSesion(String usuario, String contraseña) {
         boolean datosCorrectos = false;
         for (Usuario usuarioTemp : listaUsuarios) {
             if (usuarioTemp.getUsuario().equals(usuario) && usuarioTemp.getContraseña()
@@ -100,12 +100,10 @@ public class Controlador {
                 usuarioTemp.setActivo(true);
                 datosCorrectos = true;
                 //System.out.println(usuarioTemp.getActivo());
-
-                break;
             }
         }
         //if (!datosCorrectos) {
-            /*System.err.println("Usuario o contraseña incorrectos\n");
+        /*System.err.println("Usuario o contraseña incorrectos\n");
             System.out.println("Seleccione una opcion: \n1. Intentarlo de nuevo\n"
                     + "2. Regresar al menu");
             int opcion = entrada.nextInt();
@@ -119,6 +117,7 @@ public class Controlador {
                 }
             }*/
         //}
+        return datosCorrectos;
     }
 
     public static void registrar() {
@@ -257,7 +256,7 @@ public class Controlador {
             System.out.println("Acceso correcto!");
             admin.setActivo(true);
 
-        } else{
+        } else {
             System.out.println("Acceso denegado!");
         }
 

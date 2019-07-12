@@ -1,9 +1,10 @@
-
 package gui;
 
 import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import logica.Controlador;
 import modelos.TextPrompt;
 
@@ -17,6 +18,9 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         TextPrompt placeholder = new TextPrompt("Usuario", txtUsuario);
         TextPrompt placeholder2 = new TextPrompt("Contraseña", txtContraseña);
         txtContraseña.setEchoChar('●');
+        setLocationRelativeTo(null);
+        getContentPane().requestFocusInWindow();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -79,7 +83,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciarSesion.setText("Iniciar Sesión");
-        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
@@ -102,8 +106,8 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
                             .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                         .addGap(220, 220, 220))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnIniciarSesion)
-                        .addGap(278, 278, 278))))
+                        .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(265, 265, 265))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,9 +118,9 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(30, 30, 30)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,7 +149,18 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         String usuario, contraseña;
         usuario = txtUsuario.getText();
         contraseña = txtContraseña.getText();
-        Controlador.iniciarSesion(usuario, contraseña);
+        if (usuario.equals("") || contraseña.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Los campos no pueden ir vacíos",
+                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+        } else {
+            boolean InicioCorecto = Controlador.iniciarSesion(usuario, contraseña);
+            if (InicioCorecto) {
+                this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos",
+                        "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+            }
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
