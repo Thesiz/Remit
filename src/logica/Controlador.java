@@ -79,13 +79,10 @@ public class Controlador {
 
     }
 
-    public void buscar() {
-        Scanner busqueda = new Scanner(System.in);
-        System.out.println("Ingrese una palabra clave...");
-        String palabra = busqueda.nextLine();
+    public static void buscar(String palabra) {
         for (Publicacion elemento : Controlador.listaPublicaciones) {
-            if (palabra.equals(elemento.getTitulo().contains(palabra))
-                    || palabra.equals(elemento.getDescripcion().contains(palabra))) {
+            if ((elemento.getTitulo().contains(palabra))
+                    || (elemento.getDescripcion().contains(palabra))) {
                 System.out.println(elemento);
             }
         }
