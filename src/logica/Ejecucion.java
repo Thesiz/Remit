@@ -1,7 +1,7 @@
 package logica;
 
 import datos.*;
-import iu.VentanaPrincipal;
+import gui.GuiIniciarSesion;
 import java.util.Date;
 
 public class Ejecucion {
@@ -211,5 +211,9 @@ public class Ejecucion {
         temp1.eliminarPublicacion();
         temp1.editarPublicacion();*/
     //}
-
+    public static void main(String[] args) {
+        Usuario usuario = new Usuario("Anderson", "anvargasa", "holamundo", false);
+        Usuario usuario2 = new Usuario("Jennifer", "jibarra", "holamundo2", false);
+        GuiIniciarSesion.runIniciarSesion();
+    }
 }

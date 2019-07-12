@@ -91,21 +91,12 @@ public class Controlador {
         }
     }
 
-    public static void iniciarSesion() throws InterruptedException {
-        Scanner entrada = new Scanner(System.in);
-        String usuario = null, contraseña = null;
-        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+\n     INICIAR SESION\n+-+-+-+-+-+-+-+-+-+-+-+-+\n");
-        System.out.print("Ingrese su usuario: ");
-        usuario = entrada.nextLine();
-        System.out.print("Ingrese su contraseña: ");
-        contraseña = entrada.nextLine();
-
+    public static void iniciarSesion(String usuario, String contraseña){     
         boolean datosCorrectos = false;
         for (Usuario usuarioTemp : listaUsuarios) {
             if (usuarioTemp.getUsuario().equals(usuario) && usuarioTemp.getContraseña()
                     .equals(contraseña)) {
                 System.out.println("Bienvenido " + usuarioTemp.getNombre());
-                Thread.sleep(1000);
                 usuarioTemp.setActivo(true);
                 datosCorrectos = true;
                 //System.out.println(usuarioTemp.getActivo());
@@ -113,8 +104,8 @@ public class Controlador {
                 break;
             }
         }
-        if (!datosCorrectos) {
-            System.err.println("Usuario o contraseña incorrectos\n");
+        //if (!datosCorrectos) {
+            /*System.err.println("Usuario o contraseña incorrectos\n");
             System.out.println("Seleccione una opcion: \n1. Intentarlo de nuevo\n"
                     + "2. Regresar al menu");
             int opcion = entrada.nextInt();
@@ -126,8 +117,8 @@ public class Controlador {
                     System.err.print(3 - i + "...");
                     Thread.sleep(1500);
                 }
-            }
-        }
+            }*/
+        //}
     }
 
     public static void registrar() {
