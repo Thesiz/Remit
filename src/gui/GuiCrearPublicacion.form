@@ -153,12 +153,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblArchivo" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnAdjuntar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                  <Component id="btnCancelar1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnRemit" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnRemit" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCancelar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAdjuntar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                       </Group>

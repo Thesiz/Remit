@@ -1,9 +1,13 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import logica.Controlador;
+import modelos.Estetica;
 import modelos.TextPrompt;
 
 public class GuiIniciarSesion extends javax.swing.JFrame {
@@ -56,6 +60,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JPasswordField();
+        jPanelIniciarSesion = new javax.swing.JPanel();
         btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,11 +112,32 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
             }
         });
 
+        jPanelIniciarSesion.setBackground(new java.awt.Color(4, 154, 201));
+        jPanelIniciarSesion.setLayout(null);
+
         btnIniciarSesion.setBackground(new java.awt.Color(4, 126, 179));
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciarSesion.setText("Iniciar Sesión");
+        btnIniciarSesion.setContentAreaFilled(false);
         btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseReleased(evt);
+            }
+        });
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
@@ -122,6 +148,8 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
                 btnIniciarSesionKeyPressed(evt);
             }
         });
+        jPanelIniciarSesion.add(btnIniciarSesion);
+        btnIniciarSesion.setBounds(0, 0, 120, 33);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -130,16 +158,16 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(27, 27, 27)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(274, 274, 274)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(275, 275, 275)
+                .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -152,7 +180,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -199,6 +227,26 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtContraseñaKeyPressed
 
+    private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
+        jPanelIniciarSesion.setBackground(new java.awt.Color(4,101,188));
+    }//GEN-LAST:event_btnIniciarSesionMouseEntered
+
+    private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
+        jPanelIniciarSesion.setBackground(new java.awt.Color(4, 126, 179));
+    }//GEN-LAST:event_btnIniciarSesionMouseExited
+
+    private void btnIniciarSesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMousePressed
+        Estetica.botonMousePresionado(jPanelIniciarSesion, btnIniciarSesion, 255, 255, 255, 4, 126, 179);
+    }//GEN-LAST:event_btnIniciarSesionMousePressed
+
+    private void btnIniciarSesionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseReleased
+        Estetica.botonMouseSuelto(jPanelIniciarSesion, btnIniciarSesion, 4, 126, 179, 255, 255, 255);
+    }//GEN-LAST:event_btnIniciarSesionMouseReleased
+
+    private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIniciarSesionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -208,7 +256,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -223,7 +271,8 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GuiIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GuiIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
+        Estetica.lookAndFeel();
         //</editor-fold>
         //</editor-fold>
 
@@ -240,6 +289,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelIniciarSesion;
     private javax.swing.JPanel panel1;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;

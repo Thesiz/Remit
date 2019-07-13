@@ -7,10 +7,17 @@ package gui;
 
 import datos.Usuario;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import logica.Controlador;
+import modelos.Estetica;
 import modelos.TextPrompt;
+import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  *
@@ -88,11 +95,12 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        btnRegistrate = new javax.swing.JButton();
         lblUsuarioUnico = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         txtApellido = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
+        jPanelRegistrate = new javax.swing.JPanel();
+        btnRegistrate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(675, 430));
@@ -134,22 +142,6 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNombreKeyPressed(evt);
-            }
-        });
-
-        btnRegistrate.setBackground(new java.awt.Color(4, 126, 179));
-        btnRegistrate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegistrate.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrate.setText("Regístrate");
-        btnRegistrate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrateActionPerformed(evt);
-            }
-        });
-        btnRegistrate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnRegistrateKeyPressed(evt);
             }
         });
 
@@ -196,6 +188,42 @@ public class GuiRegistrarse extends javax.swing.JFrame {
             }
         });
 
+        jPanelRegistrate.setBackground(new java.awt.Color(4, 154, 201));
+        jPanelRegistrate.setLayout(null);
+
+        btnRegistrate.setBackground(new java.awt.Color(4, 126, 179));
+        btnRegistrate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegistrate.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrate.setText("Regístrate");
+        btnRegistrate.setContentAreaFilled(false);
+        btnRegistrate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRegistrateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegistrateMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRegistrateMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnRegistrateMouseReleased(evt);
+            }
+        });
+        btnRegistrate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrateActionPerformed(evt);
+            }
+        });
+        btnRegistrate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRegistrateKeyPressed(evt);
+            }
+        });
+        jPanelRegistrate.add(btnRegistrate);
+        btnRegistrate.setBounds(0, 0, 120, 33);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -210,12 +238,13 @@ public class GuiRegistrarse extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblUsuarioUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(btnRegistrate, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(267, 267, 267)
+                .addComponent(jPanelRegistrate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -227,15 +256,15 @@ public class GuiRegistrarse extends javax.swing.JFrame {
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuarioUnico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnRegistrate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelRegistrate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,6 +337,22 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         lblUsuarioUnico.setVisible(false);
     }//GEN-LAST:event_txtUsuarioFocusLost
 
+    private void btnRegistrateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrateMouseEntered
+        jPanelRegistrate.setBackground(new java.awt.Color(4, 101, 188));
+    }//GEN-LAST:event_btnRegistrateMouseEntered
+
+    private void btnRegistrateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrateMouseExited
+        jPanelRegistrate.setBackground(new java.awt.Color(4, 126, 179));
+    }//GEN-LAST:event_btnRegistrateMouseExited
+
+    private void btnRegistrateMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrateMousePressed
+        Estetica.botonMousePresionado(jPanelRegistrate, btnRegistrate, 255, 255, 255, 4, 126, 179);
+    }//GEN-LAST:event_btnRegistrateMousePressed
+
+    private void btnRegistrateMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrateMouseReleased
+        Estetica.botonMousePresionado(jPanelRegistrate, btnRegistrate, 4, 126, 179, 255, 255, 255);
+    }//GEN-LAST:event_btnRegistrateMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +393,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelRegistrate;
     private javax.swing.JLabel lblUsuarioUnico;
     private javax.swing.JPanel panel2;
     private javax.swing.JTextField txtApellido;
