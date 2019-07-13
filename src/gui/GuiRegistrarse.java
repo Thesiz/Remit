@@ -6,7 +6,9 @@
 package gui;
 
 import datos.Usuario;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -31,7 +33,6 @@ public class GuiRegistrarse extends javax.swing.JFrame {
     String nombre;
     String usuario;
     String contrasena;
-
     public GuiRegistrarse() {
         initComponents();
         TextPrompt placeholder = new TextPrompt("Nombre", txtNombre);
@@ -45,7 +46,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         getContentPane().requestFocusInWindow();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-
+     
     private void crearUsuario() {
         boolean usuarioExiste = false;
 
@@ -104,6 +105,11 @@ public class GuiRegistrarse extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(675, 430));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panel2.setBackground(new java.awt.Color(4, 154, 201));
 
@@ -194,7 +200,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         btnRegistrate.setBackground(new java.awt.Color(4, 126, 179));
         btnRegistrate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrate.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrate.setText("Regístrate");
+        btnRegistrate.setText("Registrarme");
         btnRegistrate.setContentAreaFilled(false);
         btnRegistrate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrate.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -353,6 +359,11 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         Estetica.botonMousePresionado(jPanelRegistrate, btnRegistrate, 4, 126, 179, 255, 255, 255);
     }//GEN-LAST:event_btnRegistrateMouseReleased
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Estetica.habDeshabComponentes(Estetica.componentesEntrantes,true);
+        GuiVentanaPrincipal.pop = false;
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -362,22 +373,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuiRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuiRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuiRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuiRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        Estetica.lookAndFeel();
         //</editor-fold>
 
         /* Create and display the form */

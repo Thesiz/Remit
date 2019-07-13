@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,8 +26,8 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().requestFocusInWindow();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
     }
-
     private void llamaIniciarSesion() {
         String usuario, contraseña;
         usuario = txtUsuario.getText();
@@ -64,6 +66,11 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         btnIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panel1.setBackground(new java.awt.Color(4, 154, 201));
 
@@ -121,6 +128,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         btnIniciarSesion.setText("Iniciar Sesión");
         btnIniciarSesion.setContentAreaFilled(false);
         btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.setFocusPainted(false);
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnIniciarSesionMouseClicked(evt);
@@ -246,6 +254,12 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarSesionMouseClicked
+
+    
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+        GuiVentanaPrincipal.pop = false;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
