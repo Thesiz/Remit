@@ -4,12 +4,17 @@
  * and open the template in the editor.
  */
 package gui;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import modelos.TextPrompt;
 
 /**
@@ -44,8 +49,28 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         SimpleDateFormat formatoEsp = new SimpleDateFormat(
                 "EEEE d 'de' MMMM 'de' yyyy", new Locale("ES", "MX"));
         lblFecha.setText(formatoEsp.format(fecha).toUpperCase());
+        int locY = 0;
+        for (int i = 0; i < 10; i++) {
+            locY = nuevoText(Color.WHITE, locY);
+            locY = nuevoText(Color.WHITE, locY);
+            locY = nuevoText(Color.WHITE, locY);
+        }
     }
-        
+
+    public int nuevoText(Color color, int y) {
+        JPanel pruebita = new JPanel();
+        pruebita.setSize(600, 300);
+        pruebita.setLocation(150, y);
+        pruebita.setBackground(color);
+        int locY = (int) pruebita.getY() + pruebita.getHeight() + 10;
+
+        jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(),
+                locY));
+        jPanelPublicacion.add(pruebita);
+
+        System.out.println(locY);
+        return locY;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,12 +81,25 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnIniciarSesion = new javax.swing.JButton();
         btnRegistrarme = new javax.swing.JButton();
         txtBuscar = new javax.swing.JTextField();
         lblFecha = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanelPublicacion = new javax.swing.JPanel();
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,7 +147,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarme)
@@ -129,30 +167,35 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanelPublicacionLayout = new javax.swing.GroupLayout(jPanelPublicacion);
+        jPanelPublicacion.setLayout(jPanelPublicacionLayout);
+        jPanelPublicacionLayout.setHorizontalGroup(
+            jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 926, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
+        jPanelPublicacionLayout.setVerticalGroup(
+            jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
+
+        jScrollPane1.setViewportView(jPanelPublicacion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,7 +203,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
 
-       GuiIniciarSesion.runIniciarSesion();
+        GuiIniciarSesion.runIniciarSesion();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarmeActionPerformed
@@ -219,7 +262,9 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnRegistrarme;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelPublicacion;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
