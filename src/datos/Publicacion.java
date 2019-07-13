@@ -13,7 +13,7 @@ public class Publicacion implements Serializable {
     private Date fecha;
     private String titulo;
     private String descripcion;
-    private Image imagen;
+    private String nombreImagen;
 
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
         this.id = contadorId++;
@@ -24,13 +24,13 @@ public class Publicacion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, Image imagen) {
+    public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImagen) {
         this.categoria = categoria;
         this.usuario = usuario;
         this.fecha = fecha;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.imagen = imagen;
+        this.nombreImagen = nombreImagen;
     }
 
     @Override
@@ -86,12 +86,29 @@ public class Publicacion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Image getImagen() {
-        return imagen;
+    public static int getContadorId() {
+        return contadorId;
     }
 
-    public void setImagen(Image imagen) {
-        this.imagen = imagen;
+    public static void setContadorId(int contadorId) {
+        Publicacion.contadorId = contadorId;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombreImagen() {
+        return nombreImagen;
+    }
+
+    public void setNombreImagen(String nombreImagen) {
+        this.nombreImagen = nombreImagen;
+    }
+
+    
 }

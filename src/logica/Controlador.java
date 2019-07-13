@@ -162,10 +162,6 @@ public class Controlador {
 
     }
 
-    public static void remit(Usuario usuario) {
-        usuario.agregar();
-    }
-
     public static void remit(Administrador admin) {
         admin.agregar();
     }

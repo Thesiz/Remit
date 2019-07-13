@@ -6,38 +6,35 @@
 package gui;
 
 import datos.Categoria;
-import datos.Publicacion;
 import datos.Usuario;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import logica.Controlador;
 import modelos.TextPrompt;
 
-/**
- *
- * @author Alejandra
- */
 public class GuiCrearPublicacion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form misPublicaciones
-     */
     public GuiCrearPublicacion() {
         initComponents();
         deshabilitar();
         setLocationRelativeTo(null);
         setResizable(false);
+        txtDescripcion.setLineWrap(true);
 
         TextPrompt placeHolder1 = new TextPrompt("Título de la publicación", txtTitulo);
         TextPrompt placeHolder2 = new TextPrompt("Descripción de la publicación", txtDescripcion);
         btnAdjuntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/img/adjuntar1.png")));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/recursos/img/logoremit.png")).getImage());
     }
 
     public void deshabilitar() {
@@ -76,6 +73,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         lblArchivo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Remit");
 
         jPanel3.setBackground(new java.awt.Color(4, 154, 201));
 
@@ -88,7 +86,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(308, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(271, 271, 271))
         );
@@ -183,33 +181,30 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     .addComponent(jSeparator4)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(rbtTutoria)
-                                .addGap(74, 74, 74)
-                                .addComponent(rbtGrupoEstudio)
-                                .addGap(74, 74, 74)
-                                .addComponent(rbtEventoE)
-                                .addGap(81, 81, 81)
-                                .addComponent(rbtVentaServicio)))
+                        .addComponent(btnAdjuntar)
+                        .addGap(386, 386, 386)
+                        .addComponent(lblArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnCancelar1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemit)
+                        .addGap(8, 8, 8))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(141, 141, 141)
-                                .addComponent(lblArchivo))
-                            .addComponent(btnAdjuntar))
+                        .addComponent(rbtTutoria)
+                        .addGap(74, 74, 74)
+                        .addComponent(rbtGrupoEstudio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemit)
-                        .addGap(12, 12, 12)))
+                        .addComponent(rbtEventoE)
+                        .addGap(81, 81, 81)
+                        .addComponent(rbtVentaServicio)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,15 +223,14 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAdjuntar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                        .addComponent(lblArchivo))
+                    .addComponent(lblArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar1)
-                            .addComponent(btnRemit))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(btnAdjuntar)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCancelar1)
+                                .addComponent(btnRemit)))
+                        .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -252,11 +246,90 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
+        if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos", "Error",
+                JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
+        } else {
+            Date fecha = new Date();
+            Usuario usuario = new Usuario("a", "a", "a", true);
+            if (lblArchivo.getText().equals("")) {
+                usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
+                    txtDescripcion.getText());
+            } else {
+                usuario.agregarPubImg(setCategoria(), usuario, fecha, txtTitulo.getText(),
+                    txtDescripcion.getText(), lblArchivo.getText());
+            }
+        }
+    }//GEN-LAST:event_btnRemitActionPerformed
+
+    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+        String[] opciones = {"Si", "No"};
+        int opcion = JOptionPane.showOptionDialog(null, "¿Estás seguro de cancelar la publicación?"
+            + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+            (new ImageIcon("x.png")), opciones, opciones[0]);
+        if (opcion == 0) {
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btnCancelar1ActionPerformed
+
+    private void btnAdjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntarActionPerformed
+        JFileChooser escogerArch = new JFileChooser();
+        escogerArch.setDialogTitle("Selecciona una imagen");
+        escogerArch.setDragEnabled(false);
+        escogerArch.setMultiSelectionEnabled(false);
+        int retorno = escogerArch.showSaveDialog(escogerArch);
+        File archivo = escogerArch.getSelectedFile();
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            lblArchivo.setText(archivo.getName());
+            File guardar = new File(archivo.getName());
+            FileOutputStream escritor = null;
+            FileInputStream lector = null;
+            try {
+                lector = new FileInputStream(archivo);
+                escritor = new FileOutputStream(guardar);
+                byte[] almacenadorBytes = new byte[1024];
+                int lectorBytes;
+                while ((lectorBytes = lector.read(almacenadorBytes)) > 0) {
+                    escritor.write(almacenadorBytes, 0, lectorBytes);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(GuiCrearPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GuiCrearPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    lector.close();
+                    escritor.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(GuiCrearPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_btnAdjuntarActionPerformed
+
+    private void rbtVentaServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtVentaServicioActionPerformed
+        habilitar();
+    }//GEN-LAST:event_rbtVentaServicioActionPerformed
+
+    private void rbtEventoEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtEventoEActionPerformed
+        habilitar();
+    }//GEN-LAST:event_rbtEventoEActionPerformed
+
+    private void rbtGrupoEstudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtGrupoEstudioActionPerformed
+        habilitar();
+    }//GEN-LAST:event_rbtGrupoEstudioActionPerformed
+
+    private void rbtTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTutoriaActionPerformed
+        habilitar();
+    }//GEN-LAST:event_rbtTutoriaActionPerformed
     public Categoria setCategoria() {
         Categoria categoria = null;
         if (rbtEventoE.isSelected()) {
@@ -275,61 +348,16 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         return usuario;
     }
 
-    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
-        String[] opciones = {"Si", "No"};
-        int opcion = JOptionPane.showOptionDialog(null, "¿Estás seguro de cancelar la publicación?"
-                + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                (new ImageIcon("x.png")), opciones, opciones[0]);
-        if (opcion == 0) {
-            this.setVisible(false);
-        }
-    }//GEN-LAST:event_btnCancelar1ActionPerformed
-
-    private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
-        Date fecha = new Date();
-        Publicacion publicacion = new Publicacion(setCategoria(), usuarioAct(null), fecha, txtTitulo.getText(),
-                txtDescripcion.getText());
-        Controlador.listaPublicaciones.add(publicacion);
-        System.out.println(Controlador.listaPublicaciones);
-    }//GEN-LAST:event_btnRemitActionPerformed
-
-    private void btnAdjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntarActionPerformed
-        JFileChooser escogerArch = new JFileChooser();
-        JPanel panelArch = new JPanel();
-        int seleccion = escogerArch.showOpenDialog(panelArch);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter(".jpg", ".png", ".gif", ".jpeg");
-        escogerArch.setFileFilter(filtro);
-        if (seleccion == JFileChooser.APPROVE_OPTION) {
-            File archivo = escogerArch.getSelectedFile();
-        }
-    }//GEN-LAST:event_btnAdjuntarActionPerformed
-
-    public void habilitar (){
+    public void habilitar() {
         this.btnAdjuntar.setEnabled(true);
         this.btnRemit.setEnabled(true);
         this.txtDescripcion.setEnabled(true);
         this.txtTitulo.setEnabled(true);
     }
-    private void rbtTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTutoriaActionPerformed
-        habilitar();
-    }//GEN-LAST:event_rbtTutoriaActionPerformed
-
-    private void rbtGrupoEstudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtGrupoEstudioActionPerformed
-        habilitar();
-    }//GEN-LAST:event_rbtGrupoEstudioActionPerformed
-
-    private void rbtEventoEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtEventoEActionPerformed
-        habilitar();
-    }//GEN-LAST:event_rbtEventoEActionPerformed
-
-    private void rbtVentaServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtVentaServicioActionPerformed
-        habilitar();
-    }//GEN-LAST:event_rbtVentaServicioActionPerformed
-
     /**
      * @param args the command line arguments
      */
-    public static void runCrearPublicacion() {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

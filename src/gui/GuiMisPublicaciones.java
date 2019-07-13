@@ -1,18 +1,30 @@
-
 package gui;
 
+import datos.Categoria;
+import datos.Publicacion;
+import datos.Usuario;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import logica.Controlador;
+import modelos.TextPrompt;
 
+import javax.swing.BoxLayout;
 public class GuiMisPublicaciones extends javax.swing.JFrame {
 
     public GuiMisPublicaciones() {
         initComponents();
         Date fecha = new Date();
-        SimpleDateFormat formatoEs = new SimpleDateFormat ("EEEE d 'de' MMMM 'de' yyyy", new Locale ("ES", "MX"));
+        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("ES", "MX"));
         lblFecha.setText(formatoEs.format(fecha).toUpperCase());
+        TextPrompt placeHolder = new TextPrompt("Buscar...", txtBuscar);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,25 +40,34 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         btnRemit = new javax.swing.JButton();
         btnMisPublicaciones = new javax.swing.JButton();
         txtBuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(4, 154, 201));
 
         lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(255, 255, 255));
-        lblFecha.setText("jLabel1");
 
-        btnRemit.setText("jButton1");
+        btnRemit.setBackground(new java.awt.Color(237, 191, 23));
+        btnRemit.setText("Remit");
         btnRemit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemitActionPerformed(evt);
             }
         });
 
-        btnMisPublicaciones.setText("jButton2");
+        btnMisPublicaciones.setBackground(new java.awt.Color(255, 255, 255));
+        btnMisPublicaciones.setText("Mis Publicaciones");
 
-        txtBuscar.setText("jTextField1");
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,42 +76,113 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMisPublicaciones)
                 .addGap(27, 27, 27)
                 .addComponent(btnRemit)
-                .addGap(22, 22, 22))
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addComponent(btnRemit)
-                .addComponent(btnMisPublicaciones)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRemit)
+                    .addComponent(btnMisPublicaciones)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 48)); // NOI18N
+        jLabel1.setText("Mis publicaciones");
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 464, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(288, 288, 288)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(124, 124, 124))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 553, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
-        GuiCrearPublicacion.runCrearPublicacion();
+        //GuiCrearPublicacion.runCrearPublicacion();
     }//GEN-LAST:event_btnRemitActionPerformed
+
+    public void agregarPublicacion (){
+        Categoria cat = new Categoria ("nombre", 01);
+        Date fecha = new Date();
+        Usuario usuario = new Usuario("a", "a", "a", true);
+        Publicacion publicacion = new Publicacion (cat, usuario, fecha, "h", "l");
+        JPanel panelPub = new JPanel();
+        panelPub.setSize(300, 100);
+        jPanel2.add(panelPub);
+        JLabel lblTitulo = new JLabel();
+        String titulo = publicacion.getTitulo();
+        lblTitulo.setText(titulo);
+        JLabel lblCategoria = new JLabel();
+        String categoria = publicacion.getCategoria().getNombre();
+        lblTitulo.setText(categoria);
+        JLabel lblFecha = new JLabel();
+        lblTitulo.setText(fecha.toString());
+        JLabel lblDescripcion = new JLabel();
+        String descripcion = publicacion.getDescripcion();
+        lblTitulo.setText(descripcion);
+        
+        panelPub.add(lblTitulo);
+        panelPub.add(lblCategoria);
+        panelPub.add(lblFecha);
+        panelPub.add(lblDescripcion);
+        
+    }
+    public String getTextBuscar() {
+        String palabra = txtBuscar.getText();
+        return palabra;
+    }
+    
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Controlador.buscar(getTextBuscar());
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -133,7 +225,10 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMisPublicaciones;
     private javax.swing.JButton btnRemit;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

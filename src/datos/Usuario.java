@@ -67,66 +67,13 @@ public class Usuario extends Persona implements ControladorCRUD {
     }
 
     @Override
-    public void agregar() {
+    public void agregar (Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
         Archivo.leerPublicaciones();
-        Usuario usuario = this;
-        Scanner entrada = new Scanner(System.in);
-        boolean prueba = true;
-        System.out.println("Selecciona la categoría de tu publicación: \n1. Tutorias"
-                + "\n2. Evento Estudiantil\n3. Grupo de estudio autonomo\n4. Venta y/o servicio"
-                + "");
-        Categoria categoria = null;
-        do {
-            try {
-                int opcion = entrada.nextInt();
-                prueba = false;
-                if (opcion == 1) {
-                    categoria = new Categoria("Tutoria", 01);
-                } else if (opcion == 2) {
-                    categoria = new Categoria("Evento Estudiantil", 03);
-                } else if (opcion == 3) {
-                    categoria = new Categoria("Grupo de estudio autonomo", 04);
-                } else if (opcion == 4) {
-                    categoria = new Categoria("Venta y/o servicio", 05);
-                }
-                ExcepcionIntervalo.verificaRango(opcion, 1, 4);
-            } catch (InputMismatchException e) {
-                System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
-                prueba = true;
-            } catch (ExcepcionIntervalo e) {
-                System.err.println(e.getMessage());
-                prueba = true;
-            }
-        } while (prueba);
-        entrada.nextLine();
-        System.out.println("Ingresa el título de tu publicación: ");
-        String titulo = entrada.nextLine();
-        System.out.println("Ingresa la descripción de tu publicación: ");
-        String descripcion = entrada.nextLine();
+        usuario = this;
         Date fechaPub = new Date();
-        System.out.println("1. Remit \n2. Cancelar");
-        do {
-            try {
-                int opcion = entrada.nextInt();
-                prueba = false;
-                if (opcion == 1) {
-                    Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
-                    Usuario.agregarPublicacion(nuevaPublicacion);
-                    Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
-                    System.out.println("Publicacion Completada!");
-                } else if (opcion == 2) {
-                    System.out.println("Operacion Cancelada!");
-                    //ya se redirige al menu de usuario
-                }
-                ExcepcionIntervalo.verificaRango(opcion, 1, 4);
-            } catch (InputMismatchException e) {
-                System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
-                prueba = true;
-            } catch (ExcepcionIntervalo e) {
-                System.err.println(e.getMessage());
-                prueba = true;
-            }
-        } while (prueba);
+        Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
+        Usuario.agregarPublicacion(nuevaPublicacion);
+        Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
     }
 
     @Override
@@ -280,8 +227,18 @@ public class Usuario extends Persona implements ControladorCRUD {
     public String toString() {
         String valor = "NOMBRE:  " + super.getNombre()
                 + "\nUSUARIO: @" + super.getUsuario();
-                
-                
+
         return valor;
+    }
+
+    @Override
+    public void agregarPubImg(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImg) {
+        Archivo.leerPublicaciones();
+        usuario = this;
+        Date fechaPub = new Date();
+        Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion, nombreImg);
+        Usuario.agregarPublicacion(nuevaPublicacion);
+        Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+        System.out.println("Publicacion Completada!");
     }
 }
