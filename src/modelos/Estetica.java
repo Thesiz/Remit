@@ -17,10 +17,17 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 public class Estetica {
     
     public static ArrayList<Component> componentesEntrantes;
+    public static ArrayList<Component> botonesEntrantes;
     public static void habDeshabComponentes(ArrayList<Component> componentes, boolean estado){
         componentesEntrantes = componentes;
         for(Component comp: componentesEntrantes){
             comp.setEnabled(estado);
+        }
+    }
+    public static void mostrarOcularBotones(ArrayList<Component> componentes, boolean estado){
+        botonesEntrantes = componentes;
+        for(Component comp: botonesEntrantes){
+            comp.setVisible(estado);
         }
     }
     public static int nuevoTextPub(JPanel publicacion, int y) {

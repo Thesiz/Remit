@@ -5,6 +5,7 @@
  */
 package gui;
 
+import datos.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -23,9 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
-import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  *
@@ -37,10 +38,24 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
      * Creates new form VentanaPrincipal
      */
     public static boolean pop;
+
     public GuiVentanaPrincipal() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        //Busca si hay un usuario activo
+        boolean usuarioActivo = false;
+        for (Usuario usu : Controlador.listaUsuarios) {
+            if (usu.getActivo()) {
+                usuarioActivo = true;
+                break;
+            }
+        }
+        if(usuarioActivo){
+           jPanelIniciarSesion.setVisible(false);
+           jPanelRegistrarme.setVisible(false);
+        }
+        //termina de buscar usuarios activos
         TextPrompt placeholder = new TextPrompt("Buscar...", txtBuscar);
         getContentPane().requestFocusInWindow();
         pop = false;
@@ -89,6 +104,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnRegistrarme = new javax.swing.JButton();
         jPanelIniciarSesion = new javax.swing.JPanel();
         btnIniciarSesion = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanelPublicacion = new javax.swing.JPanel();
 
@@ -181,6 +197,10 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         jPanelIniciarSesion.add(btnIniciarSesion);
         btnIniciarSesion.setBounds(0, 0, 130, 28);
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setPreferredSize(new java.awt.Dimension(121, 29));
+        jPanel2.setLayout(null);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,9 +208,11 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelRegistrarme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,12 +220,15 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelRegistrarme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelRegistrarme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtBuscar)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,11 +240,11 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         jPanelPublicacion.setLayout(jPanelPublicacionLayout);
         jPanelPublicacionLayout.setHorizontalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1157, Short.MAX_VALUE)
+            .addGap(0, 1178, Short.MAX_VALUE)
         );
         jPanelPublicacionLayout.setVerticalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 553, Short.MAX_VALUE)
+            .addGap(0, 547, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanelPublicacion);
@@ -244,7 +269,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarmeActionPerformed
         deshabilitarOpciones();
         GuiRegistrarse.runRegistrarse();
@@ -268,9 +293,16 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         componentes.add(btnRegistrarme);
         Estetica.habDeshabComponentes(componentes, false);
     }
+    private void habilitarOpciones() {
+        ArrayList<Component> componentes = new ArrayList<>();
+        componentes.add(jPanelIniciarSesion);
+        componentes.add(jPanelRegistrarme);
+        Estetica.mostrarOcularBotones(componentes, true);
+    }
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         deshabilitarOpciones();
+        habilitarOpciones();
         GuiIniciarSesion.runIniciarSesion();
         pop = true;
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
@@ -288,7 +320,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarmeMouseExited
 
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
-         if (!pop) {
+        if (!pop) {
             jPanelIniciarSesion.setBackground(Color.white);
             btnIniciarSesion.setForeground(new java.awt.Color(4, 155, 201));
         }
@@ -328,6 +360,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarme1;
     private javax.swing.JButton btnRegistrarme2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
