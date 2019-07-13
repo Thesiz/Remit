@@ -5,7 +5,9 @@
  */
 package gui;
 
+import datos.Categoria;
 import datos.Publicacion;
+import datos.Usuario;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -48,7 +50,9 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }
 
     public int nuevoText(Color color, int y) {
-        Publicacion pub = new Publicacion (null, null, null, null, null); 
+        Date fecha = new Date();
+        Publicacion pub = new Publicacion ((new Categoria ("Tutoria", 01)), (new Usuario ("a", "a", "a", "a", true)),
+                fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas"); 
         PanelPublicacion pruebita = new PanelPublicacion(pub);
         pruebita.setSize(600, 300);
         pruebita.setLocation(150, y);
