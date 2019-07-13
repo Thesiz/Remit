@@ -30,9 +30,6 @@ public class GuiRegistrarse extends javax.swing.JFrame {
     /**
      * Creates new form GuiRegistrarse
      */
-    String nombre;
-    String usuario;
-    String contrasena;
     public GuiRegistrarse() {
         initComponents();
         TextPrompt placeholder = new TextPrompt("Nombre", txtNombre);
@@ -46,36 +43,31 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         getContentPane().requestFocusInWindow();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-     
+
     private void crearUsuario() {
         boolean usuarioExiste = false;
-
+        String nombre;
+        String apellido;
+        String usuario;
+        String contrasena;
         nombre = txtNombre.getText();
+        apellido = txtApellido.getText();
         usuario = txtUsuario.getText();
         contrasena = txtContraseña.getText();
-
-        for (Usuario element : Controlador.listaUsuarios) {
-            if (usuario.equals(element.getUsuario())) {
-                usuarioExiste = true;
-                break;
-            }
-        }
 
         if (nombre.equals("") || usuario.equals("") || contrasena.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Los campos no pueden ir vacíos",
                     "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
 
-        } else if (usuarioExiste) {
+        } else if (Controlador.registrar(nombre, apellido, usuario, contrasena)) {
             JOptionPane.showMessageDialog(rootPane, "El nombre de usuario ya se encuentra registrado",
                     "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
             txtUsuario.setText("");
             txtContraseña.setText("");
             txtUsuario.requestFocus();
         } else {
-            Usuario usuarioCreado = new Usuario(nombre, usuario, contrasena, false);
-
-            JOptionPane.showMessageDialog(rootPane, "Registro correcto !",
-                    "Remit", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+            JOptionPane.showMessageDialog(rootPane, "Registro correcto\n¡Bienvenido a Remit "+nombre+"!",
+                    "Remit", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/check.png")));
             this.dispose();
 
         }
@@ -247,7 +239,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(267, 267, 267)
                 .addComponent(jPanelRegistrate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,13 +254,13 @@ public class GuiRegistrarse extends javax.swing.JFrame {
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuarioUnico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanelRegistrate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -360,7 +352,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrateMouseReleased
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Estetica.habDeshabComponentes(Estetica.componentesEntrantes,true);
+        Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
         GuiVentanaPrincipal.pop = false;
     }//GEN-LAST:event_formWindowClosed
 

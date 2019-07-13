@@ -117,25 +117,9 @@ public class Controlador {
         return datosCorrectos; 
     }
 
-    public static void registrar() {
-        /*
-         */
-        //Usuario usuarioTemp2 = new Usuario("Anderson", "anvargasa", "holaMundo", true);
-        /*
-         */
+    public static boolean registrar(String nombre, String apellido, String usuario, String contraseña) {
 
-        Scanner entrada = new Scanner(System.in);
-        String nombre = null, usuario = null, contraseña = null;
-        System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+\n        REGISTRO\n+-+-+-+-+-+-+-+-+-+-+-+-+\n");
-        System.out.print("Ingrese su nombre: ");
-        nombre = entrada.nextLine();
-
-        boolean usuarioExiste;
-        do {
-            usuarioExiste = false;
-            System.out.print("Ingrese un usuario: ");
-            usuario = entrada.nextLine();
-
+        boolean usuarioExiste = false;
             for (Usuario usuarioHash : listaUsuarios) {
                 if (usuario.equals(usuarioHash.getUsuario())) {
                     System.err.println("Este usuario ya existe, por favor pruebe con otro\n");
@@ -143,11 +127,9 @@ public class Controlador {
                     break;
                 }
             }
-        } while (usuarioExiste);
-        System.out.print("Ingrese una contraseña: ");
-        contraseña = entrada.nextLine();
 
-        Usuario usuarioTemp = new Usuario(nombre, usuario, contraseña, true);
+        Usuario usuarioTemp = new Usuario(nombre, apellido, usuario, contraseña, true);
+        return usuarioExiste;
     }
 
     public static void cerrarSesion(Usuario usuario) {

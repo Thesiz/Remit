@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 public abstract class Persona implements Serializable{
     private String nombre;
+    private String apellido;
     private String usuario;
     private String contraseña;
     private boolean activo;
     
-   public Persona(String nombre, String usuario, String contraseña){
+   public Persona(String nombre,String apellido, String usuario, String contraseña){
        this.nombre = nombre;
+       this.apellido = apellido;
        this.usuario = usuario;
        this.contraseña = contraseña;
    }  

@@ -12,8 +12,8 @@ public class Usuario extends Persona implements ControladorCRUD {
     private boolean activo;
     private static ArrayList<Publicacion> misPublicaciones = new ArrayList<>();
 
-    public Usuario(String nombre, String usuario, String contraseña, boolean activo) {
-        super(nombre, usuario, contraseña);
+    public Usuario(String nombre, String apellido, String usuario, String contraseña, boolean activo) {
+        super(nombre, apellido, usuario, contraseña);
         this.activo = activo;
         Controlador.listaUsuarios.add(this);
         Controlador.mapaUsuarios.put(usuario, this);
@@ -67,7 +67,7 @@ public class Usuario extends Persona implements ControladorCRUD {
     }
 
     @Override
-    public void agregar (Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
+    public void agregar(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
         Archivo.leerPublicaciones();
         usuario = this;
         Date fechaPub = new Date();

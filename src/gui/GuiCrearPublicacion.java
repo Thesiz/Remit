@@ -255,16 +255,16 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
         if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
             JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos", "Error",
-                JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
+                    JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
         } else {
             Date fecha = new Date();
-            Usuario usuario = new Usuario("a", "a", "a", true);
+            Usuario usuario = new Usuario("a", "a", "a", "a", true);
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
-                    txtDescripcion.getText());
+                        txtDescripcion.getText());
             } else {
                 usuario.agregarPubImg(setCategoria(), usuario, fecha, txtTitulo.getText(),
-                    txtDescripcion.getText(), lblArchivo.getText());
+                        txtDescripcion.getText(), lblArchivo.getText());
             }
         }
     }//GEN-LAST:event_btnRemitActionPerformed
@@ -272,8 +272,8 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         String[] opciones = {"Si", "No"};
         int opcion = JOptionPane.showOptionDialog(null, "¿Estás seguro de cancelar la publicación?"
-            + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-            (new ImageIcon("x.png")), opciones, opciones[0]);
+                + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                (new ImageIcon("x.png")), opciones, opciones[0]);
         if (opcion == 0) {
             this.setVisible(false);
         }
@@ -354,6 +354,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         this.txtDescripcion.setEnabled(true);
         this.txtTitulo.setEnabled(true);
     }
+
     /**
      * @param args the command line arguments
      */
