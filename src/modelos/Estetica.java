@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -19,6 +20,13 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 
 public class Estetica {
 
+        public static ArrayList<Component> componentesEntrantes;
+    public static void habDeshabComponentes(ArrayList<Component> componentes, boolean estado){
+        componentesEntrantes = componentes;
+        for(Component comp: componentesEntrantes){
+            comp.setEnabled(estado);
+        }
+    }
     public static int nuevoTextPub(JPanel publicacion, int y) {
         JPanel panelPublicacion = new JPanel();
         panelPublicacion.setSize(600, 300);
@@ -47,8 +55,8 @@ public class Estetica {
         Color color2 = new java.awt.Color(r2, g2, b2);
         panel.setBackground(color1);
         boton.setForeground(color2);
-        boton.setBorderPainted(true);
-        boton.setBorder(BorderFactory.createLineBorder(new java.awt.Color(1, 126, 179), 1));
+        boton.setBorderPainted(false);
+        panel.setBorder(BorderFactory.createLineBorder(new java.awt.Color(1, 126, 179), 1));
     }
 
     public static void botonMouseSuelto(JPanel panel, JButton boton, int r1, int g1, int b1, int r2, int g2, int b2) {

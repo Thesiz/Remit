@@ -156,7 +156,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
     public void agregarPublicacion (){
         Categoria cat = new Categoria ("nombre", 01);
         Date fecha = new Date();
-        Usuario usuario = new Usuario("a", "a", "a", true);
+        Usuario usuario = new Usuario("a", "a", "a", "a",true);
         Publicacion publicacion = new Publicacion (cat, usuario, fecha, "h", "l");
         JPanel panelPub = new JPanel();
         panelPub.setSize(300, 100);

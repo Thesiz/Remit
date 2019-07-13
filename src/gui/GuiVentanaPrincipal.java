@@ -5,27 +5,17 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
+import datos.Publicacion;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import modelos.Estetica;
 import modelos.TextPrompt;
-import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  *
@@ -58,7 +48,8 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }
 
     public int nuevoText(Color color, int y) {
-        JPanel pruebita = new JPanel();
+        Publicacion pub = new Publicacion (null, null, null, null, null); 
+        PanelPublicacion pruebita = new PanelPublicacion(pub);
         pruebita.setSize(600, 300);
         pruebita.setLocation(150, y);
         pruebita.setBackground(color);

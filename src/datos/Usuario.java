@@ -77,114 +77,7 @@ public class Usuario extends Persona implements ControladorCRUD {
     }
 
     @Override
-    public void editar() {
-        boolean prueba = true;
-        int opcion = 0;
-        Usuario usuario = this;
-        Scanner entrada = new Scanner(System.in);
-        Usuario.verMisPublicaciones(usuario);
-        int maximo = Usuario.cantidadMisPublicaciones(usuario);
-        System.out.print("Selecciona la publicacion que deseas editar: ");
-        do {
-            try {
-                opcion = entrada.nextInt();
-                prueba = false;
-                ExcepcionIntervalo.verificaRango(opcion, 1, maximo);
-            } catch (InputMismatchException e) {
-                System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
-                prueba = true;
-            } catch (ExcepcionIntervalo e) {
-                System.err.println(e.getMessage());
-                prueba = true;
-            }
-
-        } while (prueba);
-        Publicacion publicacionEditar = Controlador.listaPublicaciones.get(opcion - 1);
-        prueba = true;
-        System.out.println("Selecciona el campo que deseas editar (si son varios, separalos con ',' , '.' ,'-' o '/')"
-                + "\n1. Título \t2. Categoría \t3. Descripción");
-        String sOpciones = null;
-        StringTokenizer separador = null;
-        int opcionesVal[] = null;
-        do {
-
-            sOpciones = entrada.nextLine();
-            separador = new StringTokenizer(sOpciones, ",.-/");
-            opcionesVal = new int[separador.countTokens()];
-            int posicionArray = 0;
-            while (separador.hasMoreTokens()) {
-                try {
-                    opcionesVal[posicionArray] = Integer.parseInt(separador.nextToken());
-                    ExcepcionIntervalo.verificaRango(opcionesVal[posicionArray], 1, 3);
-                    posicionArray++;
-                    prueba = false;
-                } catch (InputMismatchException e) {
-                    System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
-                    prueba = true;
-                } catch (ExcepcionIntervalo e) {
-                    System.err.println(e.getMessage());
-                    prueba = true;
-                } catch (NumberFormatException e) {
-                    System.out.println("Has ingresado un caracter invalido para separar las opciones. Intentalo nuevamente");
-                    prueba = true;
-                }
-            }
-        } while (prueba);
-        Categoria categoria = null;
-        for (opcion = 0; opcion < opcionesVal.length; opcion++) {
-            switch (opcionesVal[opcion]) {
-                case 1:
-                    System.out.println("EDITAR TITULO: \nTítulo actual: " + publicacionEditar.getTitulo());
-                    System.out.println("Ingresa el nuevo título de tu publicación: ");
-                    String titulo = entrada.nextLine();
-                    publicacionEditar.setTitulo(titulo);
-                    System.out.println("Título editado exitosamente: " + publicacionEditar.getTitulo());
-                    break;
-
-                case 2:
-                    boolean pruebaCg = true;
-                    System.out.println("EDITAR CATEGORIA: \nCategoría actual: " + publicacionEditar.getCategoria()
-                            + "\nSelecciona la categoría de tu publicación: \n1. Tutorias"
-                            + "\n2. Evento Estudiantil\n3. Grupo de estudio autonomo\n4. Venta y/o servicio"
-                            + "");
-                    do {
-                        try {
-                            int opcionCat = entrada.nextInt();
-                            if (opcionCat == 1) {
-                                categoria = new Categoria("Tutoria", 01);
-                            } else if (opcionCat == 2) {
-                                categoria = new Categoria("Evento Estudiantil", 03);
-                            } else if (opcionCat == 3) {
-                                categoria = new Categoria("Grupo de estudio autonomo", 04);
-                            } else if (opcionCat == 4) {
-                                categoria = new Categoria("Venta y/o servicio", 05);
-                            }
-                            publicacionEditar.setCategoria(categoria);
-                            pruebaCg = false;
-                            ExcepcionIntervalo.verificaRango(opcionCat, 1, 4);
-                        } catch (InputMismatchException e) {
-                            System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
-                            prueba = true;
-                        } catch (ExcepcionIntervalo e) {
-                            System.err.println(e.getMessage());;
-                            prueba = true;
-                        }
-                    } while (pruebaCg);
-                    break;
-                case 3:
-                    entrada.nextLine();
-                    System.out.println("EDITAR DESCRIPCION: \nDescripcion actual: " + publicacionEditar.getDescripcion());
-                    System.out.println("Ingresa la nueva descripcion de tu publicación: ");
-                    String descripcion = entrada.nextLine();
-                    publicacionEditar.setDescripcion(descripcion);
-                    System.out.println("Descrición editada exitosamente! " + publicacionEditar.getDescripcion());
-                    break;
-                /* case 4: PARA EDITAR LA IMAGEN (IMPLEMENTADO EN LA UI) 
-                    
-                 */
-            }
-        }
-
+    public void editar(Publicacion publicacionEditar, Usuario usuario) {
         publicacionEditar = new Publicacion(publicacionEditar.getCategoria(), usuario, publicacionEditar.getFecha(), publicacionEditar.getTitulo(),
                 publicacionEditar.getDescripcion());
         System.out.println(publicacionEditar);
@@ -232,7 +125,7 @@ public class Usuario extends Persona implements ControladorCRUD {
     }
 
     @Override
-    public void agregarPubImg(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImg) {
+    public void agregar(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImg) {
         Archivo.leerPublicaciones();
         usuario = this;
         Date fechaPub = new Date();
@@ -240,5 +133,10 @@ public class Usuario extends Persona implements ControladorCRUD {
         Usuario.agregarPublicacion(nuevaPublicacion);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion Completada!");
+    }
+
+    @Override
+    public void editar(Publicacion publicacion, Usuario usuario, String nombreImg) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

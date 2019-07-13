@@ -148,26 +148,6 @@ public class Controlador {
         admin.agregar();
     }
 
-    public static void miPerfil(Usuario usuario) {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println(usuario);
-        System.out.println(Usuario.verMisPublicaciones(usuario));
-
-        //poner manejo de ecepciones!!
-        System.out.println("Seleccione: "
-                + "\n1. Editar Publicacion"
-                + "\n2. Borrar Publicacion");
-        int opcion = entrada.nextInt();
-        if (opcion == 1) {
-            //LOGICA EDITAR PUBLICACION
-            usuario.editar();
-        } else if (opcion == 2) {
-            usuario.eliminar();
-            //LOGICA BORRAR PUBLICACION
-        }
-
-    }
-
     public static void perfilAdmin(Administrador admin) {
         Scanner entrada = new Scanner(System.in);
 

@@ -263,7 +263,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
             } else {
-                usuario.agregarPubImg(setCategoria(), usuario, fecha, txtTitulo.getText(),
+                usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText(), lblArchivo.getText());
             }
         }
