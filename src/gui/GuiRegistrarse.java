@@ -141,7 +141,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
         btnRegistrate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegistrate.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrate.setText("Regístrate");
-        btnRegistrate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrateActionPerformed(evt);
@@ -267,7 +267,7 @@ public class GuiRegistrarse extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreKeyPressed
 
     private void btnRegistrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrateActionPerformed
-        // TODO add your handling code here:
+        crearUsuario();
     }//GEN-LAST:event_btnRegistrateActionPerformed
 
     private void btnRegistrateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRegistrateKeyPressed
