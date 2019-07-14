@@ -66,8 +66,10 @@ public class GuiRegistrarse extends javax.swing.JFrame {
             txtContraseña.setText("");
             txtUsuario.requestFocus();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Registro correcto\n¡Bienvenido a Remit "+nombre+"!",
+            JOptionPane.showMessageDialog(rootPane, "Registro correcto\n¡Ya eres parte de Remit " + nombre + "!",
                     "Remit", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/check.png")));
+            Estetica.mostrarOcultarBotones(Estetica.botonesOcultar, Estetica.botonesMostrar);
+            Estetica.mostrarOcultarComponente(Estetica.labelTemp, nombre+" "+apellido, true);
             this.dispose();
 
         }

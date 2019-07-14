@@ -38,7 +38,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         } else {
             boolean InicioCorrecto = Controlador.iniciarSesion(usuario, contraseña);
             if (InicioCorrecto) {
-                Estetica.mostrarOcularBotones(Estetica.botonesEntrantes, false);
+                Estetica.mostrarOcultarBotones(Estetica.botonesOcultar, Estetica.botonesMostrar);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos",

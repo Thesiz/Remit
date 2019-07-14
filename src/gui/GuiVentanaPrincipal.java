@@ -5,25 +5,21 @@
  */
 package gui;
 
+import datos.Categoria;
+import datos.Publicacion;
 import datos.Usuario;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
@@ -43,17 +39,28 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        ImageIcon foto = new ImageIcon(getClass().getResource("/./recursos/img/logoremit.png"));
+        Icon icono = new ImageIcon(foto.getImage().getScaledInstance(lblLogo.getWidth(),
+                lblLogo.getHeight(), Image.SCALE_SMOOTH));
+        lblLogo.setIcon(icono);
         //Busca si hay un usuario activo
         boolean usuarioActivo = false;
         for (Usuario usu : Controlador.listaUsuarios) {
             if (usu.getActivo()) {
                 usuarioActivo = true;
+                Estetica.mostrarOcultarComponente(lblNombreUsuario, usu.getNombre()+" "+usu.getApellido(), true);
                 break;
             }
         }
-        if(usuarioActivo){
-           jPanelIniciarSesion.setVisible(false);
-           jPanelRegistrarme.setVisible(false);
+        if (usuarioActivo) {
+            ocultarBotones();
+            mostrarBotones();
+            Estetica.mostrarOcultarBotones(Estetica.botonesOcultar,Estetica.botonesMostrar);
+        } else {
+            jPanelMisPublicaciones.setVisible(false);
+            jPanelRemit.setVisible(false);
+            jPanelCerrarSesion.setVisible(false);
+            Estetica.mostrarOcultarComponente(lblNombreUsuario, null, true);
         }
         //termina de buscar usuarios activos
         TextPrompt placeholder = new TextPrompt("Buscar...", txtBuscar);
@@ -73,7 +80,10 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }
 
     public int nuevoText(Color color, int y) {
-        JPanel pruebita = new JPanel();
+        Date fecha = new Date();
+        Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), (new Usuario("a", "a", "a", "a", false)),
+                fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
+        PanelPublicacion pruebita = new PanelPublicacion(pub);
         pruebita.setSize(600, 300);
         pruebita.setLocation(150, y);
         pruebita.setBackground(color);
@@ -98,15 +108,24 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        txtBuscar = new javax.swing.JTextField();
         lblFecha = new javax.swing.JLabel();
         jPanelRegistrarme = new javax.swing.JPanel();
         btnRegistrarme = new javax.swing.JButton();
         jPanelIniciarSesion = new javax.swing.JPanel();
         btnIniciarSesion = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        txtBuscar = new javax.swing.JTextField();
+        jPanelCerrarSesion = new javax.swing.JPanel();
+        btnCerrarSesion = new javax.swing.JButton();
+        jPanelRemit = new javax.swing.JPanel();
+        btnRemit = new javax.swing.JButton();
+        jPanelMisPublicaciones = new javax.swing.JPanel();
+        btnMisPublicaciones = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanelPublicacion = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblNombreUsuario = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -120,24 +139,14 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(4, 154, 201));
 
-        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarActionPerformed(evt);
-            }
-        });
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyPressed(evt);
-            }
-        });
-
         lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(255, 255, 255));
-        lblFecha.setText("Viernes 12 de Julio del 2019");
+        lblFecha.setText("Miercoles 30 de Septiembre del 2019");
+        lblFecha.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jPanelRegistrarme.setBackground(new java.awt.Color(4, 154, 201));
         jPanelRegistrarme.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -176,7 +185,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        btnIniciarSesion.setText("INICIAR SESION");
+        btnIniciarSesion.setText("INICIAR SESIÓN");
         btnIniciarSesion.setBorderPainted(false);
         btnIniciarSesion.setContentAreaFilled(false);
         btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -197,42 +206,143 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         jPanelIniciarSesion.add(btnIniciarSesion);
         btnIniciarSesion.setBounds(0, 0, 130, 28);
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel2.setPreferredSize(new java.awt.Dimension(121, 29));
-        jPanel2.setLayout(null);
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
+
+        jPanelCerrarSesion.setBackground(new java.awt.Color(4, 154, 201));
+        jPanelCerrarSesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanelCerrarSesion.setPreferredSize(new java.awt.Dimension(131, 29));
+
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("CERRAR SESIÓN");
+        btnCerrarSesion.setBorderPainted(false);
+        btnCerrarSesion.setContentAreaFilled(false);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setFocusPainted(false);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+        });
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelCerrarSesionLayout = new javax.swing.GroupLayout(jPanelCerrarSesion);
+        jPanelCerrarSesion.setLayout(jPanelCerrarSesionLayout);
+        jPanelCerrarSesionLayout.setHorizontalGroup(
+            jPanelCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanelCerrarSesionLayout.setVerticalGroup(
+            jPanelCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
+        jPanelRemit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPanelRemit.setPreferredSize(new java.awt.Dimension(71, 29));
+        jPanelRemit.setLayout(null);
+
+        btnRemit.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnRemit.setText("Remit");
+        btnRemit.setBorderPainted(false);
+        btnRemit.setContentAreaFilled(false);
+        btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemit.setFocusPainted(false);
+        btnRemit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRemitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRemitMouseExited(evt);
+            }
+        });
+        btnRemit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemitActionPerformed(evt);
+            }
+        });
+        jPanelRemit.add(btnRemit);
+        btnRemit.setBounds(0, 0, 70, 30);
+
+        jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 207, 194));
+        jPanelMisPublicaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelMisPublicaciones.setPreferredSize(new java.awt.Dimension(121, 29));
+        jPanelMisPublicaciones.setLayout(null);
+
+        btnMisPublicaciones.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnMisPublicaciones.setText("Mis publicaciones");
+        btnMisPublicaciones.setBorderPainted(false);
+        btnMisPublicaciones.setContentAreaFilled(false);
+        btnMisPublicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMisPublicaciones.setFocusPainted(false);
+        btnMisPublicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMisPublicacionesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMisPublicacionesMouseExited(evt);
+            }
+        });
+        btnMisPublicaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMisPublicacionesActionPerformed(evt);
+            }
+        });
+        jPanelMisPublicaciones.add(btnMisPublicaciones);
+        btnMisPublicaciones.setBounds(0, 0, 160, 30);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelMisPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelRemit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelRegistrarme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelRegistrarme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtBuscar)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelMisPublicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelRemit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanelRegistrarme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -240,31 +350,69 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         jPanelPublicacion.setLayout(jPanelPublicacionLayout);
         jPanelPublicacionLayout.setHorizontalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1178, Short.MAX_VALUE)
+            .addGap(0, 1209, Short.MAX_VALUE)
         );
         jPanelPublicacionLayout.setVerticalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 547, Short.MAX_VALUE)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanelPublicacion);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblLogo.setText("Logo");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(4, 154, 201));
+        jLabel1.setText("Remit");
+
+        lblNombreUsuario.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        lblNombreUsuario.setText("Nombre del usuario");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(409, 409, 409)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(lblNombreUsuario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
         );
 
         pack();
@@ -272,6 +420,8 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
     private void btnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarmeActionPerformed
         deshabilitarOpciones();
+        ocultarBotones();
+        mostrarBotones();
         GuiRegistrarse.runRegistrarse();
         pop = true;
     }//GEN-LAST:event_btnRegistrarmeActionPerformed
@@ -293,16 +443,28 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         componentes.add(btnRegistrarme);
         Estetica.habDeshabComponentes(componentes, false);
     }
-    private void habilitarOpciones() {
+
+    private void ocultarBotones() {
+        ArrayList<Component> componentes = new ArrayList<>();
+        componentes.add(jPanelMisPublicaciones);
+        componentes.add(jPanelRemit);
+        componentes.add(jPanelCerrarSesion);
+        Estetica.botonesOcultar = componentes;
+        Estetica.mostrarOcultarBotones(false);
+    }
+
+    private void mostrarBotones() {
         ArrayList<Component> componentes = new ArrayList<>();
         componentes.add(jPanelIniciarSesion);
         componentes.add(jPanelRegistrarme);
-        Estetica.mostrarOcularBotones(componentes, true);
+        Estetica.botonesMostrar = componentes;
+        Estetica.mostrarOcultarBotones(true);
     }
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         deshabilitarOpciones();
-        habilitarOpciones();
+        ocultarBotones();
+        mostrarBotones();
         GuiIniciarSesion.runIniciarSesion();
         pop = true;
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
@@ -331,6 +493,58 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnIniciarSesion.setForeground(Color.white);
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
+    private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
+        jPanelCerrarSesion.setBackground(Color.white);
+        btnCerrarSesion.setForeground(new java.awt.Color(4, 155, 201));
+    }//GEN-LAST:event_btnCerrarSesionMouseEntered
+
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+        jPanelCerrarSesion.setBackground(new java.awt.Color(4, 155, 201));
+        btnCerrarSesion.setForeground(Color.white);
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnRemitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseEntered
+        jPanelRemit.setBackground(new java.awt.Color(237, 177, 15));
+    }//GEN-LAST:event_btnRemitMouseEntered
+
+    private void btnRemitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseExited
+        jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
+    }//GEN-LAST:event_btnRemitMouseExited
+
+    private void btnMisPublicacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMisPublicacionesMouseEntered
+        jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 195, 188));
+    }//GEN-LAST:event_btnMisPublicacionesMouseEntered
+
+    private void btnMisPublicacionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMisPublicacionesMouseExited
+        jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 207, 194));
+    }//GEN-LAST:event_btnMisPublicacionesMouseExited
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(rootPane, "Se va a cerrar la sesión \n"
+                + "¿Quieres continuar?", "Remit", 0, 0,
+                new ImageIcon(getClass().getResource("/./recursos/img/exit.png")));
+        if (opcion == 0) {
+            for (Usuario usu : Controlador.listaUsuarios) {
+                if (usu.getActivo()) {
+                    usu.setActivo(false);
+
+                    System.out.println("cambio " + usu.getNombre());
+                    lblNombreUsuario.setVisible(false);
+                    break;
+                }
+            }
+            Estetica.mostrarOcultarBotones(Estetica.botonesMostrar,Estetica.botonesOcultar);
+        }
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
+        GuiCrearPublicacion.main(null);
+    }//GEN-LAST:event_btnRemitActionPerformed
+
+    private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed
+        GuiMisPublicaciones.main(null);
+    }//GEN-LAST:event_btnMisPublicacionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -355,20 +569,25 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JButton btnMisPublicaciones;
     private javax.swing.JButton btnRegistrarme;
-    private javax.swing.JButton btnRegistrarme1;
-    private javax.swing.JButton btnRegistrarme2;
+    private javax.swing.JButton btnRemit;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelCerrarSesion;
     private javax.swing.JPanel jPanelIniciarSesion;
+    private javax.swing.JPanel jPanelMisPublicaciones;
     private javax.swing.JPanel jPanelPublicacion;
     private javax.swing.JPanel jPanelRegistrarme;
+    private javax.swing.JPanel jPanelRemit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblNombreUsuario;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

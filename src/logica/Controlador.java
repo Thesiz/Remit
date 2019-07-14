@@ -4,6 +4,7 @@ import datos.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import modelos.Estetica;
 
 public class Controlador {
 
@@ -93,7 +94,9 @@ public class Controlador {
         for (Usuario usuarioTemp : listaUsuarios) {
             if (usuarioTemp.getUsuario().equals(usuario) && usuarioTemp.getContraseña()
                     .equals(contraseña)) {
-                System.out.println("Bienvenido " + usuarioTemp.getNombre());
+                
+                Estetica.mostrarOcultarComponente(Estetica.labelTemp, usuarioTemp.getNombre()
+                        +" "+usuarioTemp.getApellido(), true);
                 usuarioTemp.setActivo(true);
                 datosCorrectos = true;
                 //System.out.println(usuarioTemp.getActivo());
@@ -146,26 +149,6 @@ public class Controlador {
 
     public static void remit(Administrador admin) {
         admin.agregar();
-    }
-
-    public static void miPerfil(Usuario usuario) {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println(usuario);
-        System.out.println(Usuario.verMisPublicaciones(usuario));
-
-        //poner manejo de ecepciones!!
-        System.out.println("Seleccione: "
-                + "\n1. Editar Publicacion"
-                + "\n2. Borrar Publicacion");
-        int opcion = entrada.nextInt();
-        if (opcion == 1) {
-            //LOGICA EDITAR PUBLICACION
-            usuario.editar();
-        } else if (opcion == 2) {
-            usuario.eliminar();
-            //LOGICA BORRAR PUBLICACION
-        }
-
     }
 
     public static void perfilAdmin(Administrador admin) {

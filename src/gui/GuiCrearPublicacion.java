@@ -258,12 +258,12 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
         } else {
             Date fecha = new Date();
-            Usuario usuario = new Usuario("a", "a", "a", "a", true);
+            Usuario usuario = new Usuario("b", "a", "a", "a", false);
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
             } else {
-                usuario.agregarPubImg(setCategoria(), usuario, fecha, txtTitulo.getText(),
+                usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText(), lblArchivo.getText());
             }
         }

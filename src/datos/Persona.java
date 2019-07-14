@@ -7,6 +7,14 @@ public abstract class Persona implements Serializable{
     private String apellido;
     private String usuario;
     private String contraseña;
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
     private boolean activo;
     
    public Persona(String nombre,String apellido, String usuario, String contraseña){

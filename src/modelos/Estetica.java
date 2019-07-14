@@ -3,32 +3,62 @@ package modelos;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jvnet.substance.SubstanceLookAndFeel;
 
 public class Estetica {
-    
+
     public static ArrayList<Component> componentesEntrantes;
-    public static ArrayList<Component> botonesEntrantes;
-    public static void habDeshabComponentes(ArrayList<Component> componentes, boolean estado){
+    public static ArrayList<Component> botonesMostrar;
+    public static ArrayList<Component> botonesOcultar;
+
+    public static void habDeshabComponentes(ArrayList<Component> componentes, boolean estado) {
         componentesEntrantes = componentes;
-        for(Component comp: componentesEntrantes){
+        for (Component comp : componentesEntrantes) {
             comp.setEnabled(estado);
         }
     }
-    public static void mostrarOcularBotones(ArrayList<Component> componentes, boolean estado){
-        botonesEntrantes = componentes;
-        for(Component comp: botonesEntrantes){
+
+    public static void mostrarOcultarBotones(boolean opcion) {
+        ArrayList<Component> componentes = botonesOcultar;
+        boolean estado = false;
+        if (opcion) {
+            componentes = botonesMostrar;
+            estado = true;
+        }
+        for (Component comp : componentes) {
             comp.setVisible(estado);
         }
+    }
+
+    public static void mostrarOcultarBotones(ArrayList<Component> componentes1, ArrayList<Component> componentes2) {
+        for (Component comp : componentes1) {
+            comp.setVisible(true);
+        }
+        for (Component comp : componentes2) {
+            comp.setVisible(false);
+        }
+    }
+    public static void mostrarOcultarComponente(Component componente, boolean estado){
+        componente.setVisible(estado);
+    }
+    public static JLabel labelTemp= null;
+    public static void mostrarOcultarComponente(JLabel componente,String texto, boolean estado){
+        labelTemp = componente;
+        componente.setText(texto);
+        componente.setVisible(estado);
     }
     public static int nuevoTextPub(JPanel publicacion, int y) {
         JPanel panelPublicacion = new JPanel();
@@ -68,6 +98,18 @@ public class Estetica {
         panel.setBackground(color1);
         boton.setForeground(color2);
         boton.setBorderPainted(false);
+    }
+
+    public static void formatoFechaVentana(JLabel label) {
+        Date fecha = new Date();
+        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("ES", "MX"));
+        label.setText(formatoEs.format(fecha).toUpperCase());
+    }
+
+    public static void formatoFechaPublicacion(JLabel label) {
+        Date fecha = new Date();
+        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy 'a las' HH:MM", new Locale("ES", "MX"));
+        label.setText(formatoEs.format(fecha).toUpperCase());
     }
 
 }
