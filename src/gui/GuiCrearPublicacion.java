@@ -19,7 +19,9 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelos.Estetica;
 import modelos.TextPrompt;
 
@@ -314,8 +316,10 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnAdjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntarActionPerformed
         JFileChooser escogerArch = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG, PNG & GIF", "png",
+        "jpeg", "jpg", "gif");
+        escogerArch.setFileFilter(filtro);
         escogerArch.setDialogTitle("Selecciona una imagen");
-        escogerArch.setDragEnabled(false);
         escogerArch.setMultiSelectionEnabled(false);
         int retorno = escogerArch.showSaveDialog(escogerArch);
         File archivo = escogerArch.getSelectedFile();
