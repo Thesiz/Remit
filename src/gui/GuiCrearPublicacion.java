@@ -536,7 +536,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnAdjuntarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMousePressed
         if (pop) {
-            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0);
+            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0); 
         }
     }//GEN-LAST:event_btnAdjuntarMousePressed
 
