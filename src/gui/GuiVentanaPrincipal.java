@@ -30,7 +30,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
     public GuiVentanaPrincipal() {
         initComponents();
-        Estetica logo = new Estetica ();
+        Estetica logo = new Estetica();
         logo.logoVentana(this);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -40,14 +40,14 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         for (Usuario usu : Controlador.listaUsuarios) {
             if (usu.getActivo()) {
                 usuarioActivo = true;
-                Estetica.mostrarOcultarComponente(lblNombreUsuario, usu.getNombre()+" "+usu.getApellido(), true);
+                Estetica.mostrarOcultarComponente(lblNombreUsuario, usu.getNombre() + " " + usu.getApellido(), true);
                 break;
             }
         }
         if (usuarioActivo) {
             ocultarBotones();
             mostrarBotones();
-            Estetica.mostrarOcultarBotones(Estetica.botonesOcultar,Estetica.botonesMostrar);
+            Estetica.mostrarOcultarBotones(Estetica.botonesOcultar, Estetica.botonesMostrar);
         } else {
             jPanelMisPublicaciones.setVisible(false);
             jPanelRemit.setVisible(false);
@@ -489,32 +489,45 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
     private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
-        jPanelCerrarSesion.setBackground(Color.white);
-        btnCerrarSesion.setForeground(new java.awt.Color(4, 155, 201));
+        if (!pop) {
+            jPanelCerrarSesion.setBackground(Color.white);
+            btnCerrarSesion.setForeground(new java.awt.Color(4, 155, 201));
+        }
     }//GEN-LAST:event_btnCerrarSesionMouseEntered
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
-        jPanelCerrarSesion.setBackground(new java.awt.Color(4, 155, 201));
-        btnCerrarSesion.setForeground(Color.white);
+        if (!pop) {
+            jPanelCerrarSesion.setBackground(new java.awt.Color(4, 155, 201));
+            btnCerrarSesion.setForeground(Color.white);
+        }
     }//GEN-LAST:event_btnCerrarSesionMouseExited
 
     private void btnRemitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseEntered
-        jPanelRemit.setBackground(new java.awt.Color(237, 177, 15));
+        if (!pop) {
+            jPanelRemit.setBackground(new java.awt.Color(237, 177, 15));
+        }
     }//GEN-LAST:event_btnRemitMouseEntered
 
     private void btnRemitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseExited
-        jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
+        if (!pop) {
+            jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
+        }
     }//GEN-LAST:event_btnRemitMouseExited
 
     private void btnMisPublicacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMisPublicacionesMouseEntered
-        jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 195, 188));
+        if (!pop) {
+            jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 195, 188));
+        }
     }//GEN-LAST:event_btnMisPublicacionesMouseEntered
 
     private void btnMisPublicacionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMisPublicacionesMouseExited
-        jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 207, 194));
+        if (!pop) {
+            jPanelMisPublicaciones.setBackground(new java.awt.Color(209, 207, 194));
+        }
     }//GEN-LAST:event_btnMisPublicacionesMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        pop = true;
         deshabilitarOpciones();
         int opcion = JOptionPane.showConfirmDialog(rootPane, "Se va a cerrar la sesión \n"
                 + "¿Quieres continuar?", "Remit", 0, 0,
@@ -529,16 +542,21 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                     break;
                 }
             }
-            Estetica.mostrarOcultarBotones(Estetica.botonesMostrar,Estetica.botonesOcultar);
+            Estetica.mostrarOcultarBotones(Estetica.botonesMostrar, Estetica.botonesOcultar);
+        }else{
+            Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+            GuiVentanaPrincipal.pop = false;
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
+        pop = true;
         deshabilitarOpciones();
         GuiCrearPublicacion.llamaCrearPublicacion();
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed
+        pop = true;
         deshabilitarOpciones();
         GuiMisPublicaciones.main(null);
     }//GEN-LAST:event_btnMisPublicacionesActionPerformed
