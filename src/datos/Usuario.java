@@ -77,6 +77,8 @@ public class Usuario extends Persona implements ControladorCRUD {
         Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
         Usuario.agregarPublicacion(nuevaPublicacion);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+        System.out.println("Publicacion creada");
+        System.out.println(nuevaPublicacion);
     }
 
     @Override

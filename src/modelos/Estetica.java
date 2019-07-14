@@ -39,6 +39,23 @@ public class Estetica {
         }
     }
     
+    public static ImageIcon mensajeCheck (){
+        String [] boton = {"Ok"};
+        ImageIcon icono = new ImageIcon("./src/recursos/img/check.png");
+        JOptionPane.showMessageDialog(null, "Publicación creada éxitosamente", "Publicación creada", 
+                JOptionPane.DEFAULT_OPTION,icono);
+        return icono;
+    }
+    
+    public static ImageIcon mensajeCamposVacios (){
+        String [] boton = {"Ok"};
+        ImageIcon icono = new ImageIcon("./src/recursos/img/x.png");
+        JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacíos", "Error",
+                    JOptionPane.ERROR_MESSAGE, icono);
+        return icono;
+    }
+    
+    
     public void logoImagen (JLabel label){
         ImageIcon foto = new ImageIcon(getClass().getResource("/./recursos/img/logoremit.png"));
         Icon icono = new ImageIcon(foto.getImage().getScaledInstance(label.getWidth(),

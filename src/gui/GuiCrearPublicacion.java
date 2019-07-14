@@ -24,13 +24,14 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
 
 public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     Date fecha = new Date();
-    Usuario user = (new Usuario("a", "a", "a", "a", true));
+    Usuario user = null;
     Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), user,
             fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
     boolean pop = false;
@@ -47,6 +48,12 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         btnAdjuntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/img/adjuntar1.png")));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/recursos/img/logoremit.png")).getImage());
+
+        for (Usuario usuarioAct : Controlador.listaUsuarios) {
+            if (usuarioAct.getActivo() == true) {
+                this.user = usuarioAct;
+            }
+        }
     }
 
     public GuiCrearPublicacion(Publicacion pub) {
@@ -68,6 +75,12 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             rbtGrupoEstudio.setSelected(true);
         } else if (pub.getCategoria().getNombre().equals(rbtVentaServicio.getText())) {
             rbtVentaServicio.setSelected(true);
+        }
+
+        for (Usuario usuarioAct : Controlador.listaUsuarios) {
+            if (usuarioAct.getActivo() == true) {
+                this.user = usuarioAct;
+            }
         }
     }
 
@@ -399,7 +412,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         String[] opciones = {"Si", "No"};
         int opcion = JOptionPane.showOptionDialog(null, "¿Estás seguro de cancelar la publicación?"
                 + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                (new ImageIcon("x.png")), opciones, opciones[0]);
+                (new ImageIcon("./src/recursos/img/x.png")), opciones, opciones[0]);
         if (opcion == 0) {
             Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
             GuiVentanaPrincipal.pop = false;
@@ -468,25 +481,32 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
         if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
-            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos", "Error",
-                    JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
+            Estetica.mensajeCamposVacios();
         } else {
             Date fecha = new Date();
-            Usuario usuario = new Usuario("a", "a", "a", "a", true);
+            Usuario usuario = null;
+            for (Usuario usuarioAct : Controlador.listaUsuarios) {
+                if (usuarioAct.getActivo() == true) {
+                    usuario = usuarioAct;
+                }
+            }
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
+                Estetica.mensajeCheck();
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText(), lblArchivo.getText());
+                Estetica.mensajeCheck();
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
                 this.dispose();
             }
         }
+        
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnRemitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseEntered
@@ -543,7 +563,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnAdjuntarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMousePressed
         if (pop) {
-            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0); 
+            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0);
         }
     }//GEN-LAST:event_btnAdjuntarMousePressed
 

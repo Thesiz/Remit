@@ -19,6 +19,8 @@ public class PanelPublicacionUsuario extends javax.swing.JPanel {
     public PanelPublicacionUsuario(Publicacion publicacion) {
         initComponents();
         datosPublicacion(publicacion);
+        
+        
     }
 
     @SuppressWarnings("unchecked")

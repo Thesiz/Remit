@@ -1,12 +1,22 @@
 package gui;
 
 import datos.Publicacion;
+import datos.Usuario;
+import java.util.Date;
+import logica.Controlador;
 import modelos.Estetica;
 
 public class PanelPublicacion extends javax.swing.JPanel {
 
     public PanelPublicacion(Publicacion publicacion) {
         initComponents();
+        Date fecha = new Date();
+            Usuario usuario = null;
+            for (Usuario usuarioAct : Controlador.listaUsuarios) {
+                if (usuarioAct.getActivo() == true) {
+                    usuario = usuarioAct;
+                }
+            }
         datosPublicacion(publicacion);
     }
 
