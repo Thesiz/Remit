@@ -8,15 +8,8 @@ import modelos.Estetica;
 
 public class PanelPublicacion extends javax.swing.JPanel {
 
-    public PanelPublicacion(Publicacion publicacion) {
+    public PanelPublicacion(int tipo, int cantidadLabels,Publicacion publicacion) {
         initComponents();
-        Date fecha = new Date();
-            Usuario usuario = null;
-            for (Usuario usuarioAct : Controlador.listaUsuarios) {
-                if (usuarioAct.getActivo() == true) {
-                    usuario = usuarioAct;
-                }
-            }
         datosPublicacion(publicacion);
     }
 
@@ -78,12 +71,15 @@ public class PanelPublicacion extends javax.swing.JPanel {
 
     public void datosPublicacion(Publicacion pub) {
         String titulo = pub.getTitulo();
-        lblTitulo.setText(titulo);
+        if(titulo.length() > 60){
+            lblTitulo.setText(titulo.substring(0,59));
+        }else{
+            lblTitulo.setText(titulo);
+        }    
         String categoria = pub.getCategoria().getNombre();
         lblCategoria.setText(categoria);
-        String fecha = pub.getFecha().toString();
-        lblFecha.setText(fecha);
-        Estetica.formatoFechaPublicacion(lblFecha);
+        Date fecha = pub.getFecha();
+        Estetica.formatoFechaPublicacion(lblFecha,fecha);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;

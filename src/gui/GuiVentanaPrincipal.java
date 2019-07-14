@@ -19,7 +19,9 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
@@ -61,22 +63,49 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         Estetica.formatoFechaVentana(lblFecha);
         int locY = 0;
         Date fecha = new Date();
-        Publicacion publi = new Publicacion(new Categoria("Prueba1", 1),
-                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT", "PruebaD");
+        Publicacion publi = new Publicacion(new Categoria("PruebaCat", 1),
+                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT000000000000000000000000000000000000000000000000000000000000000000000", ""
+                        + "OOOOOOOO OOO OOOOOO OOOOOOOOOOOO OOOOOOOOOOO OOOOOOO OOOOOOO OOOOOOOOOOOOOOO"
+                        + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+                        + "OOOOOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+                        + "000000000000000000000000000000000000000000000000000000000000000000000"
+                        + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+                        + "OOOOOOOOOOOOOO OOOOOOO OOOOOO OOOOOOOOO OOOOOOO OOOOOOOOO OOOOO OOOO O OOOOOOO", "tarjeta.png");
         locY = analisisPublicacion(locY, publi);
     }
 
-    public int analisisPublicacion(int y,Publicacion publicacion) {
-        PanelPublicacion pruebita = new PanelPublicacion(publicacion);
+    public int analisisPublicacion(int y, Publicacion publicacion) {
+        int tipo = 1;
+        int cantidadLabels = publicacion.getDescripcion().length();
+        cantidadLabels = (cantidadLabels/90)+1;
+        if (publicacion.getNombreImagen() != null) {
+            try {
+                Image imagen = new ImageIcon(getClass().getResource("/./recursos/imgpublicaciones/"
+                        + publicacion.getNombreImagen())).getImage();
+                if (imagen.getWidth(this) > imagen.getHeight(this)) {
+                    tipo = 2;
+                } else {
+                    tipo = 3;
+                    cantidadLabels = (cantidadLabels/60)+1;
+
+                }
+            } catch (NullPointerException e) {
+                tipo = 1;
+            }
+        }
+        
+        PanelPublicacion pruebita = new PanelPublicacion(tipo,cantidadLabels,publicacion);
+        
         pruebita.setSize(600, 600);
         pruebita.setLocation(150, y);
         int locY = (int) pruebita.getY() + pruebita.getHeight() + 10;
 
         jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(),
-                locY));
-        jPanelPublicacion.add(pruebita);
+                locY)); {
+            jPanelPublicacion.add(pruebita);
+        }
 
-        System.out.println(locY);
+        //System.out.println(locY);
         return locY;
     }
 
