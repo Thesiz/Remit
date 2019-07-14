@@ -34,10 +34,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         logo.logoVentana(this);
         setResizable(false);
         setLocationRelativeTo(null);
-        ImageIcon foto = new ImageIcon(getClass().getResource("/./recursos/img/logoremit.png"));
-        Icon icono = new ImageIcon(foto.getImage().getScaledInstance(lblLogo.getWidth(),
-                lblLogo.getHeight(), Image.SCALE_SMOOTH));
-        lblLogo.setIcon(icono);
+        logo.logoImagen(lblLogo);
         //Busca si hay un usuario activo
         boolean usuarioActivo = false;
         for (Usuario usu : Controlador.listaUsuarios) {
