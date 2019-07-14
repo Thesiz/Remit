@@ -6,6 +6,7 @@
 package gui;
 
 import datos.Categoria;
+import datos.Publicacion;
 import datos.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,18 +25,45 @@ import modelos.TextPrompt;
 
 public class GuiCrearPublicacion extends javax.swing.JFrame {
 
+    Date fecha = new Date();
+    Usuario user = (new Usuario("a", "a", "a", "a", true));
+    Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), user,
+            fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
+
     public GuiCrearPublicacion() {
         initComponents();
         deshabilitar();
         setLocationRelativeTo(null);
         setResizable(false);
         txtDescripcion.setLineWrap(true);
-
+        
         TextPrompt placeHolder1 = new TextPrompt("Título de la publicación", txtTitulo);
         TextPrompt placeHolder2 = new TextPrompt("Descripción de la publicación", txtDescripcion);
         btnAdjuntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/img/adjuntar1.png")));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/recursos/img/logoremit.png")).getImage());
+    }
+
+    public GuiCrearPublicacion(Publicacion pub) {
+        initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        lblTituloPanel.setText("Editar publicación");
+        txtDescripcion.setLineWrap(true);
+        btnAdjuntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/img/adjuntar1.png")));
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/recursos/img/logoremit.png")).getImage());
+        txtTitulo.setText(pub.getTitulo());
+        txtDescripcion.setText(pub.getDescripcion());
+        if (pub.getCategoria().getNombre().equals("Tutoría") || pub.getCategoria().getNombre().equals("Tutoria")){
+            rbtTutoria.setSelected(true);
+        } else if (pub.getCategoria().getNombre().equals(rbtEventoE.getText())){
+            rbtEventoE.setSelected(true);
+        } else if (pub.getCategoria().getNombre().equals(rbtGrupoEstudio.getText())){
+            rbtGrupoEstudio.setSelected(true);
+        } else if (pub.getCategoria().getNombre().equals(rbtVentaServicio.getText())){
+            rbtVentaServicio.setSelected(true);
+        }
     }
 
     public void deshabilitar() {
@@ -56,7 +84,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
         btngBotones = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblTituloPanel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         txtTitulo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -83,24 +111,24 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(4, 154, 201));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel3.setText("Crear publicación");
+        lblTituloPanel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTituloPanel.setForeground(new java.awt.Color(240, 240, 240));
+        lblTituloPanel.setText("Crear publicación");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(308, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(271, 271, 271))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTituloPanel)
+                .addGap(279, 279, 279))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(lblTituloPanel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -188,13 +216,13 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnAdjuntar)
-                        .addGap(386, 386, 386)
-                        .addComponent(lblArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar1)
                         .addGap(18, 18, 18)
                         .addComponent(btnRemit)
-                        .addGap(8, 8, 8))
+                        .addGap(19, 19, 19))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -202,7 +230,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                         .addComponent(rbtTutoria)
                         .addGap(74, 74, 74)
                         .addComponent(rbtGrupoEstudio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                         .addComponent(rbtEventoE)
                         .addGap(81, 81, 81)
                         .addComponent(rbtVentaServicio)))
@@ -232,9 +260,9 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     .addComponent(lblArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdjuntar)
                             .addComponent(btnRemit)
-                            .addComponent(btnCancelar1)
-                            .addComponent(btnAdjuntar))
+                            .addComponent(btnCancelar1))
                         .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -263,7 +291,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
         } else {
             Date fecha = new Date();
-            Usuario usuario = new Usuario("b", "a", "a", "a", false);
+            Usuario usuario = new Usuario("a", "a", "a", "a", true);
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
@@ -373,7 +401,22 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        Estetica.lookAndFeel();
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -391,12 +434,50 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         });
     }
 
+    public void llamaEditarPublicacion() {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GuiCrearPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GuiCrearPublicacion(pub).setVisible(true);
+            }
+        });
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdjuntar;
     private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnRemit;
     private javax.swing.ButtonGroup btngBotones;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -404,6 +485,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblArchivo;
+    private javax.swing.JLabel lblTituloPanel;
     private javax.swing.JRadioButton rbtEventoE;
     private javax.swing.JRadioButton rbtGrupoEstudio;
     private javax.swing.JRadioButton rbtTutoria;

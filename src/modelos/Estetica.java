@@ -3,6 +3,7 @@ package modelos;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,6 +36,13 @@ public class Estetica {
         for (Component comp : componentesEntrantes) {
             comp.setEnabled(estado);
         }
+    }
+    
+    public void logoImagen (JLabel label){
+        ImageIcon foto = new ImageIcon(getClass().getResource("/./recursos/img/logoremit.png"));
+        Icon icono = new ImageIcon(foto.getImage().getScaledInstance(label.getWidth(),
+                label.getHeight(), Image.SCALE_SMOOTH));
+        label.setIcon(icono);
     }
 
     public static void mostrarOcultarBotones(boolean opcion) {
@@ -113,7 +122,7 @@ public class Estetica {
 
     public static void formatoFechaPublicacion(JLabel label) {
         Date fecha = new Date();
-        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy 'a las' HH:MM", new Locale("ES", "MX"));
+        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy 'a las' HH:MM a", new Locale("ES", "MX"));
         label.setText(formatoEs.format(fecha).toUpperCase());
     }
 

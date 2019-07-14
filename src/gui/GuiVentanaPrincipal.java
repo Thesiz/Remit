@@ -150,7 +150,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnRegistrarme.setText("REGISTRARME");
         btnRegistrarme.setBorderPainted(false);
         btnRegistrarme.setContentAreaFilled(false);
-        btnRegistrarme.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarme.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrarme.setFocusPainted(false);
         btnRegistrarme.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -179,7 +179,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnIniciarSesion.setText("INICIAR SESIÓN");
         btnIniciarSesion.setBorderPainted(false);
         btnIniciarSesion.setContentAreaFilled(false);
-        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIniciarSesion.setFocusPainted(false);
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -218,7 +218,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnCerrarSesion.setText("CERRAR SESIÓN");
         btnCerrarSesion.setBorderPainted(false);
         btnCerrarSesion.setContentAreaFilled(false);
-        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCerrarSesion.setFocusPainted(false);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -254,7 +254,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnRemit.setText("Remit");
         btnRemit.setBorderPainted(false);
         btnRemit.setContentAreaFilled(false);
-        btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRemit.setFocusPainted(false);
         btnRemit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -281,7 +281,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnMisPublicaciones.setText("Mis publicaciones");
         btnMisPublicaciones.setBorderPainted(false);
         btnMisPublicaciones.setContentAreaFilled(false);
-        btnMisPublicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMisPublicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMisPublicaciones.setFocusPainted(false);
         btnMisPublicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
