@@ -401,7 +401,9 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 (new ImageIcon("x.png")), opciones, opciones[0]);
         if (opcion == 0) {
-            this.setVisible(false);
+            Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+            GuiVentanaPrincipal.pop = false;
+            this.dispose();
         }
     }//GEN-LAST:event_btnCancelar1ActionPerformed
 
@@ -460,6 +462,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtTutoriaActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        GuiVentanaPrincipal.pop = false;
         Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
     }//GEN-LAST:event_formWindowClosed
 
@@ -473,10 +476,14 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
+                Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+                GuiVentanaPrincipal.pop = false;
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText(), lblArchivo.getText());
+                Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+                GuiVentanaPrincipal.pop = false;
                 this.dispose();
             }
         }
