@@ -8,6 +8,7 @@ package gui;
 import datos.Categoria;
 import datos.Publicacion;
 import datos.Usuario;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -73,6 +74,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         this.btnRemit.setEnabled(false);
         this.txtDescripcion.setEnabled(false);
         this.txtTitulo.setEnabled(false);
+        this.jPanelRemit.setBackground(Color.LIGHT_GRAY);
     }
 
     /**
@@ -178,7 +180,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         btngBotones.add(rbtEventoE);
         rbtEventoE.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rbtEventoE.setText("Evento Estudiantil");
-        rbtEventoE.setFocusPainted(false);
+        rbtEventoE.setContentAreaFilled(false);
         rbtEventoE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtEventoEActionPerformed(evt);
@@ -189,7 +191,6 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         rbtVentaServicio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rbtVentaServicio.setText("Venta y/o Servicio");
         rbtVentaServicio.setContentAreaFilled(false);
-        rbtVentaServicio.setFocusPainted(false);
         rbtVentaServicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtVentaServicioActionPerformed(evt);
@@ -215,14 +216,22 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         jPanelRemit.setPreferredSize(new java.awt.Dimension(63, 25));
         jPanelRemit.setLayout(null);
 
+        btnRemit.setBackground(new java.awt.Color(255, 204, 0));
         btnRemit.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnRemit.setText("Remit");
         btnRemit.setBorderPainted(false);
         btnRemit.setContentAreaFilled(false);
+        btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemit.setFocusPainted(false);
+        btnRemit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemitActionPerformed(evt);
+            }
+        });
         jPanelRemit.add(btnRemit);
-        btnRemit.setBounds(0, 0, 63, 25);
+        btnRemit.setBounds(0, 0, 63, 24);
 
-        jPanelCancelar.setBackground(new java.awt.Color(86, 180, 215));
+        jPanelCancelar.setBackground(new java.awt.Color(86, 198, 229));
         jPanelCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelCancelar.setPreferredSize(new java.awt.Dimension(79, 25));
         jPanelCancelar.setLayout(null);
@@ -269,7 +278,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                         .addComponent(rbtTutoria)
                         .addGap(74, 74, 74)
                         .addComponent(rbtGrupoEstudio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addComponent(rbtEventoE)
                         .addGap(81, 81, 81)
                         .addComponent(rbtVentaServicio)))
@@ -307,7 +316,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                             .addComponent(lblArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jPanelCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 11, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
 
@@ -396,6 +405,25 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
+        if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos", "Error",
+                JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
+        } else {
+            Date fecha = new Date();
+            Usuario usuario = new Usuario("a", "a", "a", "a", true);
+            if (lblArchivo.getText().equals("")) {
+                usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
+                    txtDescripcion.getText());
+                this.dispose();
+            } else {
+                usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
+                    txtDescripcion.getText(), lblArchivo.getText());
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_btnRemitActionPerformed
     public Categoria setCategoria() {
         Categoria categoria = null;
         if (rbtEventoE.isSelected()) {
@@ -419,6 +447,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         this.btnRemit.setEnabled(true);
         this.txtDescripcion.setEnabled(true);
         this.txtTitulo.setEnabled(true);
+        this.jPanelRemit.setBackground(new java.awt.Color(237,191,23));
     }
 
     /**

@@ -103,7 +103,7 @@ public class Estetica {
         panel.setBackground(color1);
         boton.setForeground(color2);
         boton.setBorderPainted(false);
-        panel.setBorder(BorderFactory.createLineBorder(new java.awt.Color(1, 126, 179), 1));
+        panel.setBorder(BorderFactory.createLineBorder(color2, 1));
     }
 
     public static void botonMouseSuelto(JPanel panel, JButton boton, int r1, int g1, int b1, int r2, int g2, int b2) {
