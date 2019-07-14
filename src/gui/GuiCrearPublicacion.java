@@ -326,7 +326,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             FileInputStream lector = null;
             try {
                 lector = new FileInputStream(archivo);
-                escritor = new FileOutputStream(guardar);
+                escritor = new FileOutputStream("./src/recursos/imgpublicaciones/"+guardar);
                 byte[] almacenadorBytes = new byte[1024];
                 int lectorBytes;
                 while ((lectorBytes = lector.read(almacenadorBytes)) > 0) {
