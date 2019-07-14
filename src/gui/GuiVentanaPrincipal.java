@@ -337,11 +337,15 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(900, 540));
+
+        jPanelPublicacion.setPreferredSize(new java.awt.Dimension(900, 538));
+
         javax.swing.GroupLayout jPanelPublicacionLayout = new javax.swing.GroupLayout(jPanelPublicacion);
         jPanelPublicacion.setLayout(jPanelPublicacionLayout);
         jPanelPublicacionLayout.setHorizontalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1209, Short.MAX_VALUE)
+            .addGap(0, 1051, Short.MAX_VALUE)
         );
         jPanelPublicacionLayout.setVerticalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
