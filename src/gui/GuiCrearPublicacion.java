@@ -337,7 +337,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                         .addComponent(rbtTutoria)
                         .addGap(74, 74, 74)
                         .addComponent(rbtGrupoEstudio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addComponent(rbtEventoE)
                         .addGap(81, 81, 81)
                         .addComponent(rbtVentaServicio)))

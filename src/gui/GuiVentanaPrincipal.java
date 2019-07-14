@@ -433,6 +433,9 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         componentes.add(txtBuscar);
         componentes.add(btnIniciarSesion);
         componentes.add(btnRegistrarme);
+        componentes.add(btnCerrarSesion);
+        componentes.add(btnRemit);
+        componentes.add(btnMisPublicaciones);
         Estetica.habDeshabComponentes(componentes, false);
     }
 
@@ -512,6 +515,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMisPublicacionesMouseExited
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        deshabilitarOpciones();
         int opcion = JOptionPane.showConfirmDialog(rootPane, "Se va a cerrar la sesión \n"
                 + "¿Quieres continuar?", "Remit", 0, 0,
                 new ImageIcon(getClass().getResource("/./recursos/img/exit.png")));
@@ -530,10 +534,12 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
+        deshabilitarOpciones();
         GuiCrearPublicacion.llamaCrearPublicacion();
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed
+        deshabilitarOpciones();
         GuiMisPublicaciones.main(null);
     }//GEN-LAST:event_btnMisPublicacionesActionPerformed
 
