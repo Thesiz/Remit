@@ -119,7 +119,7 @@ public class PanelPublicacionUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        user.eliminar(pub);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     public void datosPublicacion(Publicacion pub) {

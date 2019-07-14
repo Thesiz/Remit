@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import logica.*;
 
 public class Usuario extends Persona implements ControladorCRUD {
@@ -86,33 +89,18 @@ public class Usuario extends Persona implements ControladorCRUD {
     }
 
     @Override
-    public void eliminar() {
-        boolean prueba = true;
-        int i = 0, contador = 0, opcion = 0;
-        Usuario usuario = this;
-        Scanner entrada = new Scanner(System.in);
-        Usuario.verMisPublicaciones(usuario);
-        int maximo = Usuario.cantidadMisPublicaciones(usuario);
-        System.out.print("Selecciona la publicacion que deseas eliminar: ");
-        do {
-            try {
-                opcion = entrada.nextInt();
-                prueba = false;
-                ExcepcionIntervalo.verificaRango(opcion, 1, maximo);
-            } catch (InputMismatchException e) {
-                System.out.println("Has ingresado un caracter invalido. Intentalo nuevamente");
-                prueba = true;
-            } catch (ExcepcionIntervalo e) {
-                System.err.println(e.getMessage());
-                prueba = true;
-            }
-        } while (prueba);
-        Publicacion publicacionEliminar = Controlador.listaPublicaciones.get(opcion - 1);
-        System.out.println("¿Seguro que deseas elminar la publicacion " + publicacionEliminar.getTitulo() + "?");
-        Usuario.getMisPublicaciones().remove(publicacionEliminar);
-        Controlador.listaPublicaciones.remove(publicacionEliminar);
-        Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
-        System.out.println("Publicacion eliminada");
+    public void eliminar(Publicacion publicacionEliminar) {
+        String[] botones = {"Si", "No"};
+        int opcion = JOptionPane.showOptionDialog(null, "¿Estas seguro de eliminar esta publicación?", "Remit",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, botones, botones[1]);
+        if (opcion == 0) {
+            Usuario.getMisPublicaciones().remove(publicacionEliminar);
+            Controlador.listaPublicaciones.remove(publicacionEliminar);
+            Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+            
+            System.out.println("Publicacion eliminada");
+         
+        }
 
     }
 
@@ -139,4 +127,5 @@ public class Usuario extends Persona implements ControladorCRUD {
     public void editar(Publicacion publicacion, Usuario usuario, String nombreImg) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

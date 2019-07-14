@@ -2,6 +2,7 @@
 package datos;
 
 import java.util.Date;
+import javax.swing.JFrame;
 
 public interface ControladorCRUD {
     
@@ -12,5 +13,5 @@ public interface ControladorCRUD {
     void editar(Publicacion publicacion, Usuario usuario);
     void editar(Publicacion publicacion, Usuario usuario, String nombreImg);
 
-    void eliminar();
+    void eliminar(Publicacion publicacionEliminar);
 }
