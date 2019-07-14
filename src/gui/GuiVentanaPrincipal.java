@@ -60,21 +60,16 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         pop = false;
         Estetica.formatoFechaVentana(lblFecha);
         int locY = 0;
-        for (int i = 0; i < 10; i++) {
-            locY = nuevoText(Color.WHITE, locY);
-            locY = nuevoText(Color.WHITE, locY);
-            locY = nuevoText(Color.WHITE, locY);
-        }
+        Date fecha = new Date();
+        Publicacion publi = new Publicacion(new Categoria("Prueba1", 1),
+                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT", "PruebaD");
+        locY = analisisPublicacion(locY, publi);
     }
 
-    public int nuevoText(Color color, int y) {
-        Date fecha = new Date();
-        Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), (new Usuario("a", "a", "a", "a", false)),
-                fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
-        PanelPublicacion pruebita = new PanelPublicacion(pub);
-        pruebita.setSize(600, 300);
+    public int analisisPublicacion(int y,Publicacion publicacion) {
+        PanelPublicacion pruebita = new PanelPublicacion(publicacion);
+        pruebita.setSize(600, 600);
         pruebita.setLocation(150, y);
-        pruebita.setBackground(color);
         int locY = (int) pruebita.getY() + pruebita.getHeight() + 10;
 
         jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(),
@@ -545,7 +540,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             Estetica.mostrarOcultarBotones(Estetica.botonesMostrar, Estetica.botonesOcultar);
             Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
             GuiVentanaPrincipal.pop = false;
-        }else{
+        } else {
             Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
             GuiVentanaPrincipal.pop = false;
         }
