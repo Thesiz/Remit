@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -32,6 +33,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     Usuario user = (new Usuario("a", "a", "a", "a", true));
     Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), user,
             fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
+    boolean pop = false;
 
     public GuiCrearPublicacion() {
         initComponents();
@@ -39,7 +41,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         txtDescripcion.setLineWrap(true);
-        
+
         TextPrompt placeHolder1 = new TextPrompt("Título de la publicación", txtTitulo);
         TextPrompt placeHolder2 = new TextPrompt("Descripción de la publicación", txtDescripcion);
         btnAdjuntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/img/adjuntar1.png")));
@@ -58,13 +60,13 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/recursos/img/logoremit.png")).getImage());
         txtTitulo.setText(pub.getTitulo());
         txtDescripcion.setText(pub.getDescripcion());
-        if (pub.getCategoria().getNombre().equals("Tutoría") || pub.getCategoria().getNombre().equals("Tutoria")){
+        if (pub.getCategoria().getNombre().equals("Tutoría") || pub.getCategoria().getNombre().equals("Tutoria")) {
             rbtTutoria.setSelected(true);
-        } else if (pub.getCategoria().getNombre().equals(rbtEventoE.getText())){
+        } else if (pub.getCategoria().getNombre().equals(rbtEventoE.getText())) {
             rbtEventoE.setSelected(true);
-        } else if (pub.getCategoria().getNombre().equals(rbtGrupoEstudio.getText())){
+        } else if (pub.getCategoria().getNombre().equals(rbtGrupoEstudio.getText())) {
             rbtGrupoEstudio.setSelected(true);
-        } else if (pub.getCategoria().getNombre().equals(rbtVentaServicio.getText())){
+        } else if (pub.getCategoria().getNombre().equals(rbtVentaServicio.getText())) {
             rbtVentaServicio.setSelected(true);
         }
     }
@@ -101,12 +103,13 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        btnAdjuntar = new javax.swing.JButton();
         lblArchivo = new javax.swing.JLabel();
         jPanelRemit = new javax.swing.JPanel();
         btnRemit = new javax.swing.JButton();
         jPanelCancelar = new javax.swing.JPanel();
         btnCancelar1 = new javax.swing.JButton();
+        jPanelCancelar1 = new javax.swing.JPanel();
+        btnAdjuntar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,7 +133,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(4, 154, 201));
 
         lblTituloPanel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTituloPanel.setForeground(new java.awt.Color(240, 240, 240));
+        lblTituloPanel.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloPanel.setText("Crear publicación");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -151,6 +154,8 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtTitulo.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Selecciona la categoría:");
@@ -198,18 +203,9 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         });
 
         txtDescripcion.setColumns(20);
+        txtDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
-
-        btnAdjuntar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnAdjuntar.setText("   Adjuntar imagen");
-        btnAdjuntar.setContentAreaFilled(false);
-        btnAdjuntar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdjuntar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdjuntarActionPerformed(evt);
-            }
-        });
 
         jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
         jPanelRemit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -223,6 +219,20 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         btnRemit.setContentAreaFilled(false);
         btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemit.setFocusPainted(false);
+        btnRemit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRemitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRemitMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRemitMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnRemitMouseReleased(evt);
+            }
+        });
         btnRemit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemitActionPerformed(evt);
@@ -243,6 +253,20 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         btnCancelar1.setContentAreaFilled(false);
         btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar1.setFocusPainted(false);
+        btnCancelar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelar1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelar1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelar1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnCancelar1MouseReleased(evt);
+            }
+        });
         btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelar1ActionPerformed(evt);
@@ -250,6 +274,40 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         });
         jPanelCancelar.add(btnCancelar1);
         btnCancelar1.setBounds(0, 0, 78, 24);
+
+        jPanelCancelar1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelCancelar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelCancelar1.setPreferredSize(new java.awt.Dimension(130, 30));
+        jPanelCancelar1.setLayout(null);
+
+        btnAdjuntar.setBackground(new java.awt.Color(0, 0, 0));
+        btnAdjuntar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAdjuntar.setText("   Adjuntar imagen");
+        btnAdjuntar.setBorderPainted(false);
+        btnAdjuntar.setContentAreaFilled(false);
+        btnAdjuntar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdjuntar.setFocusPainted(false);
+        btnAdjuntar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAdjuntarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAdjuntarMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAdjuntarMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAdjuntarMouseReleased(evt);
+            }
+        });
+        btnAdjuntar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdjuntarActionPerformed(evt);
+            }
+        });
+        jPanelCancelar1.add(btnAdjuntar);
+        btnAdjuntar.setBounds(0, 0, 160, 40);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -263,7 +321,8 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     .addComponent(jSeparator4)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAdjuntar)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanelCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,7 +337,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                         .addComponent(rbtTutoria)
                         .addGap(74, 74, 74)
                         .addComponent(rbtGrupoEstudio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                         .addComponent(rbtEventoE)
                         .addGap(81, 81, 81)
                         .addComponent(rbtVentaServicio)))
@@ -306,14 +365,12 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAdjuntar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanelRemit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelCancelar1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jPanelCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -351,7 +408,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void btnAdjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntarActionPerformed
         JFileChooser escogerArch = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG, PNG & GIF", "png",
-        "jpeg", "jpg", "gif");
+                "jpeg", "jpg", "gif");
         escogerArch.setFileFilter(filtro);
         escogerArch.setDialogTitle("Selecciona una imagen");
         escogerArch.setMultiSelectionEnabled(false);
@@ -364,7 +421,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             FileInputStream lector = null;
             try {
                 lector = new FileInputStream(archivo);
-                escritor = new FileOutputStream("./src/recursos/imgpublicaciones/"+guardar);
+                escritor = new FileOutputStream("./src/recursos/imgpublicaciones/" + guardar);
                 byte[] almacenadorBytes = new byte[1024];
                 int lectorBytes;
                 while ((lectorBytes = lector.read(almacenadorBytes)) > 0) {
@@ -409,21 +466,85 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
         if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
             JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos", "Error",
-                JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
+                    JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
         } else {
             Date fecha = new Date();
             Usuario usuario = new Usuario("a", "a", "a", "a", true);
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
-                    txtDescripcion.getText());
+                        txtDescripcion.getText());
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
-                    txtDescripcion.getText(), lblArchivo.getText());
+                        txtDescripcion.getText(), lblArchivo.getText());
                 this.dispose();
             }
         }
     }//GEN-LAST:event_btnRemitActionPerformed
+
+    private void btnRemitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseEntered
+        if (pop) {
+            jPanelRemit.setBackground(new java.awt.Color(237, 179, 14));
+        }
+    }//GEN-LAST:event_btnRemitMouseEntered
+
+    private void btnRemitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseExited
+        if (pop) {
+            jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
+        }
+    }//GEN-LAST:event_btnRemitMouseExited
+
+    private void btnRemitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMousePressed
+        if (pop) {
+            Estetica.botonMousePresionado(jPanelRemit, btnRemit, 255, 255, 255, 0, 0, 0);
+        }
+    }//GEN-LAST:event_btnRemitMousePressed
+
+    private void btnRemitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseReleased
+        if (pop) {
+            Estetica.botonMousePresionado(jPanelRemit, btnRemit, 237, 191, 23, 0, 0, 0);
+        }
+    }//GEN-LAST:event_btnRemitMouseReleased
+
+    private void btnCancelar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseEntered
+        jPanelCancelar.setBackground(new java.awt.Color(86, 173, 220));
+    }//GEN-LAST:event_btnCancelar1MouseEntered
+
+    private void btnCancelar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseExited
+        jPanelCancelar.setBackground(new java.awt.Color(86, 198, 229));
+    }//GEN-LAST:event_btnCancelar1MouseExited
+
+    private void btnCancelar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MousePressed
+        Estetica.botonMousePresionado(jPanelCancelar, btnCancelar1, 255, 255, 255, 0, 0, 0);
+    }//GEN-LAST:event_btnCancelar1MousePressed
+
+    private void btnCancelar1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseReleased
+        Estetica.botonMousePresionado(jPanelCancelar, btnCancelar1, 86, 198, 229, 0, 0, 0);
+    }//GEN-LAST:event_btnCancelar1MouseReleased
+
+    private void btnAdjuntarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMouseEntered
+        if (pop) {
+            jPanelCancelar1.setBackground(new java.awt.Color(217, 217, 217));
+        }
+    }//GEN-LAST:event_btnAdjuntarMouseEntered
+
+    private void btnAdjuntarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMouseExited
+        if (pop) {
+            jPanelCancelar1.setBackground(Color.white);
+        }
+    }//GEN-LAST:event_btnAdjuntarMouseExited
+
+    private void btnAdjuntarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMousePressed
+        if (pop) {
+            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0);
+        }
+    }//GEN-LAST:event_btnAdjuntarMousePressed
+
+    private void btnAdjuntarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMouseReleased
+        if (pop) {
+            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 255, 255, 255, 0, 0, 0);
+        }
+    }//GEN-LAST:event_btnAdjuntarMouseReleased
     public Categoria setCategoria() {
         Categoria categoria = null;
         if (rbtEventoE.isSelected()) {
@@ -447,7 +568,8 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         this.btnRemit.setEnabled(true);
         this.txtDescripcion.setEnabled(true);
         this.txtTitulo.setEnabled(true);
-        this.jPanelRemit.setBackground(new java.awt.Color(237,191,23));
+        this.jPanelRemit.setBackground(new java.awt.Color(237, 191, 23));
+        pop = true;
     }
 
     /**
@@ -526,6 +648,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelCancelar;
+    private javax.swing.JPanel jPanelCancelar1;
     private javax.swing.JPanel jPanelRemit;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
