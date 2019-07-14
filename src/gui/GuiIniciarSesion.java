@@ -19,6 +19,8 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
      */
     public GuiIniciarSesion() {
         initComponents();
+        Estetica logo = new Estetica ();
+        logo.logoVentana(this);
         TextPrompt placeholder = new TextPrompt("Usuario", txtUsuario);
         TextPrompt placeholder2 = new TextPrompt("Contraseña", txtContraseña);
         txtContraseña.setEchoChar('●');

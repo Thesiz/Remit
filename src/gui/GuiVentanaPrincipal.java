@@ -19,28 +19,19 @@ import java.util.Locale;
 import modelos.Estetica;
 import modelos.TextPrompt;
 
-/**
- *
- * @author Ander
- */
 public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
     public static boolean pop;
     public GuiVentanaPrincipal() {
         initComponents();
+        Estetica logo = new Estetica ();
+        logo.logoVentana(this);
         setResizable(false);
         setLocationRelativeTo(null);
         TextPrompt placeholder = new TextPrompt("Buscar...", txtBuscar);
         getContentPane().requestFocusInWindow();
         pop = false;
-        //Fecha
-        Date fecha = new Date();
-        SimpleDateFormat formatoEsp = new SimpleDateFormat(
-                "EEEE d 'de' MMMM 'de' yyyy", new Locale("ES", "MX"));
-        lblFecha.setText(formatoEsp.format(fecha).toUpperCase());
+        Estetica.formatoFechaVentana(lblFecha);
         int locY = 0;
         for (int i = 0; i < 10; i++) {
             locY = nuevoText(Color.WHITE, locY);

@@ -32,6 +32,8 @@ public class GuiRegistrarse extends javax.swing.JFrame {
      */
     public GuiRegistrarse() {
         initComponents();
+        Estetica logo = new Estetica ();
+        logo.logoVentana(this);
         TextPrompt placeholder = new TextPrompt("Nombre", txtNombre);
         TextPrompt placeholder3 = new TextPrompt("Apellido", txtApellido);
         TextPrompt placeholder1 = new TextPrompt("Nombre de usuario", txtUsuario);
