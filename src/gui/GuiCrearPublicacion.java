@@ -482,6 +482,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
         if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
             Estetica.mensajeCamposVacios();
+        
         } else {
             Date fecha = new Date();
             Usuario usuario = null;
@@ -490,12 +491,22 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     usuario = usuarioAct;
                 }
             }
+            for (Usuario usuarioTemp : Controlador.listaUsuarios) {
+                if (usuarioTemp.getActivo()) {
+                    usuario = usuarioTemp;
+                    break;
+                }
+            }
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
                 Estetica.mensajeCheck();
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
+                for (Publicacion pub : Controlador.listaPublicaciones) {
+                    System.out.println(pub);
+                    System.out.println("\n\n");
+                }
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
@@ -503,10 +514,14 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 Estetica.mensajeCheck();
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
+                for (Publicacion pub : Controlador.listaPublicaciones) {
+                    System.out.println(pub);
+                    System.out.println("\n\n");
+                }
                 this.dispose();
             }
         }
-        
+            
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnRemitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseEntered

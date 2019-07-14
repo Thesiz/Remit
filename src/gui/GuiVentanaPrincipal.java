@@ -543,6 +543,8 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 }
             }
             Estetica.mostrarOcultarBotones(Estetica.botonesMostrar, Estetica.botonesOcultar);
+            Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+            GuiVentanaPrincipal.pop = false;
         }else{
             Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
             GuiVentanaPrincipal.pop = false;
