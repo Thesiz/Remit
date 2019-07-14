@@ -3,7 +3,12 @@ package gui;
 import datos.Categoria;
 import datos.Publicacion;
 import datos.Usuario;
+import static gui.GuiVentanaPrincipal.pop;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,15 +16,30 @@ import logica.Controlador;
 import modelos.TextPrompt;
 
 import modelos.Estetica;
+
 public class GuiMisPublicaciones extends javax.swing.JFrame {
 
     public GuiMisPublicaciones() {
         initComponents();
         Estetica.formatoFechaVentana(lblFecha);
         TextPrompt placeHolder = new TextPrompt("Buscar...", txtBuscar);
+        Estetica logo = new Estetica ();
+        logo.logoVentana(this);
+        int locY = 0;
+        for (int i = 0; i < 10; i++) {
+            locY = nuevoText(Color.WHITE, locY);
+            locY = nuevoText(Color.WHITE, locY);
+            locY = nuevoText(Color.WHITE, locY);
+        }
     }
-    
-    
+
+    private void deshabilitarOpciones() {
+        ArrayList<Component> componentes = new ArrayList<>();
+        componentes.add(txtBuscar);
+        componentes.add(btnMisPublicaciones);
+        componentes.add(btnRemit);
+        Estetica.habDeshabComponentes(componentes, false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,42 +168,34 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public int nuevoText(Color color, int y) {
+        Date fecha = new Date();
+        Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), (new Usuario("a", "a", "a", "a", true)),
+                fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
+        PanelPublicacion pruebita = new PanelPublicacion(pub);
+        pruebita.setSize(600, 300);
+        pruebita.setLocation(0, y);
+        pruebita.setBackground(color);
+        int locY = (int) pruebita.getY() + pruebita.getHeight();
 
+        pnlMisPublicaciones.setPreferredSize(new Dimension(pnlMisPublicaciones.getWidth(),
+                locY));
+        pnlMisPublicaciones.add(pruebita);
+
+        System.out.println(locY);
+        return locY;
+    }
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
-        //GuiCrearPublicacion.runCrearPublicacion();
+        deshabilitarOpciones();
+        GuiCrearPublicacion.llamaCrearPublicacion();
+        pop = true;
     }//GEN-LAST:event_btnRemitActionPerformed
 
-    public void agregarPublicacion (){
-        Categoria cat = new Categoria ("nombre", 01);
-        Date fecha = new Date();
-        Usuario usuario = new Usuario("a", "a", "a", "a",true);
-        Publicacion publicacion = new Publicacion (cat, usuario, fecha, "h", "l");
-        JPanel panelPub = new JPanel();
-        panelPub.setSize(300, 100);
-        pnlMisPublicaciones.add(panelPub);
-        JLabel lblTitulo = new JLabel();
-        String titulo = publicacion.getTitulo();
-        lblTitulo.setText(titulo);
-        JLabel lblCategoria = new JLabel();
-        String categoria = publicacion.getCategoria().getNombre();
-        lblTitulo.setText(categoria);
-        JLabel lblFecha = new JLabel();
-        lblTitulo.setText(fecha.toString());
-        JLabel lblDescripcion = new JLabel();
-        String descripcion = publicacion.getDescripcion();
-        lblTitulo.setText(descripcion);
-        
-        panelPub.add(lblTitulo);
-        panelPub.add(lblCategoria);
-        panelPub.add(lblFecha);
-        panelPub.add(lblDescripcion);
-        
-    }
     public String getTextBuscar() {
         String palabra = txtBuscar.getText();
         return palabra;
     }
-    
+
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Controlador.buscar(getTextBuscar());

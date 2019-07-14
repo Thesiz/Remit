@@ -75,6 +75,11 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Remit");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(4, 154, 201));
 
@@ -330,6 +335,10 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     private void rbtTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTutoriaActionPerformed
         habilitar();
     }//GEN-LAST:event_rbtTutoriaActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
+    }//GEN-LAST:event_formWindowClosed
     public Categoria setCategoria() {
         Categoria categoria = null;
         if (rbtEventoE.isSelected()) {
@@ -358,7 +367,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void llamaCrearPublicacion() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

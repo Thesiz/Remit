@@ -24,19 +24,14 @@ import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
 
-/**
- *
- * @author Ander
- */
 public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
     public static boolean pop;
 
     public GuiVentanaPrincipal() {
         initComponents();
+        Estetica logo = new Estetica ();
+        logo.logoVentana(this);
         setResizable(false);
         setLocationRelativeTo(null);
         ImageIcon foto = new ImageIcon(getClass().getResource("/./recursos/img/logoremit.png"));
@@ -66,11 +61,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         TextPrompt placeholder = new TextPrompt("Buscar...", txtBuscar);
         getContentPane().requestFocusInWindow();
         pop = false;
-        //Fecha
-        Date fecha = new Date();
-        SimpleDateFormat formatoEsp = new SimpleDateFormat(
-                "EEEE d 'de' MMMM 'de' yyyy", new Locale("ES", "MX"));
-        lblFecha.setText(formatoEsp.format(fecha).toUpperCase());
+        Estetica.formatoFechaVentana(lblFecha);
         int locY = 0;
         for (int i = 0; i < 10; i++) {
             locY = nuevoText(Color.WHITE, locY);
@@ -538,7 +529,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
-        GuiCrearPublicacion.main(null);
+        GuiCrearPublicacion.llamaCrearPublicacion();
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed

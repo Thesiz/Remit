@@ -10,19 +10,24 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.jvnet.substance.SubstanceLookAndFeel;
 
 public class Estetica {
 
     public static ArrayList<Component> componentesEntrantes;
     public static ArrayList<Component> botonesMostrar;
     public static ArrayList<Component> botonesOcultar;
+    
+    public void logoVentana (JFrame ventana){
+        ventana.setIconImage(new ImageIcon(getClass().getResource("/recursos/img/logoremit.png")).getImage());
+        ventana.setTitle("Remit");
+    }
 
     public static void habDeshabComponentes(ArrayList<Component> componentes, boolean estado) {
         componentesEntrantes = componentes;
