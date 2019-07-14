@@ -68,20 +68,20 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }
 
     public int nuevoText(Color color, int y) {
-        Date fecha = new Date();
-        Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), (new Usuario("a", "a", "a", "a", false)),
-                fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
-        PanelPublicacion pruebita = new PanelPublicacion(pub);
-        pruebita.setSize(600, 300);
-        pruebita.setLocation(150, y);
-        pruebita.setBackground(color);
-        int locY = (int) pruebita.getY() + pruebita.getHeight() + 10;
+        int locY = 0;
+        Controlador.inicializarPublicaciones();
+        for (Publicacion elemento : Controlador.listaPublicaciones) {
+            PanelPublicacion publicacion = new PanelPublicacion(elemento);
+            publicacion.setSize(600, 300);
+            publicacion.setLocation(0, y);
+            publicacion.setBackground(color);
+            locY = (int) publicacion.getY() + publicacion.getHeight();
+            pnlPublicaciones.setPreferredSize(new Dimension(pnlPublicaciones.getWidth(),
+                    locY));
+            pnlPublicaciones.add(publicacion);
+            System.out.println(locY);
+        }
 
-        jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(),
-                locY));
-        jPanelPublicacion.add(pruebita);
-
-        System.out.println(locY);
         return locY;
     }
 
@@ -109,7 +109,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         jPanelMisPublicaciones = new javax.swing.JPanel();
         btnMisPublicaciones = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanelPublicacion = new javax.swing.JPanel();
+        pnlPublicaciones = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -147,7 +147,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnRegistrarme.setText("REGISTRARME");
         btnRegistrarme.setBorderPainted(false);
         btnRegistrarme.setContentAreaFilled(false);
-        btnRegistrarme.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarme.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrarme.setFocusPainted(false);
         btnRegistrarme.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -176,7 +176,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnIniciarSesion.setText("INICIAR SESIÓN");
         btnIniciarSesion.setBorderPainted(false);
         btnIniciarSesion.setContentAreaFilled(false);
-        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIniciarSesion.setFocusPainted(false);
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -215,7 +215,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnCerrarSesion.setText("CERRAR SESIÓN");
         btnCerrarSesion.setBorderPainted(false);
         btnCerrarSesion.setContentAreaFilled(false);
-        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCerrarSesion.setFocusPainted(false);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -251,7 +251,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnRemit.setText("Remit");
         btnRemit.setBorderPainted(false);
         btnRemit.setContentAreaFilled(false);
-        btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRemit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRemit.setFocusPainted(false);
         btnRemit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -278,7 +278,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnMisPublicaciones.setText("Mis publicaciones");
         btnMisPublicaciones.setBorderPainted(false);
         btnMisPublicaciones.setContentAreaFilled(false);
-        btnMisPublicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMisPublicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMisPublicaciones.setFocusPainted(false);
         btnMisPublicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -336,20 +336,20 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(900, 540));
 
-        jPanelPublicacion.setPreferredSize(new java.awt.Dimension(900, 538));
+        pnlPublicaciones.setPreferredSize(new java.awt.Dimension(900, 538));
 
-        javax.swing.GroupLayout jPanelPublicacionLayout = new javax.swing.GroupLayout(jPanelPublicacion);
-        jPanelPublicacion.setLayout(jPanelPublicacionLayout);
-        jPanelPublicacionLayout.setHorizontalGroup(
-            jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlPublicacionesLayout = new javax.swing.GroupLayout(pnlPublicaciones);
+        pnlPublicaciones.setLayout(pnlPublicacionesLayout);
+        pnlPublicacionesLayout.setHorizontalGroup(
+            pnlPublicacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1051, Short.MAX_VALUE)
         );
-        jPanelPublicacionLayout.setVerticalGroup(
-            jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlPublicacionesLayout.setVerticalGroup(
+            pnlPublicacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 538, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanelPublicacion);
+        jScrollPane1.setViewportView(pnlPublicaciones);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -579,13 +579,13 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCerrarSesion;
     private javax.swing.JPanel jPanelIniciarSesion;
     private javax.swing.JPanel jPanelMisPublicaciones;
-    private javax.swing.JPanel jPanelPublicacion;
     private javax.swing.JPanel jPanelRegistrarme;
     private javax.swing.JPanel jPanelRemit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNombreUsuario;
+    private javax.swing.JPanel pnlPublicaciones;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

@@ -85,7 +85,6 @@ public class Usuario extends Persona implements ControladorCRUD {
                 publicacionEditar.getDescripcion());
         System.out.println(publicacionEditar);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
-
     }
 
     @Override

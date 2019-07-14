@@ -1,7 +1,6 @@
 package gui;
 
 import datos.Publicacion;
-import logica.Controlador;
 import modelos.Estetica;
 
 public class PanelPublicacion extends javax.swing.JPanel {

@@ -254,18 +254,19 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public int nuevoText(Color color, int y) {
+        int locY = 0;
+        for (Publicacion elemento : Controlador.listaPublicaciones) {
+            PanelPublicacionUsuario publicacion = new PanelPublicacionUsuario(elemento);
+            publicacion.setSize(600, 300);
+            publicacion.setLocation(0, y);
+            publicacion.setBackground(color);
+            locY = (int) publicacion.getY() + publicacion.getHeight();
+            pnlMisPublicaciones.setPreferredSize(new Dimension(pnlMisPublicaciones.getWidth(),
+                    locY));
+            pnlMisPublicaciones.add(publicacion);
+            System.out.println(locY);
+        }
 
-        PanelPublicacionUsuario pruebita = new PanelPublicacionUsuario(pub);
-        pruebita.setSize(600, 300);
-        pruebita.setLocation(0, y);
-        pruebita.setBackground(color);
-        int locY = (int) pruebita.getY() + pruebita.getHeight();
-
-        pnlMisPublicaciones.setPreferredSize(new Dimension(pnlMisPublicaciones.getWidth(),
-                locY));
-        pnlMisPublicaciones.add(pruebita);
-
-        System.out.println(locY);
         return locY;
     }
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
