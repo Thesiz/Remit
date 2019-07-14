@@ -198,7 +198,7 @@ public class Administrador extends Usuario {
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
     }
     
-    @Override
+    //@Override
     public void eliminar() {
         boolean prueba = true;
         int i = 0, contador = 0, opcion = 0;

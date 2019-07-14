@@ -23,10 +23,10 @@ import modelos.Estetica;
 public class GuiMisPublicaciones extends javax.swing.JFrame {
 
     Date fecha = new Date();
-    Usuario user = (new Usuario("a", "a", "a", "a", true));
-    Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), user,
+    Usuario usuario = null;
+    Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), usuario,
             fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
-    Publicacion pub1 = new Publicacion((new Categoria("Evento Estudiantil", 02)), user,
+    Publicacion pub1 = new Publicacion((new Categoria("Evento Estudiantil", 02)), usuario,
             fecha, "Creacion de MyEF 3.0", "Borraron el anterior porque aja");
 
     public GuiMisPublicaciones() {
@@ -34,8 +34,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         Estetica.formatoFechaVentana(lblFecha);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        lblNombre.setText(user.getNombre());
-        lblApellido.setText(user.getApellido());
+
         TextPrompt placeHolder = new TextPrompt("Buscar...", txtBuscar);
         Estetica logo = new Estetica();
         logo.logoVentana(this);
@@ -46,6 +45,15 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
             locY = nuevoText(Color.WHITE, locY);
             locY = nuevoText(Color.WHITE, locY);
         }
+        Date fecha = new Date();
+        Usuario usuario = null;
+        for (Usuario usuarioAct : Controlador.listaUsuarios) {
+            if (usuarioAct.getActivo() == true) {
+                usuario = usuarioAct;
+            }
+        }
+        lblNombre.setText(usuario.getNombre());
+        lblApellido.setText(usuario.getApellido());
     }
 
     private void deshabilitarOpciones() {
@@ -254,18 +262,19 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public int nuevoText(Color color, int y) {
+        int locY = 0;
+        for (Publicacion elemento : Controlador.listaPublicaciones) {
+            PanelPublicacionUsuario publicacion = new PanelPublicacionUsuario(elemento);
+            publicacion.setSize(600, 300);
+            publicacion.setLocation(0, y);
+            publicacion.setBackground(color);
+            locY = (int) publicacion.getY() + publicacion.getHeight();
+            pnlMisPublicaciones.setPreferredSize(new Dimension(pnlMisPublicaciones.getWidth(),
+                    locY));
+            pnlMisPublicaciones.add(publicacion);
+            System.out.println(locY);
+        }
 
-        PanelPublicacionUsuario pruebita = new PanelPublicacionUsuario(pub);
-        pruebita.setSize(600, 300);
-        pruebita.setLocation(0, y);
-        pruebita.setBackground(color);
-        int locY = (int) pruebita.getY() + pruebita.getHeight();
-
-        pnlMisPublicaciones.setPreferredSize(new Dimension(pnlMisPublicaciones.getWidth(),
-                locY));
-        pnlMisPublicaciones.add(pruebita);
-
-        System.out.println(locY);
         return locY;
     }
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
