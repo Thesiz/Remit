@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
 
@@ -472,18 +473,32 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE, (new ImageIcon(getClass().getResource("/recursos/img/x.png"))));
         } else {
             Date fecha = new Date();
-            Usuario usuario = new Usuario("a", "a", "a", "a", true);
+            Usuario usuario = null;
+            for (Usuario usuarioTemp : Controlador.listaUsuarios) {
+                if (usuarioTemp.getActivo()) {
+                    usuario = usuarioTemp;
+                    break;
+                }
+            }
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
+                for (Publicacion pub : Controlador.listaPublicaciones) {
+                    System.out.println(pub);
+                    System.out.println("\n\n");
+                }
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText(), lblArchivo.getText());
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
+                for (Publicacion pub : Controlador.listaPublicaciones) {
+                    System.out.println(pub);
+                    System.out.println("\n\n");
+                }
                 this.dispose();
             }
         }
@@ -543,7 +558,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnAdjuntarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdjuntarMousePressed
         if (pop) {
-            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0); 
+            Estetica.botonMousePresionado(jPanelCancelar1, btnAdjuntar, 200, 200, 200, 0, 0, 0);
         }
     }//GEN-LAST:event_btnAdjuntarMousePressed
 

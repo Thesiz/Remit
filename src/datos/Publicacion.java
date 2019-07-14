@@ -41,6 +41,7 @@ public class Publicacion implements Serializable {
                 + "\nTITULO:                 " + this.titulo
                 + "\nDESCRIPCION:            " + this.descripcion
                 + "\nAUTOR:                  @" + this.usuario.getUsuario()
+                +"IMAGEN:                     "+ this.nombreImagen
                 + "\n---------------------------------\n";
 
         return publicacion;
