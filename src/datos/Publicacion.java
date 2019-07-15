@@ -22,9 +22,11 @@ public class Publicacion implements Serializable {
         this.fecha = fecha;
         this.titulo = titulo;
         this.descripcion = descripcion;
+        this.nombreImagen =  null;
     }
 
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImagen) {
+        this.id = contadorId++;
         this.categoria = categoria;
         this.usuario = usuario;
         this.fecha = fecha;

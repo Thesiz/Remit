@@ -39,7 +39,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         Estetica logo = new Estetica();
         logo.logoVentana(this);
         int locY = 0;
-        logo.logoImagen(lblLogoRemit);
+        logo.logoImagen(lblLogoRemit,"img/logoremit.png");
         for (int i = 0; i < 10; i++) {
             locY = nuevoText(Color.WHITE, locY);
             locY = nuevoText(Color.WHITE, locY);

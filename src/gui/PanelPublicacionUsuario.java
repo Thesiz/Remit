@@ -129,7 +129,7 @@ public class PanelPublicacionUsuario extends javax.swing.JPanel {
         lblCategoria.setText(categoria);
         String fecha = pub.getFecha().toString();
         lblFecha.setText(fecha);
-        Estetica.formatoFechaPublicacion(lblFecha);
+        //Estetica.formatoFechaPublicacion(lblFecha,);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

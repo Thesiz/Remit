@@ -16,12 +16,15 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
@@ -29,6 +32,7 @@ import modelos.TextPrompt;
 public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
     public static boolean pop;
+    private JPanel contentPane;
 
     public GuiVentanaPrincipal() {
         initComponents();
@@ -36,7 +40,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         logo.logoVentana(this);
         setResizable(false);
         setLocationRelativeTo(null);
-        logo.logoImagen(lblLogo);
+        logo.logoImagen(lblLogo, "img/logoremit.png");
         //Busca si hay un usuario activo
         boolean usuarioActivo = false;
         for (Usuario usu : Controlador.listaUsuarios) {
@@ -61,51 +65,69 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         getContentPane().requestFocusInWindow();
         pop = false;
         Estetica.formatoFechaVentana(lblFecha);
+
         int locY = 0;
         Date fecha = new Date();
-        Publicacion publi = new Publicacion(new Categoria("PruebaCat", 1),
-                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT000000000000000000000000000000000000000000000000000000000000000000000", ""
-                        + "OOOOOOOO OOO OOOOOO OOOOOOOOOOOO OOOOOOOOOOO OOOOOOO OOOOOOO OOOOOOOOOOOOOOO"
-                        + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-                        + "OOOOOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-                        + "000000000000000000000000000000000000000000000000000000000000000000000"
-                        + "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-                        + "OOOOOOOOOOOOOO OOOOOOO OOOOOO OOOOOOOOO OOOOOOO OOOOOOOOO OOOOO OOOO O OOOOOOO", "tarjeta.png");
-        locY = analisisPublicacion(locY, publi);
+        /*Publicacion publi = new Publicacion(new Categoria("PruebaCat", 1),
+                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT", "Los estilos vienen datos por constantes (miembros estáticos de la clase Font), Font.BOLD establece el estilo negrita, Font.ITALIC, el estilo cursiva, y Font.PLAIN, el estilo normal. Se pueden combinar las constantes Font.BOLD+Font.ITALIC para establecer el estilo negrita y cursiva a la vez.\n"
+                + "\n"
+                + "La función setFont de la clase Graphics establece la fuente de texto en el contexto gráfico g.\n"
+                + "\n"
+                + "        g.setFont(fuente);\n"
+                + "La función getFont obtiene la fuente de texto actual de dicho contexto gráfico. La función drawString dibuja el string guardado en el objeto texto de la clase String, y lo sitúa en la posición cuyas coordenadas vienen dadas por los dos números enteros que le siguen."
+                + "java.util.Locale es una clase con la cual se pueden crear objetos que representan una región geográfica, política o cultural. Esta clase proporciona tres constructores para crear objetos, en este ejemplo utilizamos el constructor que acepta dos argumentos. En la sig. Imagen describimos que significa cada argumento.", "images.png");
+
+        Publicacion publi2 = new Publicacion(new Categoria("PruebaCat", 1),
+                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT", ""
+                + "\n"
+                + "La función setFont de la clase Graphics establece la fuente de texto en el contexto gráfico g.\n"
+                + "\n"
+                + "        g.setFont(fuente);\n"
+                + "La función getFont obtiene la fuente de texto actual de dicho contexto gráfico. La función drawString dibuja el string guardado en el objeto texto de la clase String, y lo sitúa en la posición cuyas coordenadas vienen dadas por los dos números enteros que le siguen."
+                + "java.util.Locale es una clase con la cual se pueden crear objetos que representan una región geográfica, política o cultural. Esta clase proporciona tres constructores para crear objetos, en este ejemplo utilizamos el constructor que acepta dos argumentos. En la sig. Imagen describimos que significa cada argumento.", "Imagen1.png");
+         */
+
+        Controlador.listaPublicaciones.clear();
+        //Controlador.listaPublicaciones.add(publi);
+        //Controlador.listaPublicaciones.add(publi2);
+        cargarPublicaciones();
+    }
+
+    public void cargarPublicaciones() {
+        int locY = 0;
+        for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
+            locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
+        }
+
     }
 
     public int analisisPublicacion(int y, Publicacion publicacion) {
-        int tipo = 1;
-        int cantidadLabels = publicacion.getDescripcion().length();
-        cantidadLabels = (cantidadLabels/90)+1;
-        if (publicacion.getNombreImagen() != null) {
+        int tipo = 1, ancho = 0, alto = 0;
+        String nomImagen = publicacion.getNombreImagen();
+        if (nomImagen != null) {
             try {
-                Image imagen = new ImageIcon(getClass().getResource("/./recursos/imgpublicaciones/"
-                        + publicacion.getNombreImagen())).getImage();
-                if (imagen.getWidth(this) > imagen.getHeight(this)) {
+                Image imagen = new ImageIcon(getClass().getResource("/./recursos/imgpublicaciones/".concat(nomImagen))).getImage();
+                ancho = imagen.getWidth(this);
+                alto = imagen.getHeight(this);
+                if (ancho >= alto) {
                     tipo = 2;
                 } else {
                     tipo = 3;
-                    cantidadLabels = (cantidadLabels/60)+1;
-
                 }
             } catch (NullPointerException e) {
                 tipo = 1;
+                System.err.println("soy un error");
             }
         }
-        
-        PanelPublicacion pruebita = new PanelPublicacion(tipo,cantidadLabels,publicacion);
-        
-        pruebita.setSize(600, 600);
-        pruebita.setLocation(150, y);
+        System.out.println(publicacion.getNombreImagen() + ": " + ancho + "x" + alto + " TIPO: " + tipo);
+        PanelPublicacion pruebita = new PanelPublicacion(tipo, ancho, alto, publicacion);
+        pruebita.setSize(600, PanelPublicacion.tamañoPanel);
+        pruebita.setLocation(225, y);
         int locY = (int) pruebita.getY() + pruebita.getHeight() + 10;
-
-        jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(),
-                locY)); {
-            jPanelPublicacion.add(pruebita);
+        if (locY > jPanelPublicacion.getHeight()) {
+            jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(), locY));
         }
-
-        //System.out.println(locY);
+        jPanelPublicacion.add(pruebita);
         return locY;
     }
 
@@ -138,6 +160,11 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblNombreUsuario = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        btnRecargar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        btnFiltrar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -152,6 +179,11 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(4, 154, 201));
 
@@ -358,24 +390,41 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(900, 540));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(900, 500));
+        jScrollPane1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jScrollPane1KeyPressed(evt);
+            }
+        });
 
-        jPanelPublicacion.setPreferredSize(new java.awt.Dimension(900, 538));
+        jPanelPublicacion.setBackground(new java.awt.Color(230, 236, 240));
+        jPanelPublicacion.setPreferredSize(new java.awt.Dimension(900, 470));
+        jPanelPublicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanelPublicacionKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelPublicacionLayout = new javax.swing.GroupLayout(jPanelPublicacion);
         jPanelPublicacion.setLayout(jPanelPublicacionLayout);
         jPanelPublicacionLayout.setHorizontalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1051, Short.MAX_VALUE)
+            .addGap(0, 1053, Short.MAX_VALUE)
         );
         jPanelPublicacionLayout.setVerticalGroup(
             jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 538, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanelPublicacion);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel2KeyPressed(evt);
+            }
+        });
 
         lblLogo.setText("Logo");
 
@@ -413,6 +462,75 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel5KeyPressed(evt);
+            }
+        });
+
+        btnRecargar.setBackground(new java.awt.Color(0, 0, 0));
+        btnRecargar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnRecargar.setText("Recargar publicaciones");
+        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRecargar.setFocusPainted(false);
+        btnRecargar.setFocusable(false);
+        btnRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarActionPerformed(evt);
+            }
+        });
+        btnRecargar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRecargarKeyPressed(evt);
+            }
+        });
+
+        jComboBox1.setBackground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutorías", "Grupos de estudio autónomo", "Eventos estudiantiles", "Ventas y/o servicios" }));
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBox1.setFocusable(false);
+        jComboBox1.setPreferredSize(new java.awt.Dimension(69, 24));
+
+        btnFiltrar.setBackground(new java.awt.Color(0, 0, 0));
+        btnFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFiltrar.setFocusPainted(false);
+        btnFiltrar.setFocusable(false);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(355, 355, 355)
+                .addComponent(btnRecargar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -420,6 +538,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,8 +546,10 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
         );
 
         pack();
@@ -587,6 +708,36 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         GuiMisPublicaciones.main(null);
     }//GEN-LAST:event_btnMisPublicacionesActionPerformed
 
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+        jPanelPublicacion.removeAll();
+        jPanelPublicacion.repaint();
+        cargarPublicaciones();
+    }//GEN-LAST:event_btnRecargarActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jScrollPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jScrollPane1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cargarPublicaciones();
+        }
+    }//GEN-LAST:event_jScrollPane1KeyPressed
+
+    private void jPanelPublicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanelPublicacionKeyPressed
+    }//GEN-LAST:event_jPanelPublicacionKeyPressed
+
+    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel2KeyPressed
+    }//GEN-LAST:event_jPanel2KeyPressed
+
+    private void jPanel5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel5KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel5KeyPressed
+
+    private void btnRecargarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRecargarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRecargarKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -605,21 +756,29 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuiVentanaPrincipal().setVisible(true);
+                try {
+                    new GuiVentanaPrincipal().setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnMisPublicaciones;
+    private javax.swing.JButton btnRecargar;
     private javax.swing.JButton btnRegistrarme;
     private javax.swing.JButton btnRemit;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelCerrarSesion;
     private javax.swing.JPanel jPanelIniciarSesion;
     private javax.swing.JPanel jPanelMisPublicaciones;
@@ -627,6 +786,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRegistrarme;
     private javax.swing.JPanel jPanelRemit;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNombreUsuario;

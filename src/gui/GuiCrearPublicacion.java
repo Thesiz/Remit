@@ -486,11 +486,6 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         } else {
             Date fecha = new Date();
             Usuario usuario = null;
-            for (Usuario usuarioAct : Controlador.listaUsuarios) {
-                if (usuarioAct.getActivo() == true) {
-                    usuario = usuarioAct;
-                }
-            }
             for (Usuario usuarioTemp : Controlador.listaUsuarios) {
                 if (usuarioTemp.getActivo()) {
                     usuario = usuarioTemp;
@@ -590,11 +585,11 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
     public Categoria setCategoria() {
         Categoria categoria = null;
         if (rbtEventoE.isSelected()) {
-            categoria = new Categoria(this.rbtEventoE.getText(), 03);
+            categoria = new Categoria("Evento estudiantil", 02);
         } else if (rbtTutoria.isSelected()) {
-            categoria = new Categoria("Evento Estudiantil", 01);
+            categoria = new Categoria("Tutoría", 01);
         } else if (rbtGrupoEstudio.isSelected()) {
-            categoria = new Categoria("Grupo de estudio autonomo", 04);
+            categoria = new Categoria("Grupo de estudio autónomo", 04);
         } else if (rbtVentaServicio.isSelected()) {
             categoria = new Categoria("Venta y/o servicio", 05);
         }
