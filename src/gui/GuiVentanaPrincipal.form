@@ -515,14 +515,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="355" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="318" max="-2" attributes="0"/>
                   <Component id="btnRecargar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnFiltrar" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="cbxCategorias" min="-2" pref="161" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -540,7 +540,7 @@
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnFiltrar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="cbxCategorias" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -557,7 +557,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Recargar publicaciones"/>
+            <Property name="text" type="java.lang.String" value="Ver todas las publicaciones"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
             </Property>
@@ -569,7 +569,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnRecargarKeyPressed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="cbxCategorias">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -579,10 +579,10 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Tutor&#xed;as"/>
-                <StringItem index="1" value="Grupos de estudio aut&#xf3;nomo"/>
-                <StringItem index="2" value="Eventos estudiantiles"/>
-                <StringItem index="3" value="Ventas y/o servicios"/>
+                <StringItem index="0" value="Tutor&#xed;a"/>
+                <StringItem index="1" value="Grupo de estudio aut&#xf3;nomo"/>
+                <StringItem index="2" value="Evento estudiantil"/>
+                <StringItem index="3" value="Venta y/o servicio"/>
               </StringArray>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -612,6 +612,9 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFiltrarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
           <Properties>

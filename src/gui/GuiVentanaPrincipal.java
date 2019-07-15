@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -98,6 +99,24 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
             locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
         }
+    }
+
+    public void cargarPublicaciones(String filtro, int tipo) {
+        int locY = 0;
+        if (tipo == 1) {
+            for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
+                if (Controlador.listaPublicaciones.get(i).getCategoria().getNombre().equals(filtro)) {
+                    locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
+                }
+            }
+        } else {
+            for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
+                if (Controlador.listaPublicaciones.get(i).getTitulo().toLowerCase().contains(filtro.toLowerCase())
+                        || Controlador.listaPublicaciones.get(i).getDescripcion().toLowerCase().contains(filtro.toLowerCase())) {
+                    locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
+                }
+            }
+        }
 
     }
 
@@ -119,7 +138,6 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 System.err.println("soy un error");
             }
         }
-        System.out.println(publicacion.getNombreImagen() + ": " + ancho + "x" + alto + " TIPO: " + tipo);
         PanelPublicacion pruebita = new PanelPublicacion(tipo, ancho, alto, publicacion);
         pruebita.setSize(600, PanelPublicacion.tamañoPanel);
         pruebita.setLocation(225, y);
@@ -128,6 +146,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(), locY));
         }
         jPanelPublicacion.add(pruebita);
+        jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
         return locY;
     }
 
@@ -162,7 +181,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         lblNombreUsuario = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnRecargar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxCategorias = new javax.swing.JComboBox<>();
         btnFiltrar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
@@ -470,7 +489,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         btnRecargar.setBackground(new java.awt.Color(0, 0, 0));
         btnRecargar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnRecargar.setText("Recargar publicaciones");
+        btnRecargar.setText("Ver todas las publicaciones");
         btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRecargar.setFocusPainted(false);
         btnRecargar.setFocusable(false);
@@ -485,12 +504,12 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setBackground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutorías", "Grupos de estudio autónomo", "Eventos estudiantiles", "Ventas y/o servicios" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox1.setFocusable(false);
-        jComboBox1.setPreferredSize(new java.awt.Dimension(69, 24));
+        cbxCategorias.setBackground(new java.awt.Color(0, 0, 0));
+        cbxCategorias.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbxCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutoría", "Grupo de estudio autónomo", "Evento estudiantil", "Venta y/o servicio" }));
+        cbxCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbxCategorias.setFocusable(false);
+        cbxCategorias.setPreferredSize(new java.awt.Dimension(69, 24));
 
         btnFiltrar.setBackground(new java.awt.Color(0, 0, 0));
         btnFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -498,6 +517,11 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFiltrar.setFocusPainted(false);
         btnFiltrar.setFocusable(false);
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -506,14 +530,14 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(355, 355, 355)
+                .addGap(318, 318, 318)
                 .addComponent(btnRecargar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -527,7 +551,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -564,13 +588,16 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarmeActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
-        }
+            String busqueda = txtBuscar.getText();
+            jPanelPublicacion.removeAll();
+            jPanelPublicacion.repaint();
+            cargarPublicaciones(busqueda, 2);
+        }    
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void deshabilitarOpciones() {
@@ -738,6 +765,13 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRecargarKeyPressed
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        String categoría = cbxCategorias.getSelectedItem().toString();
+        jPanelPublicacion.removeAll();
+        jPanelPublicacion.repaint();
+        cargarPublicaciones(categoría, 1);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -773,7 +807,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRecargar;
     private javax.swing.JButton btnRegistrarme;
     private javax.swing.JButton btnRemit;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxCategorias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
