@@ -119,7 +119,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-       jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
+        jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
     }
 
     public int analisisPublicacion(int y, Publicacion publicacion) {
@@ -595,10 +595,16 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String busqueda = txtBuscar.getText();
-            jPanelPublicacion.removeAll();
-            jPanelPublicacion.repaint();
-            cargarPublicaciones(busqueda, 2);
-        }    
+            int aux = 3;
+            if (jPanelPublicacion.getHeight() > 470) {
+                aux = 2;
+            }
+            for (int i = 0; i < aux; i++) {
+                jPanelPublicacion.removeAll();
+                jPanelPublicacion.repaint();
+                cargarPublicaciones(busqueda, 2);
+            }
+        }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void deshabilitarOpciones() {
@@ -768,9 +774,15 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         String categoría = cbxCategorias.getSelectedItem().toString();
-        jPanelPublicacion.removeAll();
-        jPanelPublicacion.repaint();
-        cargarPublicaciones(categoría, 1);
+        int aux = 3;
+        if (jPanelPublicacion.getHeight() > 470) {
+            aux = 2;
+        }
+        for (int i = 0; i < aux; i++) {
+            jPanelPublicacion.removeAll();
+            jPanelPublicacion.repaint();
+            cargarPublicaciones(categoría, 1);
+        }
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     /**
