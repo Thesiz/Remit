@@ -88,7 +88,6 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 + "java.util.Locale es una clase con la cual se pueden crear objetos que representan una región geográfica, política o cultural. Esta clase proporciona tres constructores para crear objetos, en este ejemplo utilizamos el constructor que acepta dos argumentos. En la sig. Imagen describimos que significa cada argumento.", "Imagen1.png");
          */
 
-        Controlador.listaPublicaciones.clear();
         //Controlador.listaPublicaciones.add(publi);
         //Controlador.listaPublicaciones.add(publi2);
         cargarPublicaciones();

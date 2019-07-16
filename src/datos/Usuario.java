@@ -19,7 +19,7 @@ public class Usuario extends Persona implements ControladorCRUD {
         super(nombre, apellido, usuario, contraseña);
         this.activo = activo;
         Controlador.listaUsuarios.add(this);
-        Controlador.mapaUsuarios.put(usuario, this);
+        Archivo.guardarUsuarios(Controlador.listaUsuarios);
     }
 
     public void setActivo(boolean activo) {

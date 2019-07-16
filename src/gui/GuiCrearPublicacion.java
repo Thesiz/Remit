@@ -30,10 +30,7 @@ import modelos.TextPrompt;
 
 public class GuiCrearPublicacion extends javax.swing.JFrame {
 
-    Date fecha = new Date();
     Usuario user = null;
-    Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), user,
-            fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
     boolean pop = false;
 
     public GuiCrearPublicacion() {
