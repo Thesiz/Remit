@@ -35,6 +35,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         TextPrompt placeHolder = new TextPrompt("Buscar...", txtBuscar);
         Estetica logo = new Estetica();
         logo.logoVentana(this);

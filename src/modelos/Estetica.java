@@ -139,7 +139,7 @@ public class Estetica {
     }
 
     public static void formatoFechaPublicacion(JLabel label, Date fecha) {
-        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy 'a las' HH:mm a", new Locale("ES", "MX"));
+        SimpleDateFormat formatoEs = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy 'a las' hh:mm a", new Locale("ES", "MX"));
         label.setText(formatoEs.format(fecha).toUpperCase());
     }
 

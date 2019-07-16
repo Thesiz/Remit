@@ -99,10 +99,12 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
             locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
         }
+        jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
     }
 
     public void cargarPublicaciones(String filtro, int tipo) {
         int locY = 0;
+        jPanelPublicacion.setPreferredSize(new Dimension(900, 470));
         if (tipo == 1) {
             for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
                 if (Controlador.listaPublicaciones.get(i).getCategoria().getNombre().equals(filtro)) {
@@ -117,7 +119,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-
+       jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
     }
 
     public int analisisPublicacion(int y, Publicacion publicacion) {
@@ -146,7 +148,6 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(), locY));
         }
         jPanelPublicacion.add(pruebita);
-        jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
         return locY;
     }
 

@@ -199,6 +199,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         rbtEventoE.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rbtEventoE.setText("Evento Estudiantil");
         rbtEventoE.setContentAreaFilled(false);
+        rbtEventoE.setFocusPainted(false);
         rbtEventoE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtEventoEActionPerformed(evt);

@@ -140,18 +140,18 @@ public class PanelPublicacion extends javax.swing.JPanel {
                 texto.setSize(texto.getWidth(), texto.getHeight() + 29);
             }
         } else {
-            texto.setSize(335, 1);
+            texto.setSize(340, 1);
             texto.setLocation(250, 90);
-            fin = 50;
-            while (cantidad > 50 && fin > 0) {
+            fin = 49;
+            while (cantidad > 49 && fin > 0) {
                 if (descripcion.charAt(fin - 1) != ' ') {
                     fin -= 1;
                 } else {
                     labels.add(new JLabel(descripcion.substring(inicio, fin)));
-                    texto.setSize(texto.getWidth(), texto.getHeight() + 28);
+                    texto.setSize(texto.getWidth(), texto.getHeight() + 29);
                     cantidad -= (fin - inicio);
                     inicio = fin;
-                    fin += 50;
+                    fin += 49;
                 }
             }
             if (cantidad > 40 && fin == 0) {
