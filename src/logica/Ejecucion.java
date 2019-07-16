@@ -217,7 +217,7 @@ public class Ejecucion {
         Usuario usuario3 = new Usuario("Paulino", "Acuña", "pacuna", "123456", false);
         Usuario usuario4 = new Usuario("Alejandra", "Superlano", "asuperlano", "tas", false);*/
         Controlador.inicializarDatos();
-        GuiVentanaPrincipal.llamaVentanaPrincipal();
+        GuiVentanaPrincipal.main(args);
 
     }
 }

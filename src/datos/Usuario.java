@@ -32,7 +32,6 @@ public class Usuario extends Persona implements ControladorCRUD {
 
     public static void agregarPublicacion(Publicacion publicacion) {
         misPublicaciones.add(publicacion);
-        //Controlador.listaPublicaciones.add(publicacion);
     }
 
     public static ArrayList<Publicacion> getMisPublicaciones() {
@@ -71,14 +70,13 @@ public class Usuario extends Persona implements ControladorCRUD {
 
     @Override
     public void agregar(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
-        //Archivo.leerPublicaciones();
+        Archivo.leerPublicaciones();
         usuario = this;
         Date fechaPub = new Date();
         Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
         Usuario.agregarPublicacion(nuevaPublicacion);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
-        System.err.println("Publicacion creada sin foto");
-        System.err.println("ARRAY: "+Controlador.listaPublicaciones.size());
+        System.out.println("Publicacion creada");
     }
 
     @Override
@@ -115,15 +113,13 @@ public class Usuario extends Persona implements ControladorCRUD {
 
     @Override
     public void agregar(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImg) {
-        //Archivo.leerPublicaciones();
+        Archivo.leerPublicaciones();
         usuario = this;
         Date fechaPub = new Date();
         Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion, nombreImg);
         Usuario.agregarPublicacion(nuevaPublicacion);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion Completada!");
-        System.out.println("Publicacion creada con foto");
-        System.out.println("ARRAY: "+Controlador.listaPublicaciones.size());
     }
 
     @Override

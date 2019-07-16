@@ -719,7 +719,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed
         //pop = true;
         //deshabilitarOpciones();
-        //GuiMisPublicaciones.llamaMisPublicaciones();
+        //GuiMisPublicaciones.main(null);
     }//GEN-LAST:event_btnMisPublicacionesActionPerformed
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
@@ -768,7 +768,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void llamaVentanaPrincipal() {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

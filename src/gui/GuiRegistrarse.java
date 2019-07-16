@@ -19,7 +19,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
-import org.jvnet.substance.SubstanceLookAndFeel;
 
 /**
  *

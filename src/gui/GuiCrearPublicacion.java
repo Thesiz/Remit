@@ -434,7 +434,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             FileInputStream lector = null;
             try {
                 lector = new FileInputStream(archivo);
-                escritor = new FileOutputStream("./src/recursos/imgpublicaciones/" + guardar);
+                escritor = new FileOutputStream("./newrecursos/" + guardar);
                 byte[] almacenadorBytes = new byte[1024];
                 int lectorBytes;
                 while ((lectorBytes = lector.read(almacenadorBytes)) > 0) {
@@ -479,7 +479,8 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
         if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
-            Estetica.mensajeCamposVacios();
+            
+            new Estetica().mensajeCamposVacios();
         
         } else {
             Date fecha = new Date();
