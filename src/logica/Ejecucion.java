@@ -210,13 +210,14 @@ public class Ejecucion {
         temp1.eliminarPublicacion();
         temp1.editarPublicacion();*/
     //}
+
     public static void main(String[] args) {
-        Controlador.inicializarPublicaciones();
-        Usuario usuario = new Usuario("Anderson", "Vargas", "anvargasa", "holamundo", false);
+        /*Usuario usuario = new Usuario("Anderson", "Vargas", "anvargasa", "holamundo", false);
         Usuario usuario2 = new Usuario("Jennifer", "Ibarra", "jibarra", "holamundo2", false);
         Usuario usuario3 = new Usuario("Paulino", "Acuña", "pacuna", "123456", false);
-        Usuario usuario4 = new Usuario("Alejandra", "Superlano", "asuperlano", "tas", false);
-        GuiVentanaPrincipal.main(args);
+        Usuario usuario4 = new Usuario("Alejandra", "Superlano", "asuperlano", "tas", false);*/
+        Controlador.inicializarDatos();
+        GuiVentanaPrincipal.llamaVentanaPrincipal();
 
     }
 }

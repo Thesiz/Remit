@@ -19,7 +19,7 @@ public class Usuario extends Persona implements ControladorCRUD {
         super(nombre, apellido, usuario, contraseña);
         this.activo = activo;
         Controlador.listaUsuarios.add(this);
-        Controlador.mapaUsuarios.put(usuario, this);
+        Archivo.guardarUsuarios(Controlador.listaUsuarios);
     }
 
     public void setActivo(boolean activo) {
@@ -32,7 +32,7 @@ public class Usuario extends Persona implements ControladorCRUD {
 
     public static void agregarPublicacion(Publicacion publicacion) {
         misPublicaciones.add(publicacion);
-        Controlador.listaPublicaciones.add(publicacion);
+        //Controlador.listaPublicaciones.add(publicacion);
     }
 
     public static ArrayList<Publicacion> getMisPublicaciones() {
@@ -71,14 +71,14 @@ public class Usuario extends Persona implements ControladorCRUD {
 
     @Override
     public void agregar(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion) {
-        Archivo.leerPublicaciones();
+        //Archivo.leerPublicaciones();
         usuario = this;
         Date fechaPub = new Date();
         Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion);
         Usuario.agregarPublicacion(nuevaPublicacion);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
-        System.out.println("Publicacion creada");
-        System.out.println(nuevaPublicacion);
+        System.err.println("Publicacion creada sin foto");
+        System.err.println("ARRAY: "+Controlador.listaPublicaciones.size());
     }
 
     @Override
@@ -115,13 +115,15 @@ public class Usuario extends Persona implements ControladorCRUD {
 
     @Override
     public void agregar(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImg) {
-        Archivo.leerPublicaciones();
+        //Archivo.leerPublicaciones();
         usuario = this;
         Date fechaPub = new Date();
         Publicacion nuevaPublicacion = new Publicacion(categoria, usuario, fechaPub, titulo, descripcion, nombreImg);
         Usuario.agregarPublicacion(nuevaPublicacion);
         Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
         System.out.println("Publicacion Completada!");
+        System.out.println("Publicacion creada con foto");
+        System.out.println("ARRAY: "+Controlador.listaPublicaciones.size());
     }
 
     @Override

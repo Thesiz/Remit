@@ -30,10 +30,7 @@ import modelos.TextPrompt;
 
 public class GuiCrearPublicacion extends javax.swing.JFrame {
 
-    Date fecha = new Date();
     Usuario user = null;
-    Publicacion pub = new Publicacion((new Categoria("Tutoria", 01)), user,
-            fecha, "Tengo que pasar el parcial de calculo", "Tas tas tas");
     boolean pop = false;
 
     public GuiCrearPublicacion() {
@@ -499,10 +496,6 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 Estetica.mensajeCheck();
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
-                for (Publicacion pub : Controlador.listaPublicaciones) {
-                    System.out.println(pub);
-                    System.out.println("\n\n");
-                }
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
@@ -671,7 +664,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuiCrearPublicacion(pub).setVisible(true);
+               // new GuiCrearPublicacion(pub).setVisible(true);
             }
         });
     }

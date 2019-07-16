@@ -5,6 +5,7 @@
  */
 package gui;
 
+import datos.Archivo;
 import datos.Categoria;
 import datos.Publicacion;
 import datos.Usuario;
@@ -69,28 +70,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         int locY = 0;
         Date fecha = new Date();
-        /*Publicacion publi = new Publicacion(new Categoria("PruebaCat", 1),
-                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT", "Los estilos vienen datos por constantes (miembros estáticos de la clase Font), Font.BOLD establece el estilo negrita, Font.ITALIC, el estilo cursiva, y Font.PLAIN, el estilo normal. Se pueden combinar las constantes Font.BOLD+Font.ITALIC para establecer el estilo negrita y cursiva a la vez.\n"
-                + "\n"
-                + "La función setFont de la clase Graphics establece la fuente de texto en el contexto gráfico g.\n"
-                + "\n"
-                + "        g.setFont(fuente);\n"
-                + "La función getFont obtiene la fuente de texto actual de dicho contexto gráfico. La función drawString dibuja el string guardado en el objeto texto de la clase String, y lo sitúa en la posición cuyas coordenadas vienen dadas por los dos números enteros que le siguen."
-                + "java.util.Locale es una clase con la cual se pueden crear objetos que representan una región geográfica, política o cultural. Esta clase proporciona tres constructores para crear objetos, en este ejemplo utilizamos el constructor que acepta dos argumentos. En la sig. Imagen describimos que significa cada argumento.", "images.png");
-
-        Publicacion publi2 = new Publicacion(new Categoria("PruebaCat", 1),
-                new Usuario("PruebaN", "PruebaA", "PruebaU", "PruebaC", true), fecha, "PruebaT", ""
-                + "\n"
-                + "La función setFont de la clase Graphics establece la fuente de texto en el contexto gráfico g.\n"
-                + "\n"
-                + "        g.setFont(fuente);\n"
-                + "La función getFont obtiene la fuente de texto actual de dicho contexto gráfico. La función drawString dibuja el string guardado en el objeto texto de la clase String, y lo sitúa en la posición cuyas coordenadas vienen dadas por los dos números enteros que le siguen."
-                + "java.util.Locale es una clase con la cual se pueden crear objetos que representan una región geográfica, política o cultural. Esta clase proporciona tres constructores para crear objetos, en este ejemplo utilizamos el constructor que acepta dos argumentos. En la sig. Imagen describimos que significa cada argumento.", "Imagen1.png");
-         */
-
-        Controlador.listaPublicaciones.clear();
-        //Controlador.listaPublicaciones.add(publi);
-        //Controlador.listaPublicaciones.add(publi2);
+       
         cargarPublicaciones();
     }
 
@@ -716,8 +696,8 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
                 if (usu.getActivo()) {
                     usu.setActivo(false);
 
-                    System.out.println("cambio " + usu.getNombre());
                     lblNombreUsuario.setVisible(false);
+                    Archivo.guardarUsuarios(Controlador.listaUsuarios);
                     break;
                 }
             }
@@ -737,9 +717,9 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed
-        pop = true;
-        deshabilitarOpciones();
-        GuiMisPublicaciones.main(null);
+        //pop = true;
+        //deshabilitarOpciones();
+        //GuiMisPublicaciones.llamaMisPublicaciones();
     }//GEN-LAST:event_btnMisPublicacionesActionPerformed
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
@@ -788,7 +768,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void llamaVentanaPrincipal() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

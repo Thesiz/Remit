@@ -56,4 +56,47 @@ public class Archivo implements Serializable{
         }
     }
     
+    public static ArrayList<Usuario> leerUsuarios (){
+        File archivo = new File ("listaUsuarios.txt");
+        FileInputStream lector = null;
+        ObjectInputStream decodificador = null;
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try {
+            lector = new FileInputStream(archivo);
+            decodificador = new ObjectInputStream(lector);
+            usuarios = (ArrayList<Usuario>) decodificador.readObject();
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        } catch (IOException | ClassNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return usuarios;
+    }
+    
+    public static void guardarUsuarios(ArrayList<Usuario> usuarios){
+        File archivo = new File("listaUsuarios.txt");
+        FileOutputStream escritor = null;
+        ObjectOutputStream encriptador = null;
+        try {
+            archivo.createNewFile();
+            escritor = new FileOutputStream(archivo);
+            encriptador = new ObjectOutputStream(escritor);
+            encriptador.writeObject(usuarios);
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+        finally{
+            if(escritor != null){
+                try {
+                    escritor.close();
+                    if(escritor != null){
+                        escritor.close();
+                    }
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
+                }
+            }
+        }
+    }
+    
 }

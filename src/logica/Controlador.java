@@ -7,14 +7,12 @@ import java.util.Scanner;
 import modelos.Estetica;
 
 public class Controlador {
-
-    public static HashMap<String, Usuario> mapaUsuarios = new HashMap<>();
-    private final HashMap<String, String> mapaPublicaciones = new HashMap<>();
     public static ArrayList<Publicacion> listaPublicaciones = new ArrayList<Publicacion>();
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-    public static void inicializarPublicaciones() {
+    public static void inicializarDatos() {
         Controlador.listaPublicaciones = Archivo.leerPublicaciones();
+        Controlador.listaUsuarios = Archivo.leerUsuarios();
     }
 
     public void mostrarTodasPublicaciones() {
@@ -98,6 +96,7 @@ public class Controlador {
                 Estetica.mostrarOcultarComponente(Estetica.labelTemp, usuarioTemp.getNombre()
                         +" "+usuarioTemp.getApellido(), true);
                 usuarioTemp.setActivo(true);
+                Archivo.guardarUsuarios(listaUsuarios);
                 datosCorrectos = true;
                 //System.out.println(usuarioTemp.getActivo());
             }

@@ -3,6 +3,7 @@ package datos;
 import java.awt.Image;
 import java.io.Serializable;
 import java.util.Date;
+import logica.Controlador;
 
 public class Publicacion implements Serializable {
 
@@ -23,6 +24,8 @@ public class Publicacion implements Serializable {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.nombreImagen =  null;
+        Controlador.listaPublicaciones.add(this);
+        Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
     }
 
     public Publicacion(Categoria categoria, Usuario usuario, Date fecha, String titulo, String descripcion, String nombreImagen) {
