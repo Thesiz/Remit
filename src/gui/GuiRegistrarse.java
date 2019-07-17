@@ -58,17 +58,17 @@ public class GuiRegistrarse extends javax.swing.JFrame {
 
         if (nombre.equals("") || usuario.equals("") || contrasena.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Los campos no pueden ir vacíos",
-                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/recursos/img/x.png")));
 
         } else if (Controlador.registrar(nombre, apellido, usuario, contrasena)) {
             JOptionPane.showMessageDialog(rootPane, "El nombre de usuario ya se encuentra registrado",
-                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/recursos/img/x.png")));
             txtUsuario.setText("");
             txtContraseña.setText("");
             txtUsuario.requestFocus();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Registro correcto\n¡Ya eres parte de Remit " + nombre + "!",
-                    "Remit", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/check.png")));
+                    "Remit", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/recursos/img/check.png")));
             Estetica.mostrarOcultarBotones(Estetica.botonesOcultar, Estetica.botonesMostrar);
             Estetica.mostrarOcultarComponente(Estetica.labelTemp, nombre+" "+apellido, true);
             this.dispose();

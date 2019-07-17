@@ -41,7 +41,7 @@ public class Estetica {
     
     public static ImageIcon mensajeCheck (){
         String [] boton = {"Ok"};
-        ImageIcon icono = new ImageIcon("./src/recursos/img/check.png");
+        ImageIcon icono = new ImageIcon("/recursos/img/check.png");
         JOptionPane.showMessageDialog(null, "Publicación creada éxitosamente", "Publicación creada", 
                 JOptionPane.DEFAULT_OPTION,icono);
         return icono;
@@ -56,8 +56,14 @@ public class Estetica {
     }
     
     
-    public void logoImagen (JLabel label,String imagen){
-        ImageIcon foto = new ImageIcon(getClass().getResource("/./recursos/"+imagen));
+    public void logoImagen1 (JLabel label,String imagen){
+        ImageIcon foto = new ImageIcon(getClass().getResource("/recursos/"+imagen));
+        Icon icono = new ImageIcon(foto.getImage().getScaledInstance(label.getWidth(),
+                label.getHeight(), Image.SCALE_SMOOTH));
+        label.setIcon(icono);
+    }
+    public void logoImagen2 (JLabel label,String imagen){
+        ImageIcon foto = new ImageIcon(imagen);
         Icon icono = new ImageIcon(foto.getImage().getScaledInstance(label.getWidth(),
                 label.getHeight(), Image.SCALE_SMOOTH));
         label.setIcon(icono);

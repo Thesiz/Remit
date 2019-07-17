@@ -410,7 +410,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         String[] opciones = {"Si", "No"};
         int opcion = JOptionPane.showOptionDialog(null, "¿Estás seguro de cancelar la publicación?"
                 + "\nTodos los datos insertados en los campos serán eliminados", "Cancelar publicación", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                (new ImageIcon("./src/recursos/img/x.png")), opciones, opciones[0]);
+                (new ImageIcon("/recursos/img/x.png")), opciones, opciones[0]);
         if (opcion == 0) {
             Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
             GuiVentanaPrincipal.pop = false;
@@ -434,7 +434,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             FileInputStream lector = null;
             try {
                 lector = new FileInputStream(archivo);
-                escritor = new FileOutputStream("./newrecursos/" + guardar);
+                escritor = new FileOutputStream(guardar);
                 byte[] almacenadorBytes = new byte[1024];
                 int lectorBytes;
                 while ((lectorBytes = lector.read(almacenadorBytes)) > 0) {
@@ -479,9 +479,9 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
 
     private void btnRemitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemitActionPerformed
         if ((txtTitulo.getText()).equals("") || (txtDescripcion.getText()).equals("")) {
-            
+
             new Estetica().mensajeCamposVacios();
-        
+
         } else {
             Date fecha = new Date();
             Usuario usuario = null;
@@ -494,14 +494,20 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
             if (lblArchivo.getText().equals("")) {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText());
-                Estetica.mensajeCheck();
+                String[] boton = {"Ok"};
+                ImageIcon icono = new ImageIcon(getClass().getResource("/recursos/img/check.png"));
+                JOptionPane.showMessageDialog(null, "Publicación creada éxitosamente", "Publicación creada",
+                        JOptionPane.DEFAULT_OPTION, icono);
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
                 this.dispose();
             } else {
                 usuario.agregar(setCategoria(), usuario, fecha, txtTitulo.getText(),
                         txtDescripcion.getText(), lblArchivo.getText());
-                Estetica.mensajeCheck();
+                String[] boton = {"Ok"};
+                ImageIcon icono = new ImageIcon(getClass().getResource("/recursos/img/check.png"));
+                JOptionPane.showMessageDialog(null, "Publicación creada éxitosamente", "Publicación creada",
+                        JOptionPane.DEFAULT_OPTION, icono);
                 Estetica.habDeshabComponentes(Estetica.componentesEntrantes, true);
                 GuiVentanaPrincipal.pop = false;
                 for (Publicacion pub : Controlador.listaPublicaciones) {
@@ -511,7 +517,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
                 this.dispose();
             }
         }
-            
+
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnRemitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemitMouseEntered
@@ -665,7 +671,7 @@ public class GuiCrearPublicacion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               // new GuiCrearPublicacion(pub).setVisible(true);
+                // new GuiCrearPublicacion(pub).setVisible(true);
             }
         });
     }

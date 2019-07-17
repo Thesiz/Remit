@@ -36,7 +36,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
         contraseña = txtContraseña.getText();
         if (usuario.equals("") || contraseña.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Los campos no pueden ir vacíos",
-                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+                    "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/recursos/img/x.png")));
         } else {
             boolean InicioCorrecto = Controlador.iniciarSesion(usuario, contraseña);
             if (InicioCorrecto) {
@@ -44,7 +44,7 @@ public class GuiIniciarSesion extends javax.swing.JFrame {
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos",
-                        "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/./recursos/img/x.png")));
+                        "Remit", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/recursos/img/x.png")));
                 txtContraseña.setText("");
             }
         }

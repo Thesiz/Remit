@@ -42,7 +42,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         logo.logoVentana(this);
         setResizable(false);
         setLocationRelativeTo(null);
-        logo.logoImagen(lblLogo, "img/logoremit.png");
+        logo.logoImagen1(lblLogo, "img/logoremit.png");
         //Busca si hay un usuario activo
         boolean usuarioActivo = false;
         for (Usuario usu : Controlador.listaUsuarios) {
@@ -70,7 +70,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
 
         int locY = 0;
         Date fecha = new Date();
-       
+
         cargarPublicaciones();
     }
 
@@ -107,9 +107,10 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         String nomImagen = publicacion.getNombreImagen();
         if (nomImagen != null) {
             try {
-                Image imagen = new ImageIcon(getClass().getResource("/./recursos/imgpublicaciones/".concat(nomImagen))).getImage();
+                Image imagen = new ImageIcon(nomImagen).getImage();
                 ancho = imagen.getWidth(this);
                 alto = imagen.getHeight(this);
+                System.out.println("IMAGEN: " + imagen.getWidth(this));
                 if (ancho >= alto) {
                     tipo = 2;
                 } else {
@@ -471,7 +472,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnRecargar.setBackground(new java.awt.Color(0, 0, 0));
         btnRecargar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnRecargar.setText("Ver todas las publicaciones");
-        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRecargar.setFocusPainted(false);
         btnRecargar.setFocusable(false);
         btnRecargar.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +496,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         btnFiltrar.setBackground(new java.awt.Color(0, 0, 0));
         btnFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnFiltrar.setText("Filtrar");
-        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnFiltrar.setFocusPainted(false);
         btnFiltrar.setFocusable(false);
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -525,15 +526,13 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -690,7 +689,7 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
         deshabilitarOpciones();
         int opcion = JOptionPane.showConfirmDialog(rootPane, "Se va a cerrar la sesión \n"
                 + "¿Quieres continuar?", "Remit", 0, 0,
-                new ImageIcon(getClass().getResource("/./recursos/img/exit.png")));
+                new ImageIcon(getClass().getResource("/recursos/img/exit.png")));
         if (opcion == 0) {
             for (Usuario usu : Controlador.listaUsuarios) {
                 if (usu.getActivo()) {
@@ -717,9 +716,9 @@ public class GuiVentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemitActionPerformed
 
     private void btnMisPublicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMisPublicacionesActionPerformed
-        //pop = true;
-        //deshabilitarOpciones();
-        //GuiMisPublicaciones.main(null);
+        pop = true;
+        deshabilitarOpciones();
+        GuiMisPublicaciones.main(null);
     }//GEN-LAST:event_btnMisPublicacionesActionPerformed
 
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed

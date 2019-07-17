@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Archivo implements Serializable{
     
     public static ArrayList<Publicacion> leerPublicaciones (){
-        File archivo = new File ("listaPublicaciones.txt");
+        File archivo = new File ("listaPublicaciones.txt").getAbsoluteFile();
         FileInputStream lector = null;
         ObjectInputStream decodificador = null;
         ArrayList<Publicacion> publicaciones = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Archivo implements Serializable{
     }
     
     public static void guardarPublicaciones(ArrayList<Publicacion> publicaciones){
-        File archivo = new File("listaPublicaciones.txt");
+        File archivo = new File("listaPublicaciones.txt").getAbsoluteFile();
         FileOutputStream escritor = null;
         ObjectOutputStream encriptador = null;
         try {
@@ -57,7 +57,7 @@ public class Archivo implements Serializable{
     }
     
     public static ArrayList<Usuario> leerUsuarios (){
-        File archivo = new File ("listaUsuarios.txt");
+        File archivo = new File ("listaUsuarios.txt").getAbsoluteFile();
         FileInputStream lector = null;
         ObjectInputStream decodificador = null;
         ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -74,7 +74,7 @@ public class Archivo implements Serializable{
     }
     
     public static void guardarUsuarios(ArrayList<Usuario> usuarios){
-        File archivo = new File("listaUsuarios.txt");
+       File archivo = new File("listaUsuarios.txt").getAbsoluteFile();
         FileOutputStream escritor = null;
         ObjectOutputStream encriptador = null;
         try {

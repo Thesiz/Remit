@@ -96,7 +96,7 @@ public class PanelPublicacion extends javax.swing.JPanel {
         foto.setLocation(x, y);
         foto.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
         Estetica logo = new Estetica();
-        logo.logoImagen(foto, "imgpublicaciones/" + pub.getNombreImagen());
+        logo.logoImagen2(foto, pub.getNombreImagen());
         return foto;
     }
 
