@@ -5,7 +5,14 @@
  */
 package gui;
 
+import datos.Publicacion;
 import datos.Usuario;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import logica.Controlador;
 import modelos.Estetica;
 import modelos.TextPrompt;
@@ -19,6 +26,8 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
     /**
      * Creates new form GuiMisPublicaciones
      */
+    Usuario usuarioTemp = null;
+
     public GuiMisPublicaciones() {
         initComponents();
         setResizable(false);
@@ -30,16 +39,75 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         Estetica.formatoFechaVentana(lblFecha);
         TextPrompt placeholder = new TextPrompt("Buscar...", txtBuscar);
         es.logoImagen1(lblLogo, "img/logoremit.png");
-        
-        Usuario usuarioTemp = null;
-        for(Usuario usu: Controlador.listaUsuarios){
-            if(usu.getActivo()){
+        for (Usuario usu : Controlador.listaUsuarios) {
+            if (usu.getActivo()) {
                 usuarioTemp = usu;
             }
         }
-        lblNombreUsuario.setText("Nombre: "+usuarioTemp.getNombre());
-        lblApellidoUsuario.setText("Apellido: "+usuarioTemp.getApellido());
-        
+        lblNombreUsuario.setText("Nombre: " + usuarioTemp.getNombre());
+        lblApellidoUsuario.setText("Apellido: " + usuarioTemp.getApellido());
+        cargarPublicaciones();
+    }
+
+    public void cargarPublicaciones() {
+        int locY = 0;
+        for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
+            if (Controlador.listaPublicaciones.get(i).getUsuario().getUsuario().equals(usuarioTemp.getUsuario())) {
+                locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
+            }
+        }
+        jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
+    }
+
+    public void cargarPublicaciones(String filtro, int tipo) {
+        int locY = 0;
+        jPanelPublicacion.setPreferredSize(new Dimension(900, 470));
+        if (tipo == 1) {
+            for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
+                if (Controlador.listaPublicaciones.get(i).getCategoria().getNombre().equals(filtro)
+                        && Controlador.listaPublicaciones.get(i).getUsuario().getUsuario().equals(usuarioTemp.getUsuario())) {
+                    locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
+                }
+            }
+        } else {
+            for (int i = Controlador.listaPublicaciones.size() - 1; i >= 0; i--) {
+                if ((Controlador.listaPublicaciones.get(i).getUsuario().getUsuario().equals(usuarioTemp.getUsuario()))
+                        && (Controlador.listaPublicaciones.get(i).getTitulo().toLowerCase().contains(filtro.toLowerCase())
+                        || Controlador.listaPublicaciones.get(i).getDescripcion().toLowerCase().contains(filtro.toLowerCase()))) {
+                    locY = analisisPublicacion(locY, Controlador.listaPublicaciones.get(i));
+                }
+            }
+        }
+        jPanelPublicacion.scrollRectToVisible(new Rectangle(900, 470));
+    }
+
+    public int analisisPublicacion(int y, Publicacion publicacion) {
+        int tipo = 1, ancho = 0, alto = 0;
+        String nomImagen = publicacion.getNombreImagen();
+        if (nomImagen != null) {
+            try {
+                Image imagen = new ImageIcon(nomImagen).getImage();
+                ancho = imagen.getWidth(this);
+                alto = imagen.getHeight(this);
+                if (ancho >= alto) {
+                    tipo = 2;
+                } else {
+                    tipo = 3;
+                }
+            } catch (NullPointerException e) {
+                tipo = 1;
+                System.err.println("soy un error");
+            }
+        }
+        PanelPublicacion pruebita = new PanelPublicacion(tipo, ancho, alto, publicacion,true);
+        pruebita.setSize(600, PanelPublicacion.tamañoPanel);
+        pruebita.setLocation(150, y);
+        int locY = (int) pruebita.getY() + pruebita.getHeight() + 10;
+        if (locY > jPanelPublicacion.getHeight()) {
+            jPanelPublicacion.setPreferredSize(new Dimension(jPanelPublicacion.getWidth(), locY));
+        }
+        jPanelPublicacion.add(pruebita);
+        return locY;
     }
 
     /**
@@ -60,10 +128,15 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
         lblNombreUsuario = new javax.swing.JLabel();
         lblApellidoUsuario = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanelPublicaion = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanelPublicacion = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnRecargar = new javax.swing.JButton();
+        cbxCategorias = new javax.swing.JComboBox<>();
+        btnFiltrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -111,6 +184,11 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
                 btnInicioMouseExited(evt);
             }
         });
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelInicioLayout = new javax.swing.GroupLayout(jPanelInicio);
         jPanelInicio.setLayout(jPanelInicioLayout);
@@ -134,7 +212,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 581, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanelInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,42 +269,97 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setBackground(new java.awt.Color(230, 236, 240));
-        jScrollPane1.setBorder(null);
-
-        jPanelPublicaion.setBackground(new java.awt.Color(230, 236, 240));
-
-        javax.swing.GroupLayout jPanelPublicaionLayout = new javax.swing.GroupLayout(jPanelPublicaion);
-        jPanelPublicaion.setLayout(jPanelPublicaionLayout);
-        jPanelPublicaionLayout.setHorizontalGroup(
-            jPanelPublicaionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 828, Short.MAX_VALUE)
-        );
-        jPanelPublicaionLayout.setVerticalGroup(
-            jPanelPublicaionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(jPanelPublicaion);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Mis publicaciones");
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setBackground(new java.awt.Color(230, 236, 240));
+        jScrollPane1.setBorder(null);
+
+        jPanelPublicacion.setBackground(new java.awt.Color(230, 236, 240));
+
+        javax.swing.GroupLayout jPanelPublicacionLayout = new javax.swing.GroupLayout(jPanelPublicacion);
+        jPanelPublicacion.setLayout(jPanelPublicacionLayout);
+        jPanelPublicacionLayout.setHorizontalGroup(
+            jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 881, Short.MAX_VALUE)
+        );
+        jPanelPublicacionLayout.setVerticalGroup(
+            jPanelPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 551, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanelPublicacion);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        btnRecargar.setBackground(new java.awt.Color(0, 0, 0));
+        btnRecargar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnRecargar.setText("Ver todas las publicaciones");
+        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRecargar.setFocusPainted(false);
+        btnRecargar.setFocusable(false);
+        btnRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarActionPerformed(evt);
+            }
+        });
+        btnRecargar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnRecargarKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnRecargar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
+
+        cbxCategorias.setBackground(new java.awt.Color(0, 0, 0));
+        cbxCategorias.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbxCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tutoría", "Grupo de estudio autónomo", "Evento estudiantil", "Venta y/o servicio" }));
+        cbxCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbxCategorias.setFocusable(false);
+        cbxCategorias.setPreferredSize(new java.awt.Dimension(69, 24));
+
+        btnFiltrar.setBackground(new java.awt.Color(0, 0, 0));
+        btnFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFiltrar.setFocusPainted(false);
+        btnFiltrar.setFocusable(false);
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,10 +369,15 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(239, 239, 239))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,11 +385,16 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -267,7 +410,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        /*if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String busqueda = txtBuscar.getText();
             int aux = 3;
             if (jPanelPublicacion.getHeight() > 470) {
@@ -278,18 +421,45 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
                 jPanelPublicacion.repaint();
                 cargarPublicaciones(busqueda, 2);
             }
-        }*/
+        }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void btnInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseEntered
-        jPanelInicio.setBackground(new java.awt.Color(255,255,255));
-        btnInicio.setForeground(new java.awt.Color(4,154,201));
+        jPanelInicio.setBackground(new java.awt.Color(255, 255, 255));
+        btnInicio.setForeground(new java.awt.Color(4, 154, 201));
     }//GEN-LAST:event_btnInicioMouseEntered
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
-        jPanelInicio.setBackground(new java.awt.Color(4,154,201));
-        btnInicio.setForeground(new java.awt.Color(255,255,255));
+        jPanelInicio.setBackground(new java.awt.Color(4, 154, 201));
+        btnInicio.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnInicioMouseExited
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        String categoría = cbxCategorias.getSelectedItem().toString();
+        /*int aux = 3;
+        if (jPanelPublicacion.getHeight() > 470) {
+            aux = 2;
+        }
+        for (int i = 0; i < aux; i++) {*/
+        jPanelPublicacion.removeAll();
+        jPanelPublicacion.repaint();
+        cargarPublicaciones(categoría, 1);
+        //}
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+        jPanelPublicacion.removeAll();
+        jPanelPublicacion.repaint();
+        cargarPublicaciones();
+    }//GEN-LAST:event_btnRecargarActionPerformed
+
+    private void btnRecargarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRecargarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRecargarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -300,22 +470,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuiMisPublicaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuiMisPublicaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuiMisPublicaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuiMisPublicaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        Estetica.lookAndFeel();
         //</editor-fold>
 
         /* Create and display the form */
@@ -327,14 +482,19 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnRecargar;
+    private javax.swing.JComboBox<String> cbxCategorias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelInicio;
-    private javax.swing.JPanel jPanelPublicaion;
+    private javax.swing.JPanel jPanelPublicacion;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblApellidoUsuario;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblLogo;

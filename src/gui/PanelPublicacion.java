@@ -1,5 +1,6 @@
 package gui;
 
+import datos.Archivo;
 import datos.Publicacion;
 import datos.Usuario;
 import java.awt.Color;
@@ -9,7 +10,10 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import logica.Controlador;
@@ -20,6 +24,39 @@ public class PanelPublicacion extends javax.swing.JPanel {
     public static int tamañoPanel = 0;
 
     public PanelPublicacion(int tipo, int ancho, int alto, Publicacion publicacion) {
+        initComponents();
+        btnEliminar.setVisible(false);
+        if (tipo == 1) {
+            tamañoPanel = 120;
+        } else if (tipo == 2) {
+            tamañoPanel = 330;
+        } else {
+            if (alto < 350) {
+                tamañoPanel = 150 + alto;
+            } else {
+                tamañoPanel = 500;
+            }
+        }
+        ArrayList<JLabel> labels = datosPublicacion(publicacion);
+        for (JLabel label : labels) {
+            this.add(label);
+        }
+
+        if (tipo != 1) {
+            this.add(pintaFoto(tipo, ancho, alto, publicacion));
+        }
+
+        JPanel jPanelTexto = pintaDescripcion(tipo, publicacion);
+        this.add(jPanelTexto);
+        if (tipo == 3) {
+            if (jPanelTexto.getHeight() > tamañoPanel - 100) {
+                tamañoPanel += (jPanelTexto.getHeight() - (tamañoPanel - 100));
+            }
+        } else {
+            tamañoPanel += jPanelTexto.getHeight();
+        } 
+    }
+    public PanelPublicacion(int tipo, int ancho, int alto, Publicacion publicacion, boolean i) {
         initComponents();
         if (tipo == 1) {
             tamañoPanel = 120;
@@ -50,25 +87,66 @@ public class PanelPublicacion extends javax.swing.JPanel {
         } else {
             tamañoPanel += jPanelTexto.getHeight();
         }
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setSize(700, 200);
+        jLabel1.setText(String.valueOf(publicacion.getId()));
+        jLabel1.setVisible(false);
+        tamañoPanel += 30;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
         setBackground(new java.awt.Color(255, 255, 255));
+
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(366, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminar)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 171, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int id = Integer.parseInt(jLabel1.getText());
+        int opcion = JOptionPane.showConfirmDialog(this, "Se va a eliminar la publicación \n"
+                + "¿Quieres continuar?", "Remit", 0, 0,
+                new ImageIcon(getClass().getResource("/recursos/img/x.png")));
+        if (opcion == 0) {
+            for(Publicacion publi: Controlador.listaPublicaciones){
+                if(publi.getId() == id){
+                    Controlador.listaPublicaciones.remove(publi);
+                    Archivo.guardarPublicaciones(Controlador.listaPublicaciones);
+                }
+            }
+        }    
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private JLabel pintaFoto(int tipo, int width, int height, Publicacion pub) {
         int ancho = width, alto = height, x = 100, y = 100;
@@ -219,5 +297,7 @@ public class PanelPublicacion extends javax.swing.JPanel {
         return labels;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
