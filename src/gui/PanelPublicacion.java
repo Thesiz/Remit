@@ -105,6 +105,7 @@ public class PanelPublicacion extends javax.swing.JPanel {
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);

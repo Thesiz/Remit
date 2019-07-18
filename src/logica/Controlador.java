@@ -140,82 +140,9 @@ public class Controlador {
 
     }
 
-    public static void cerrarSesion(Administrador admin) {
-        admin.setActivo(false);
-        System.out.println("Sesion Termianda");
+   
 
-    }
+    
 
-    public static void remit(Administrador admin) {
-        admin.agregar();
-    }
-
-    public static void perfilAdmin(Administrador admin) {
-        Scanner entrada = new Scanner(System.in);
-
-        //poner manejo de ecepciones!!
-        System.out.println("Seleccione: "
-                + "\n1. Editar Publicacion"
-                + "\n2. Borrar Publicacion"
-                + "\n3. Editar ccualquier Publicacion"
-                + "\n4. Borrar cualquier Publicacion"
-                + "\n5. Eliminar Usuario");
-
-        int opcion = entrada.nextInt();
-        if (opcion == 1) {
-
-            admin.editar();
-        } else if (opcion == 2) {
-            admin.eliminar();
-
-        } else if (opcion == 3) {
-            admin.editarCualquierPub();
-
-        } else if (opcion == 4) {
-            admin.eliminarCualquierPub();
-
-        } else if (opcion == 5) {
-
-            //LOGICA POR TERMINAR
-        }
-
-    }
-
-    public void accesoAdministrador(Administrador admin) {
-
-        try {
-            System.out.println("  _____                   _  _   ");
-            System.out.println(" |  __ \\                 (_)| |  ");
-            Thread.sleep(1 * 1000);
-            System.out.println(" | |__) | ___  _ __ ___   _ | |_ ");
-            Thread.sleep(1 * 1000);
-            System.out.println(" |  _  / / _ \\| '_ ` _ \\ | || __|");
-            System.out.println(" | | \\ \\|  __/| | | | | || || |_ ");
-            Thread.sleep(1 * 1000);
-            System.out.println(" |_|  \\_\\\\___||_| |_| |_||_| \\__|");
-            System.out.println("...");
-            Thread.sleep(2 * 1000);
-            /*
-            Thread.sleep(1 * 1000);
-            System.out.println("..");
-            Thread.sleep(2 * 1000);
-            System.out.println("...");
-             */
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("PLEASE TYPE KEY VALUE:");
-        Scanner input = new Scanner(System.in);
-        int opcion = input.nextInt();
-        if (opcion == Integer.parseInt(admin.getContraseña())) {
-
-            // POR HACER! acceder a mis publicaciones de administrador
-            System.out.println("Acceso correcto!");
-            admin.setActivo(true);
-
-        } else {
-            System.out.println("Acceso denegado!");
-        }
-
-    }
+   
 }

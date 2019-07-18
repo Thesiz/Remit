@@ -309,7 +309,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         btnRecargar.setBackground(new java.awt.Color(0, 0, 0));
         btnRecargar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnRecargar.setText("Ver todas las publicaciones");
-        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRecargar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRecargar.setFocusPainted(false);
         btnRecargar.setFocusable(false);
         btnRecargar.addActionListener(new java.awt.event.ActionListener() {
@@ -352,7 +352,7 @@ public class GuiMisPublicaciones extends javax.swing.JFrame {
         btnFiltrar.setBackground(new java.awt.Color(0, 0, 0));
         btnFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnFiltrar.setText("Filtrar");
-        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFiltrar.setFocusPainted(false);
         btnFiltrar.setFocusable(false);
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
